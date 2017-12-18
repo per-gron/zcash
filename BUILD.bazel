@@ -1,0 +1,9 @@
+cc_binary(
+    name = "hello",
+    srcs = ["hello.cc"],
+    deps = [
+        "@boost//:thread",
+        "@openssl//:ssl",
+        "@com_google_googletest//:gtest",
+    ]
+)
