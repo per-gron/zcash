@@ -1,4 +1,10 @@
-# TODO: bdb
+new_http_archive(
+    name = "bdb",
+    strip_prefix = "db-6.2.23",
+    urls = ["http://download.oracle.com/berkeley-db/db-6.2.23.tar.gz"],
+    sha256 = "47612c8991aa9ac2f6be721267c8d3cdccf5ac83105df8e50809daea24e95dc7",
+    build_file = "bazel/bdb/bdb.bazel",
+)
 
 http_archive(
     name = "com_github_nelhage_boost",
@@ -16,6 +22,11 @@ http_archive(
     sha256 = "80532b7a9c62945eed127a9cfa502f4b9f4af2a0c2329146026fd423e539f578",
 )
 
+# TODO: libevent
+# TODO: libgmp See https://github.com/ahyangyi/astraeus-workspace/commit/536d1d1caf604e3d23f1c623aacb69fcd1dac2f6
+# TODO: librustzcash
+# TODO: libsodium
+
 new_http_archive(
     name = "openssl",
     strip_prefix = "openssl-1.1.0d",
@@ -24,10 +35,6 @@ new_http_archive(
     build_file = "bazel/openssl/openssl.bazel",
 )
 
-# TODO: libevent
-# TODO: libgmp
-# TODO: librustzcash
-# TODO: libsodium
-# TODO: openssl : https://github.com/bazelment/trunk/tree/master/third_party/openssl ?
+# TODO: proton
 # TODO: rust
 # TODO: zeromq
