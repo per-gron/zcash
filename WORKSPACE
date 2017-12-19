@@ -22,7 +22,14 @@ http_archive(
     sha256 = "80532b7a9c62945eed127a9cfa502f4b9f4af2a0c2329146026fd423e539f578",
 )
 
-# TODO: libevent
+new_http_archive(
+    name = "libevent",
+    strip_prefix = "libevent-release-2.1.8-stable",
+    urls = ["https://github.com/libevent/libevent/archive/release-2.1.8-stable.tar.gz"],
+    sha256 = "316ddb401745ac5d222d7c529ef1eada12f58f6376a66c1118eee803cb70f83d",
+    build_file = "bazel/libevent/libevent.bazel",
+)
+
 # TODO: libgmp See https://github.com/ahyangyi/astraeus-workspace/commit/536d1d1caf604e3d23f1c623aacb69fcd1dac2f6
 # TODO: librustzcash
 # TODO: libsodium

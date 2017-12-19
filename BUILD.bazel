@@ -6,5 +6,6 @@ cc_binary(
         "@openssl//:ssl",
         "@com_google_googletest//:gtest",
         "@bdb//:db_cxx",
+        "@libevent//:event",
     ]
 )
