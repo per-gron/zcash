@@ -30,7 +30,14 @@ new_http_archive(
     build_file = "bazel/libevent/libevent.bazel",
 )
 
-# TODO: libgmp See https://github.com/ahyangyi/astraeus-workspace/commit/536d1d1caf604e3d23f1c623aacb69fcd1dac2f6
+new_http_archive(
+    name = "libgmp",
+    strip_prefix = "gmp-6.1.1",
+    urls = ["https://gmplib.org/download/gmp/gmp-6.1.1.tar.bz2"],
+    sha256 = "a8109865f2893f1373b0a8ed5ff7429de8db696fc451b1036bd7bdf95bbeffd6",
+    build_file = "bazel/libgmp/libgmp.bazel",
+)
+
 # TODO: librustzcash
 # TODO: libsodium
 

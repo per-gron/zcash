@@ -7,5 +7,6 @@ cc_binary(
         "@com_google_googletest//:gtest",
         "@bdb//:db_cxx",
         "@libevent//:event",
+        "@libgmp//:gmp",
     ]
 )
