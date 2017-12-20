@@ -6,6 +6,7 @@ import os
 import subprocess
 import glob
 import pprint
+import generator_util
 
 bdb_config_opts = [
     "--disable-shared",
@@ -24,22 +25,18 @@ with open("Makefile", "a") as makefile:
 c_objs = subprocess.check_output(["make", "echo_c_objs"])
 cxx_objs = subprocess.check_output(["make", "echo_cxx_objs"])
 
-def read_file(fn):
-    with open(fn, "r") as f:
-        return f.read()
-
 generated_headers_dir = 'genheaders'
 generated_headers = {
-    'db_int.h': read_file('db_int.h'),
-    'db.h': read_file('db.h'),
-    'db_cxx.h': read_file('db_cxx.h'),
+    'db_int.h': generator_util.read_file('db_int.h'),
+    'db.h': generator_util.read_file('db.h'),
+    'db_cxx.h': generator_util.read_file('db_cxx.h'),
     'clib_port.h': r"""
 #include <limits.h>
 
 #define INT64_FMT   "%ld"
 #define UINT64_FMT  "%lu"
 """,
-    'db_config.h': read_file('db_config.h'),
+    'db_config.h': generator_util.read_file('db_config.h'),
 }
 
 all_files = {}

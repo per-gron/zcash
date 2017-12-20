@@ -6,6 +6,7 @@ import os
 import subprocess
 import glob
 import pprint
+import generator_util
 
 libevent_config_opts = [
     "--disable-shared",
@@ -27,13 +28,9 @@ subprocess.call(["make", "evconfig-private.h"])
 srcs = subprocess.check_output(["make", "echo_srcs"])
 cflags = subprocess.check_output(["make", "echo_cflags"])
 
-def read_file(fn):
-    with open(fn, "r") as f:
-        return f.read()
-
 generated_headers = {
-    "include/event2/event-config.h": read_file("include/event2/event-config.h"),
-    "evconfig-private.h": read_file("evconfig-private.h"),
+    "include/event2/event-config.h": generator_util.read_file("include/event2/event-config.h"),
+    "evconfig-private.h": generator_util.read_file("evconfig-private.h"),
 }
 
 def process_generated_header(generated_header, src):

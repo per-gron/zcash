@@ -7,6 +7,7 @@ import subprocess
 import glob
 import pprint
 import re
+import generator_util
 
 # TODO(per-gron): Configure host
 
@@ -35,10 +36,6 @@ libraries = {
     "cxx": { "dir": "cxx", "deps": [] },
 }
 
-def read_file(fn):
-    with open(fn, "r") as f:
-        return f.read()
-
 subprocess.call(["./configure"] + libgmp_config_opts)
 makefile = "Makefile"
 with open(makefile, "a") as makefile:
@@ -57,17 +54,17 @@ make_generated_files = [
 ]
 
 generated_headers = {
-    "config.h": read_file("config.h"),
-    "config.m4": read_file("config.m4"),
-    "gmp.h": read_file("gmp.h"),
+    "config.h": generator_util.read_file("config.h"),
+    "config.m4": generator_util.read_file("config.m4"),
+    "gmp.h": generator_util.read_file("gmp.h"),
 }
 for file in make_generated_files:
     subprocess.call(["make", file])
-    generated_headers[file] = read_file(file)
+    generated_headers[file] = generator_util.read_file(file)
 
 def extract_linked_files():
     links = {}
-    for line in read_file("config.log").split('\n'):
+    for line in generator_util.read_file("config.log").split('\n'):
         match = re.match(r"^config\.status:\d+: linking ([^ ]+) to ([^ ]+)$", line)
         if not match:
             continue
