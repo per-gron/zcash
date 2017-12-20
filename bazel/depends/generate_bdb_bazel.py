@@ -45,19 +45,6 @@ for file in subprocess.check_output(["find", ".."]).split("\n"):
     if (ext == '.c' or ext == '.cpp') and ('os_windows' not in file and 'os_qnx' not in file and 'os_vxworks' not in file):
         all_files[name] = file.replace('../', '')
 
-def process_generated_header(generated_header, src):
-    name = generated_header.replace('.', '_')
-
-    rule = ""
-    rule += "%s_contents = r\"\"\"%s\"\"\"\n" % (name, src)
-    rule += "genrule(\n"
-    rule += "  name = '%s',\n" % name
-    rule += "  outs = ['%s/%s'],\n" % (generated_headers_dir, generated_header)
-    rule += "  cmd = \"cat > $@ << 'BAZEL_EOF'\\n\" + %s_contents.replace('$', '$$') + \"\\nBAZEL_EOF\",\n" % name
-    rule += ")\n\n"
-
-    return rule
-
 def obj_to_path(obj):
     name = obj.replace(".o", "").strip()
     return all_files[name]
@@ -100,7 +87,7 @@ lflags = ["-lpthread"]
 """.replace("{{EXTERNAL_DIR}}", external_dir)
 
 for generated_header in generated_headers:
-    build_file += process_generated_header(generated_header, generated_headers[generated_header])
+    build_file += generator_util.copy_file_genrule(generated_headers_dir + "/" + generated_header, generated_headers[generated_header])
 
 build_file += process_lib("db", c_objs, 'glob(["src/**/*.h", "src/**/*.incl"])', [])
 build_file += process_lib("db_cxx", c_objs, '[]', [":db"])

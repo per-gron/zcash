@@ -197,23 +197,10 @@ def process_libraries():
         res += process_library(lib, libraries[lib])
     return res
 
-def process_generated_header(generated_header, src):
-    name = generated_header.replace('.', '_').replace('/', '_').replace('-', '_')
-
-    rule = ""
-    rule += "%s_contents = r\"\"\"%s\"\"\"\n" % (name, src)
-    rule += "genrule(\n"
-    rule += "  name = '%s',\n" % name
-    rule += "  outs = ['%s'],\n" % generated_header
-    rule += "  cmd = \"cat > $@ << 'BAZEL_EOF'\\n\" + %s_contents.replace('$', '$$') + \"\\nBAZEL_EOF\",\n" % name
-    rule += ")\n\n"
-
-    return rule
-
 def process_generated_headers():
     res = ""
     for generated_header in generated_headers:
-        res += process_generated_header(generated_header, generated_headers[generated_header])
+        res += generator_util.copy_file_genrule(generated_header, generated_headers[generated_header])
     return res
 
 

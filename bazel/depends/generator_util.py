@@ -16,3 +16,16 @@ def build_header():
 ###
 
 """ % os.path.basename(main.__file__)
+
+def copy_file_genrule(path, src):
+    name = path.replace('.', '_').replace('/', '_').replace('-', '_')
+
+    rule = ""
+    rule += "%s_contents = r\"\"\"%s\"\"\"\n" % (name, src)
+    rule += "genrule(\n"
+    rule += "  name = '%s',\n" % name
+    rule += "  outs = ['%s'],\n" % path
+    rule += "  cmd = \"cat > $@ << 'BAZEL_EOF'\\n\" + %s_contents.replace('$', '$$') + \"\\nBAZEL_EOF\",\n" % name
+    rule += ")\n\n"
+
+    return rule
