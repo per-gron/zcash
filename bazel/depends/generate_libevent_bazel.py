@@ -57,5 +57,4 @@ cc_library(
 for generated_header in generated_headers:
     build_file += generator_util.copy_file_genrule(generated_header, generated_headers[generated_header])
 
-with open("BUILD.bazel", "w") as bazel:
-    bazel.write(build_file)
+generator_util.write_file("BUILD.bazel", build_file)

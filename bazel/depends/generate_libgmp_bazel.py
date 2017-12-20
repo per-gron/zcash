@@ -210,5 +210,4 @@ build_file += process_asm_genrules()
 build_file += process_linked_files()
 build_file += process_generated_headers()
 
-with open("BUILD.bazel", "w") as bazel:
-    bazel.write(build_file)
+generator_util.write_file("BUILD.bazel", build_file)

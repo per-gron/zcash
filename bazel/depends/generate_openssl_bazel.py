@@ -5,6 +5,7 @@ BUILD.bazel file there.
 
 import os
 import subprocess
+import generator_util
 
 prefix = os.getcwd() + "/prefix"
 
@@ -259,8 +260,7 @@ EOF
 -}
 """
 
-with open('Configurations/BUILD.bazel.tmpl', 'w') as f:
-    f.write(BAZEL_tmpl_contents)
+generator_util.write_file("Configurations/BUILD.bazel.tmpl", BAZEL_tmpl_contents)
 
 os.environ["BUILDFILE"] = "BUILD.bazel"  # For the config script
 subprocess.call(["./config"] + openssl_config_opts)

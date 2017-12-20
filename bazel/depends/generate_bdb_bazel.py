@@ -88,5 +88,4 @@ for generated_header in generated_headers:
 build_file += process_lib("db", c_objs, 'glob(["src/**/*.h", "src/**/*.incl"])', [])
 build_file += process_lib("db_cxx", c_objs, '[]', [":db"])
 
-with open("../BUILD.bazel", "w") as bazel:
-    bazel.write(build_file)
+generator_util.write_file("../BUILD.bazel", build_file)
