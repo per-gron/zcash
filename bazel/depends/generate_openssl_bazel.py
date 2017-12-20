@@ -89,11 +89,6 @@ BAZEL_tmpl_contents += r"""
 {-
      use Text::ParseWords ();
 
-     our $objext = $target{obj_extension} || ".o";
-     our $depext = $target{dep_extension} || ".d";
-     our $exeext = ".per-exe";
-     our $libext = $target{lib_extension} || ".a";
-
      sub shell_string_to_skylark_array {
          return "[".join(",", map { "\"$_\"" } Text::ParseWords::shellwords(@_))."]";
      }
@@ -150,6 +145,7 @@ genrule(
 
   # Helper function to figure out dependencies on libraries
   # It takes a list of library names and outputs a list of dependencies
+  our $libext = $target{lib_extension} || ".a";
   sub compute_lib_depends {
       return map { $_.$libext } @_;
   }
