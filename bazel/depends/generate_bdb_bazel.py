@@ -18,12 +18,8 @@ bdb_config_opts = [
 os.chdir("build_unix")
 subprocess.call(["../dist/configure"] + bdb_config_opts)
 
-with open("Makefile", "a") as makefile:
-    makefile.write("echo_c_objs:\n\t@echo $(C_OBJS)\n")
-    makefile.write("echo_cxx_objs:\n\t@echo $(CXX_OBJS)\n")
-
-c_objs = subprocess.check_output(["make", "echo_c_objs"])
-cxx_objs = subprocess.check_output(["make", "echo_cxx_objs"])
+c_objs = generator_util.extract_variable_from_makefile("$(C_OBJS)")
+cxx_objs = generator_util.extract_variable_from_makefile("$(CXX_OBJS)")
 
 generated_headers_dir = 'genheaders'
 generated_headers = {

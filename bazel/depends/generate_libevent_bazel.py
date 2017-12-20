@@ -18,15 +18,11 @@ libevent_config_opts = [
 subprocess.call(["./autogen.sh"])
 subprocess.call(["./configure"] + libevent_config_opts)
 
-with open("Makefile", "a") as makefile:
-    makefile.write("echo_srcs:\n\t@echo $(libevent_la_SOURCES)\n")
-    makefile.write("echo_cflags:\n\t@echo $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n")
-
 subprocess.call(["make", "include/event2/event-config.h"])
 subprocess.call(["make", "evconfig-private.h"])
 
-srcs = subprocess.check_output(["make", "echo_srcs"])
-cflags = subprocess.check_output(["make", "echo_cflags"])
+srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES)")
+cflags = generator_util.extract_variable_from_makefile("$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)")
 
 generated_headers = {
     "include/event2/event-config.h": generator_util.read_file("include/event2/event-config.h"),

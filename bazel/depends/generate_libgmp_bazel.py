@@ -37,10 +37,10 @@ libraries = {
 }
 
 subprocess.call(["./configure"] + libgmp_config_opts)
-makefile = "Makefile"
-with open(makefile, "a") as makefile:
-    makefile.write("echo_objs:\n\t@echo $(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES) \n")
-    makefile.write("echo_cflags:\n\t@echo $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n")
+
+objs = generator_util.extract_variable_from_makefile("$(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES)").split()
+cflags = generator_util.extract_variable_from_makefile("$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
+cflags = [flag for flag in cflags if flag != "-I.."]
 
 make_generated_files = [
     'fib_table.h',
@@ -88,10 +88,6 @@ def process_linked_files():
     for target in linked_files:
         res += process_linked_file(linked_files[target], target)
     return res
-
-objs = subprocess.check_output(["make", "echo_objs"]).split()
-cflags = subprocess.check_output(["make", "echo_cflags"]).split()
-cflags = [flag for flag in cflags if flag != "-I.."]
 
 def is_asm_obj(file):
     return os.path.isfile(re.sub(r"\.lo$", ".asm", file))

@@ -1,5 +1,6 @@
 import __main__ as main
 import os
+import subprocess
 
 def read_file(fn):
     with open(fn, "r") as f:
@@ -29,3 +30,11 @@ def copy_file_genrule(path, src):
     rule += ")\n\n"
 
     return rule
+
+def extract_variable_from_makefile(variable, makefile = "Makefile"):
+    extract_variable_from_makefile.counter = extract_variable_from_makefile.counter + 1
+    target = "echo_bazel_%d" % extract_variable_from_makefile.counter
+    with open(makefile, "a") as f:
+        f.write("%s:\n\t@echo %s\n" % (target, variable))
+    return subprocess.check_output(["make", target])
+extract_variable_from_makefile.counter = 0
