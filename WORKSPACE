@@ -3,7 +3,7 @@ new_http_archive(
     strip_prefix = "db-6.2.23",
     urls = ["http://download.oracle.com/berkeley-db/db-6.2.23.tar.gz"],
     sha256 = "47612c8991aa9ac2f6be721267c8d3cdccf5ac83105df8e50809daea24e95dc7",
-    build_file = "bazel/depends/bdb.bazel",
+    build_file = "bazel/depends/generated/bdb.bazel",
 )
 
 http_archive(
@@ -27,7 +27,7 @@ new_http_archive(
     strip_prefix = "libevent-release-2.1.8-stable",
     urls = ["https://github.com/libevent/libevent/archive/release-2.1.8-stable.tar.gz"],
     sha256 = "316ddb401745ac5d222d7c529ef1eada12f58f6376a66c1118eee803cb70f83d",
-    build_file = "bazel/depends/libevent.bazel",
+    build_file = "bazel/depends/generated/libevent.bazel",
 )
 
 new_http_archive(
@@ -35,7 +35,7 @@ new_http_archive(
     strip_prefix = "gmp-6.1.1",
     urls = ["https://gmplib.org/download/gmp/gmp-6.1.1.tar.bz2"],
     sha256 = "a8109865f2893f1373b0a8ed5ff7429de8db696fc451b1036bd7bdf95bbeffd6",
-    build_file = "bazel/depends/libgmp.bazel",
+    build_file = "bazel/depends/generated/libgmp.bazel",
 )
 
 # TODO: librustzcash
@@ -46,7 +46,7 @@ new_http_archive(
     strip_prefix = "openssl-1.1.0d",
     urls = ["https://www.openssl.org/source/openssl-1.1.0d.tar.gz"],
     sha256 = "7d5ebb9e89756545c156ff9c13cf2aa6214193b010a468a3bc789c3c28fe60df",
-    build_file = "bazel/depends/openssl.bazel",
+    build_file = "bazel/depends/generated/openssl.bazel",
 )
 
 # TODO: proton
