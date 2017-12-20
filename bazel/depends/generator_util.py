@@ -35,10 +35,22 @@ def copy_file_genrule(path, src):
 
     return rule
 
+class cd:
+    def __init__(self, newPath):
+        self.newPath = newPath
+
+    def __enter__(self):
+        self.savedPath = os.getcwd()
+        os.chdir(self.newPath)
+
+    def __exit__(self, etype, value, traceback):
+        os.chdir(self.savedPath)
+
 def extract_variable_from_makefile(variable, makefile = "Makefile"):
     extract_variable_from_makefile.counter = extract_variable_from_makefile.counter + 1
     target = "echo_bazel_%d" % extract_variable_from_makefile.counter
     with open(makefile, "a") as f:
         f.write("%s:\n\t@echo %s\n" % (target, variable))
-    return subprocess.check_output(["make", target])
+    with cd(os.path.dirname(makefile)):
+        return subprocess.check_output(["make", target])
 extract_variable_from_makefile.counter = 0

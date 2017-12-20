@@ -8,5 +8,6 @@ cc_binary(
         "@bdb//:db_cxx",
         "@libevent//:event",
         "@libgmp//:gmp",
+        "@libsodium//:sodium",
     ]
 )

@@ -39,7 +39,14 @@ new_http_archive(
 )
 
 # TODO: librustzcash
-# TODO: libsodium
+
+new_http_archive(
+    name = "libsodium",
+    strip_prefix = "libsodium-1.0.15",
+    urls = ["https://download.libsodium.org/libsodium/releases/libsodium-1.0.15.tar.gz"],
+    sha256 = "fb6a9e879a2f674592e4328c5d9f79f082405ee4bb05cb6e679b90afe9e178f4",
+    build_file = "bazel/depends/generated/libsodium.bazel",
+)
 
 new_http_archive(
     name = "openssl",
