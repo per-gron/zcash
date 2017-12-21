@@ -41,7 +41,7 @@ extra_ldflags = []
 makefile = "src/libsodium/Makefile"
 
 cflags_str = generator_util.extract_variable_from_makefile(
-    "$(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
+    "$(DEFS) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
     makefile)
 cflags = ["'%s'" % flag for flag in shlex.split((" " + cflags_str).replace(' -g ', ' '))]
 ldflags = shlex.split(generator_util.extract_variable_from_makefile("$(LDFLAGS)", makefile))
