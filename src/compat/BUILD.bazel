@@ -1,0 +1,14 @@
+cc_library(
+  name = "byteswap",
+  visibility = ["//visibility:public"],
+  hdrs = ["byteswap.h"],
+)
+
+cc_library(
+  name = "endian",
+  visibility = ["//visibility:public"],
+  hdrs = ["endian.h"],
+  deps = [
+    ":byteswap",
+  ]
+)

@@ -1,0 +1,54 @@
+# TODO(per-gron): hash and pubkey have a circular dependency. Untangle.
+cc_library(
+  name = "hash",
+  srcs = [
+    "hash.cpp",
+    "pubkey.cpp"
+  ],
+  hdrs = [
+    "hash.h",
+    "pubkey.h"
+  ],
+  deps = [
+    ":serialize",
+    ":uint256",
+    ":version",
+    "//src/crypto:hmac_sha512",
+    "//src/crypto:ripemd160",
+    "//src/crypto:sha256",
+    "//src/secp256k1",
+  ],
+)
+
+cc_library(
+  name = "serialize",
+  hdrs = ["serialize.h"],
+)
+
+cc_library(
+  name = "tinyformat",
+  hdrs = ["tinyformat.h"],
+)
+
+cc_library(
+  name = "uint256",
+  srcs = ["uint256.cpp"],
+  hdrs = ["uint256.h"],
+  deps = [
+    ":utilstrencodings",
+  ],
+)
+
+cc_library(
+  name = "utilstrencodings",
+  srcs = ["utilstrencodings.cpp"],
+  hdrs = ["utilstrencodings.h"],
+  deps = [
+    ":tinyformat",
+  ],
+)
+
+cc_library(
+  name = "version",
+  hdrs = ["version.h"],
+)

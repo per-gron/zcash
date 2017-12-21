@@ -1,0 +1,7 @@
+cc_library(
+  name = "bitcoin-config",
+  visibility = ["//visibility:public"],
+  hdrs = ["bitcoin-config.h"],
+  includes = ["."],
+  defines = ["HAVE_CONFIG_H"],
+)

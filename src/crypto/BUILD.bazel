@@ -1,0 +1,49 @@
+cc_library(
+  name = "common",
+  hdrs = ["common.h"],
+  deps = [
+    "@libsodium//:sodium",
+    "//src/compat:endian",
+    "//src/config:bitcoin-config",
+  ]
+)
+
+cc_library(
+  name = "hmac_sha512",
+  visibility = ["//visibility:public"],
+  srcs = ["hmac_sha512.cpp"],
+  hdrs = ["hmac_sha512.h"],
+  deps = [
+    ":sha512",
+  ],
+)
+
+cc_library(
+  name = "ripemd160",
+  visibility = ["//visibility:public"],
+  srcs = ["ripemd160.cpp"],
+  hdrs = ["ripemd160.h"],
+  deps = [
+    ":common",
+  ],
+)
+
+cc_library(
+  name = "sha256",
+  visibility = ["//visibility:public"],
+  srcs = ["sha256.cpp"],
+  hdrs = ["sha256.h"],
+  deps = [
+    ":common",
+  ],
+)
+
+cc_library(
+  name = "sha512",
+  visibility = ["//visibility:public"],
+  srcs = ["sha512.cpp"],
+  hdrs = ["sha512.h"],
+  deps = [
+    ":common",
+  ],
+)
