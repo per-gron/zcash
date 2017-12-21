@@ -1,3 +1,13 @@
+http_archive(
+    name = "io_bazel_rules_rust",
+    sha256 = "5cf8b372e1c61bc42e7975fe1deb05daea9c2005a29f1dacbe423cb9a709c0a8",
+    strip_prefix = "bazelbuild-rules_rust-674dcd9",
+    type = "tar.gz",
+    urls = ["https://api.github.com/repos/bazelbuild/rules_rust/tarball/674dcd95ac8f7f5c67fbbfaada5ae558cc456b2c"],
+)
+load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+rust_repositories()
+
 new_http_archive(
     name = "bdb",
     strip_prefix = "db-6.2.23",
@@ -57,5 +67,4 @@ new_http_archive(
 )
 
 # TODO: proton
-# TODO: rust
 # TODO: zeromq
