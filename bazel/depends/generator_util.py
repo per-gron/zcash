@@ -51,6 +51,6 @@ def extract_variable_from_makefile(variable, makefile = "Makefile"):
     target = "echo_bazel_%d" % extract_variable_from_makefile.counter
     with open(makefile, "a") as f:
         f.write("%s:\n\t@echo %s\n" % (target, variable))
-    with cd(os.path.dirname(makefile)):
+    with cd(os.path.dirname(makefile) or "."):
         return subprocess.check_output(["make", target])
 extract_variable_from_makefile.counter = 0
