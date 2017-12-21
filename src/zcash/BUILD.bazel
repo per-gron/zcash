@@ -15,6 +15,24 @@ cc_library(
 )
 
 cc_library(
+  name = "Note",
+  visibility = ["//visibility:public"],
+  srcs = ["Note.cpp"],
+  hdrs = ["Note.hpp"],
+  deps = [
+    ":Address",
+    ":NoteEncryption",
+    ":prf",
+    ":util",
+    ":Zcash",
+    "//src:streams",
+    "//src:uint256",
+    "//src:version",
+    "//src/crypto:sha256",
+  ],
+)
+
+cc_library(
   name = "NoteEncryption",
   visibility = ["//visibility:public"],
   srcs = ["NoteEncryption.cpp"],
@@ -54,6 +72,12 @@ cc_library(
     "//src/crypto:common",
     "//src/snark:libsnark",
   ],
+)
+
+cc_library(
+  name = "util",
+  srcs = ["util.cpp"],
+  hdrs = ["util.h"],
 )
 
 cc_library(
