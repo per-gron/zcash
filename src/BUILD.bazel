@@ -28,6 +28,16 @@ cc_library(
 )
 
 cc_library(
+  name = "streams",
+  visibility = ["//visibility:public"],
+  hdrs = ["streams.h"],
+  deps = [
+    ":serialize",
+    "//src/support/allocators:zeroafterfree",
+  ],
+)
+
+cc_library(
   name = "tinyformat",
   visibility = ["//visibility:public"],
   hdrs = ["tinyformat.h"],

@@ -1,4 +1,20 @@
 cc_library(
+  name = "Address",
+  visibility = ["//visibility:public"],
+  srcs = ["Address.cpp"],
+  hdrs = ["Address.hpp"],
+  deps = [
+    ":NoteEncryption",
+    ":prf",
+    "//src:hash",
+    "//src:serialize",
+    "//src:streams",
+    "//src:uint252",
+    "//src:uint256",
+  ],
+)
+
+cc_library(
   name = "NoteEncryption",
   visibility = ["//visibility:public"],
   srcs = ["NoteEncryption.cpp"],

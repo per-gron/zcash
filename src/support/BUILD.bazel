@@ -1,0 +1,9 @@
+cc_library(
+  name = "cleanse",
+  visibility = ["//visibility:public"],
+  srcs = ["cleanse.cpp"],
+  hdrs = ["cleanse.h"],
+  deps = [
+    "@openssl//:crypto",
+  ],
+)
