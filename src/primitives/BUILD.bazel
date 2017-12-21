@@ -1,0 +1,10 @@
+cc_library(
+  name = "transaction",
+  hdrs = ["transaction.h"],
+  srcs = ["transaction.cpp"],
+  deps = [
+      "//src:hash",
+      "//src:tinyformat",
+      "//src:utilstrencodings",
+  ]
+)

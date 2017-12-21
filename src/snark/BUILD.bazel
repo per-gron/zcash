@@ -1,0 +1,8 @@
+# TODO(per-gron): Add the sources
+cc_library(
+  name = "libsnark",
+  visibility = ["//visibility:public"],
+  hdrs = glob(["build/include/**/*"]),
+  includes = ["build/include", "build/include/libsnark"],
+  defines = ["CURVE_ALT_BN128"],
+)

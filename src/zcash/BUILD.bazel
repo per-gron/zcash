@@ -1,0 +1,47 @@
+cc_library(
+  name = "NoteEncryption",
+  visibility = ["//visibility:public"],
+  srcs = ["NoteEncryption.cpp"],
+  hdrs = ["NoteEncryption.hpp"],
+  deps = [
+    ":prf",
+    ":Zcash",
+    "@boost//:array",
+    "@boost//:static_assert",
+    "@libsodium//:sodium",
+    "//src:uint252",
+    "//src:uint256",
+  ],
+)
+
+cc_library(
+  name = "prf",
+  visibility = ["//visibility:public"],
+  srcs = ["prf.cpp"],
+  hdrs = ["prf.h"],
+  deps = [
+    "//src:uint252",
+    "//src:uint256",
+    "//src/crypto:sha256",
+  ],
+)
+
+cc_library(
+  name = "Proof",
+  visibility = ["//visibility:public"],
+  srcs = ["Proof.cpp"],
+  hdrs = ["Proof.hpp"],
+  deps = [
+    "@boost//:static_assert",
+    "//src:serialize",
+    "//src:uint256",
+    "//src/crypto:common",
+    "//src/snark:libsnark",
+  ],
+)
+
+cc_library(
+  name = "Zcash",
+  visibility = ["//visibility:public"],
+  hdrs = ["Zcash.h"],
+)
