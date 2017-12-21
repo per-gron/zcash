@@ -3,6 +3,7 @@
 #include <db_cxx.h>
 #include <gmp.h>
 #include <sodium.h>
+#include <zmq.h>
 
 int main() {
   printf("hello\n");

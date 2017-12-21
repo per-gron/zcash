@@ -67,4 +67,11 @@ new_http_archive(
 )
 
 # TODO: proton
-# TODO: zeromq
+
+new_http_archive(
+    name = "zeromq",
+    strip_prefix = "zeromq-4.2.1",
+    urls = ["https://github.com/zeromq/libzmq/releases/download/v4.2.1/zeromq-4.2.1.tar.gz"],
+    sha256 = "27d1e82a099228ee85a7ddb2260f40830212402c605a4a10b5e5498a7e0e9d03",
+    build_file = "bazel/depends/generated/zeromq.bazel",
+)
