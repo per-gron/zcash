@@ -4,6 +4,7 @@
 #include <gmp.h>
 #include <sodium.h>
 #include <zmq.h>
+#include <proton/connection.hpp>
 
 int main() {
   printf("hello\n");

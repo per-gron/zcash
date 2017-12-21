@@ -66,7 +66,13 @@ new_http_archive(
     build_file = "bazel/depends/generated/openssl.bazel",
 )
 
-# TODO: proton
+new_http_archive(
+    name = "proton",
+    strip_prefix = "qpid-proton-0.17.0",
+    urls = ["http://apache.cs.utah.edu/qpid/proton/0.17.0/qpid-proton-0.17.0.tar.gz"],
+    sha256 = "6ffd26d3d0e495bfdb5d9fefc5349954e6105ea18cc4bb191161d27742c5a01a",
+    build_file = "bazel/depends/generated/proton.bazel",
+)
 
 new_http_archive(
     name = "zeromq",

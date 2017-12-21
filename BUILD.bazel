@@ -10,6 +10,7 @@ cc_binary(
         "@libgmp//:gmp",
         "@libsodium//:sodium",
         "@zeromq//:zmq",
+        "@proton//:qpid-proton-cpp",
     ]
 )
 

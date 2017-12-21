@@ -46,11 +46,15 @@ class cd:
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
 
-def extract_variable_from_makefile(variable, makefile = "Makefile"):
+def extract_variable_from_makefile(variable, makefile = "Makefile", cwd = None):
     extract_variable_from_makefile.counter = extract_variable_from_makefile.counter + 1
     target = "echo_bazel_%d" % extract_variable_from_makefile.counter
+    if not os.path.isfile(makefile):
+        raise Exception("Makefile %s is not a file or does not exist" % makefile)
     with open(makefile, "a") as f:
         f.write("%s:\n\t@echo %s\n" % (target, variable))
-    with cd(os.path.dirname(makefile) or "."):
-        return subprocess.check_output(["make", target])
+    cwd = cwd or os.path.dirname(makefile) or "."
+    relative_makefile = os.path.relpath(makefile, cwd)
+    with cd(cwd):
+        return subprocess.check_output(["make", "-f", relative_makefile, target])
 extract_variable_from_makefile.counter = 0
