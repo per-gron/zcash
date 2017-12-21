@@ -5,7 +5,6 @@ BUILD.bazel file there.
 import os
 import subprocess
 import glob
-import pprint
 import generator_util
 
 libevent_config_opts = [
@@ -52,7 +51,7 @@ cc_library(
   name = "event",
 )
 
-""" % (cflags.split(), pprint.pformat(srcs.split())))
+""" % (cflags.split(), srcs.split()))
 
 for generated_header in generated_headers:
     build_file += generator_util.copy_file_genrule(generated_header, generated_headers[generated_header])
