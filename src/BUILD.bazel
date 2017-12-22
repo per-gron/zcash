@@ -150,6 +150,12 @@ cc_library(
 )
 
 cc_library(
+  name = "limitedmap",
+  visibility = ["//visibility:public"],
+  hdrs = ["limitedmap.h"],
+)
+
+cc_library(
   name = "memusage",
   visibility = ["//visibility:public"],
   hdrs = ["memusage.h"],
@@ -157,6 +163,12 @@ cc_library(
     "@boost//:foreach",
     "@boost//:unordered",
   ],
+)
+
+cc_library(
+  name = "mruset",
+  visibility = ["//visibility:public"],
+  hdrs = ["mruset.h"],
 )
 
 cc_library(
@@ -317,6 +329,25 @@ cc_library(
     ":serialize",
     ":uint256",
     "//src/secp256k1",
+  ],
+)
+
+cc_library(
+  name = "reverselock",
+  visibility = ["//visibility:public"],
+  hdrs = ["reverselock.h"],
+)
+
+cc_library(
+  name = "scheduler",
+  visibility = ["//visibility:public"],
+  srcs = ["scheduler.cpp"],
+  hdrs = ["scheduler.h"],
+  deps = [
+    ":reverselock",
+    "@boost//:chrono",
+    "@boost//:function",
+    "@boost//:thread",
   ],
 )
 
