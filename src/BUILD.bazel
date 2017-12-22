@@ -16,26 +16,6 @@ cc_library(
 )
 
 cc_library(
-  name = "alert",
-  visibility = ["//visibility:public"],
-  srcs = ["alert.cpp"],
-  hdrs = ["alert.h"],
-  deps = [
-    ":clientversion",
-    ":net",
-    ":pubkey",
-    ":serialize",
-    ":sync",
-    ":timedata",
-    ":ui_interface",
-    ":util",
-    "@boost//:algorithm",
-    "@boost//:foreach",
-    "@boost//:thread",
-  ],
-)
-
-cc_library(
   name = "amount",
   visibility = ["//visibility:public"],
   srcs = ["amount.cpp"],
@@ -77,6 +57,16 @@ cc_library(
   name = "chainparamsseeds",
   visibility = ["//visibility:public"],
   hdrs = ["chainparamsseeds.h"],
+)
+
+cc_library(
+  name = "checkqueue",
+  visibility = ["//visibility:public"],
+  hdrs = ["checkqueue.h"],
+  deps = [
+    "@boost//:foreach",
+    "@boost//:thread",
+  ],
 )
 
 cc_library(
@@ -166,6 +156,22 @@ cc_library(
 )
 
 cc_library(
+  name = "merkleblock",
+  visibility = ["//visibility:public"],
+  hdrs = ["merkleblock.h"],
+  srcs = ["merkleblock.cpp"],
+  deps = [
+    ":bloom",
+    ":hash",
+    ":serialize",
+    ":uint256",
+    ":utilstrencodings",
+    "//src/consensus",
+    "//src/primitives:block",
+  ],
+)
+
+cc_library(
   name = "mruset",
   visibility = ["//visibility:public"],
   hdrs = ["mruset.h"],
@@ -220,17 +226,23 @@ cc_library(
   ],
 )
 
-# TODO(per-gron): main, chainparams, checkpoints, base58, key, arith_uint256, chain, pow, txmempool, policy/fees, coins have circular dependencies. Untangle.
+# TODO(per-gron): main, coins, alert, init, chainparams, checkpoints, deprecation, base58, key, arith_uint256, chain, pow, txmempool, policy/fees, coins have circular dependencies. Untangle.
+# TODO(per-gron): Add these too:
+#    "//src/amqp:amqpnotificationinterface",
+#    "//src/zmq:zmqnotificationinterface",
 cc_library(
   name = "main",
   visibility = ["//visibility:public"],
   srcs = [
+    "alert.cpp",
     "arith_uint256.cpp",
     "base58.cpp",
     "chain.cpp",
     "chainparams.cpp",
     "checkpoints.cpp",
     "coins.cpp",
+    "deprecation.cpp",
+    "init.cpp",
     "key.cpp",
     "main.cpp",
     "policy/fees.cpp",
@@ -238,12 +250,15 @@ cc_library(
     "txmempool.cpp",
   ],
   hdrs = [
+    "alert.h",
     "arith_uint256.h",
     "base58.h",
     "chain.h",
     "chainparams.h",
     "checkpoints.h",
     "coins.h",
+    "deprecation.h",
+    "init.h",
     "key.h",
     "main.h",
     "policy/fees.h",
@@ -252,31 +267,32 @@ cc_library(
   ],
   deps = [
     ":addrman",
-    ":alert",
     ":amount",
-    ":arith_uint256",
     ":chainparamsseeds",
     ":chainparamsbase",
     ":checkqueue",
     ":clientversion",
-    ":coins",
     ":compressor",
     ":core_memusage",
-    ":deprecation",
-    ":init",
+    ":httpserver",
+    ":httprpc",
     ":memusage",
     ":merkleblock",
     ":metrics",
+    ":miner",
     ":net",
     ":protocol",
     ":pubkey",
+    ":rpcserver",
+    ":scheduler",
     ":serialize",
     ":sigcache",
     ":streams",
     ":sync",
+    ":timedata",
     ":tinyformat",
+    ":torcontrol",
     ":txdb",
-    ":txmempool",
     ":uint256",
     ":ui_interface",
     ":util",
@@ -284,9 +300,17 @@ cc_library(
     ":utilstrencodings",
     ":validationinterface",
     ":version",
+    "@boost//:algorithm",
+    "@boost//:bind",
+    "@boost//:filesystem",
     "@boost//:foreach",
+    "@boost//:function",
+    "@boost//:interprocess",
+    "@boost//:thread",
     "@boost//:unordered",
     "@libsodium//:sodium",
+    "@openssl//:crypto",
+    "//src/compat:sanity",
     "//src/consensus",
     "//src/consensus:params",
     "//src/consensus:validation",
@@ -298,9 +322,11 @@ cc_library(
     "//src/secp256k1",
     "//src/script",
     "//src/script:standard",
+    "//src/snark:libsnark",
     "//src/support/allocators:secure",
     "//src/support/allocators:zeroafterfree",
     "//src/zcash:Address",
+    "//src/zcash:JoinSplit",
   ],
 )
 

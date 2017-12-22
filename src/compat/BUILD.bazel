@@ -12,3 +12,17 @@ cc_library(
     ":byteswap",
   ]
 )
+
+cc_library(
+  name = "sanity",
+  visibility = ["//visibility:public"],
+  hdrs = ["sanity.h"],
+  srcs = [
+    "sanity.cpp",
+    "glibc_sanity.cpp",
+    "glibcxx_sanity.cpp",
+  ],
+  deps = [
+    "//src/config:bitcoin-config",
+  ]
+)
