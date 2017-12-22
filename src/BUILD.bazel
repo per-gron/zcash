@@ -210,6 +210,24 @@ cc_library(
 )
 
 cc_library(
+  name = "key",
+  visibility = ["//visibility:public"],
+  srcs = ["key.cpp"],
+  hdrs = ["key.h"],
+  deps = [
+    ":arith_uint256",
+    ":pubkey",
+    ":serialize",
+    ":uint256",
+    ":util",
+    "//src/crypto:common",
+    "//src/crypto:hmac_sha512",
+    "//src/secp256k1",
+    "//src/support/allocators:secure",
+  ],
+)
+
+cc_library(
   name = "leveldbwrapper",
   visibility = ["//visibility:public"],
   srcs = ["leveldbwrapper.cpp"],
@@ -300,7 +318,6 @@ cc_library(
     "deprecation.cpp",
     "httprpc.cpp",
     "init.cpp",
-    "key.cpp",
     "keystore.cpp",
     "main.cpp",
     "metrics.cpp",
@@ -334,7 +351,6 @@ cc_library(
     "deprecation.h",
     "httprpc.h",
     "init.h",
-    "key.h",
     "keystore.h",
     "main.h",
     "metrics.h",
@@ -376,6 +392,7 @@ cc_library(
     ":core_memusage",
     ":hash",
     ":httpserver",
+    ":key",
     ":leveldbwrapper",
     ":limitedmap",
     ":memusage",
