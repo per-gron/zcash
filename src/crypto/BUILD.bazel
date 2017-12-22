@@ -10,6 +10,26 @@ cc_library(
 )
 
 cc_library(
+  name = "equihash",
+  visibility = ["//visibility:public"],
+  srcs = ["equihash.cpp"],
+  hdrs = [
+    "equihash.h",
+    "equihash.tcc",
+  ],
+  deps = [
+    ":sha256",
+    "@boost//:optional",
+    "@boost//:static_assert",
+    "@libsodium//:sodium",
+    "//src:util",
+    "//src:utilstrencodings",
+    "//src/compat:endian",
+    "//src/config:bitcoin-config",
+  ],
+)
+
+cc_library(
   name = "hmac_sha512",
   visibility = ["//visibility:public"],
   srcs = ["hmac_sha512.cpp"],
@@ -24,6 +44,16 @@ cc_library(
   visibility = ["//visibility:public"],
   srcs = ["ripemd160.cpp"],
   hdrs = ["ripemd160.h"],
+  deps = [
+    ":common",
+  ],
+)
+
+cc_library(
+  name = "sha1",
+  visibility = ["//visibility:public"],
+  srcs = ["sha1.cpp"],
+  hdrs = ["sha1.h"],
   deps = [
     ":common",
   ],

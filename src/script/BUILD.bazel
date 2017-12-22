@@ -1,0 +1,52 @@
+cc_library(
+  name = "interpreter",
+  visibility = ["//visibility:public"],
+  hdrs = ["interpreter.h"],
+  srcs = ["interpreter.cpp"],
+  deps = [
+      ":script",
+      ":script_error",
+      "//src:pubkey",
+      "//src:uint256",
+      "//src/crypto:ripemd160",
+      "//src/crypto:sha1",
+      "//src/crypto:sha256",
+      "//src/primitives:transaction",
+  ],
+)
+
+cc_library(
+  name = "script",
+  visibility = ["//visibility:public"],
+  hdrs = ["script.h"],
+  srcs = ["script.cpp"],
+  deps = [
+      "//src:tinyformat",
+      "//src:utilstrencodings",
+      "//src/crypto:common",
+  ],
+)
+
+cc_library(
+  name = "script_error",
+  visibility = ["//visibility:public"],
+  hdrs = ["script_error.h"],
+  srcs = ["script_error.cpp"],
+)
+
+cc_library(
+  name = "standard",
+  visibility = ["//visibility:public"],
+  hdrs = ["standard.h"],
+  srcs = ["standard.cpp"],
+  deps = [
+      ":interpreter",
+      ":script",
+      "//src:pubkey",
+      "//src:uint256",
+      "//src:util",
+      "//src:utilstrencodings",
+      "@boost//:foreach",
+      "@boost//:variant",
+  ],
+)

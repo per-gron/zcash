@@ -1,4 +1,21 @@
 cc_library(
+  name = "addrman",
+  visibility = ["//visibility:public"],
+  srcs = ["addrman.cpp"],
+  hdrs = ["addrman.h"],
+  deps = [
+    ":hash",
+    ":netbase",
+    ":protocol",
+    ":serialize",
+    ":streams",
+    ":sync",
+    ":timedata",
+    ":util",
+  ],
+)
+
+cc_library(
   name = "amount",
   visibility = ["//visibility:public"],
   srcs = ["amount.cpp"],
@@ -10,11 +27,65 @@ cc_library(
 )
 
 cc_library(
+  name = "chainparamsbase",
+  visibility = ["//visibility:public"],
+  srcs = ["chainparamsbase.cpp"],
+  hdrs = ["chainparamsbase.h"],
+  deps = [
+    ":util",
+  ],
+)
+
+cc_library(
+  name = "chainparamsseeds",
+  visibility = ["//visibility:public"],
+  hdrs = ["chainparamsseeds.h"],
+)
+
+cc_library(
+  name = "clientversion",
+  visibility = ["//visibility:public"],
+  hdrs = ["clientversion.h"],
+  srcs = ["clientversion.cpp"],
+  deps = [
+    ":tinyformat",
+    "@boost//:preprocessor",
+    "//src/config:bitcoin-config",
+  ],
+)
+
+cc_library(
   name = "compat",
   visibility = ["//visibility:public"],
   hdrs = ["compat.h"],
   deps = [
     "//src/config:bitcoin-config",
+  ],
+)
+
+cc_library(
+  name = "compressor",
+  visibility = ["//visibility:public"],
+  hdrs = ["compressor.h"],
+  srcs = ["compressor.cpp"],
+  deps = [
+    ":hash",
+    ":pubkey",
+    ":serialize",
+    "//src/primitives:transaction",
+    "//src/script",
+    "//src/script:standard",
+  ],
+)
+
+cc_library(
+  name = "core_memusage",
+  visibility = ["//visibility:public"],
+  hdrs = ["core_memusage.h"],
+  deps = [
+    ":memusage",
+    "//src/primitives:block",
+    "//src/primitives:transaction",
   ],
 )
 
@@ -42,11 +113,167 @@ cc_library(
 )
 
 cc_library(
+  name = "memusage",
+  visibility = ["//visibility:public"],
+  hdrs = ["memusage.h"],
+  deps = [
+    "@boost//:foreach",
+    "@boost//:unordered",
+  ],
+)
+
+cc_library(
+  name = "netbase",
+  visibility = ["//visibility:public"],
+  srcs = ["netbase.cpp"],
+  hdrs = ["netbase.h"],
+  deps = [
+    ":compat",
+    ":hash",
+    ":serialize",
+    ":sync",
+    ":uint256",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:algorithm",
+    "@boost//:thread",
+    "//src/config:bitcoin-config",
+  ],
+)
+
+# TODO(per-gron): main, chainparams, checkpoints, base58, key, arith_uint256, chain, pow, txmempool, policy/fees, coins have circular dependencies. Untangle.
+cc_library(
+  name = "main",
+  visibility = ["//visibility:public"],
+  srcs = [
+    "arith_uint256.cpp",
+    "base58.cpp",
+    "chain.cpp",
+    "chainparams.cpp",
+    "checkpoints.cpp",
+    "coins.cpp",
+    "key.cpp",
+    "main.cpp",
+    "policy/fees.cpp",
+    "pow.cpp",
+    "txmempool.cpp",
+  ],
+  hdrs = [
+    "arith_uint256.h",
+    "base58.h",
+    "chain.h",
+    "chainparams.h",
+    "checkpoints.h",
+    "coins.h",
+    "key.h",
+    "main.h",
+    "policy/fees.h",
+    "pow.h",
+    "txmempool.h",
+  ],
+  deps = [
+    ":addrman",
+    ":alert",
+    ":amount",
+    ":arith_uint256",
+    ":chainparamsseeds",
+    ":chainparamsbase",
+    ":checkqueue",
+    ":clientversion",
+    ":coins",
+    ":compressor",
+    ":core_memusage",
+    ":deprecation",
+    ":init",
+    ":memusage",
+    ":merkleblock",
+    ":metrics",
+    ":net",
+    ":protocol",
+    ":pubkey",
+    ":serialize",
+    ":sigcache",
+    ":streams",
+    ":sync",
+    ":tinyformat",
+    ":txdb",
+    ":txmempool",
+    ":uint256",
+    ":ui_interface",
+    ":util",
+    ":utilmoneystr",
+    ":utilstrencodings",
+    ":validationinterface",
+    ":version",
+    "@boost//:foreach",
+    "@boost//:unordered",
+    "@libsodium//:sodium",
+    "//src/consensus",
+    "//src/consensus:params",
+    "//src/consensus:validation",
+    "//src/crypto:common",
+    "//src/crypto:equihash",
+    "//src/crypto:hmac_sha512",
+    "//src/primitives:block",
+    "//src/primitives:transaction",
+    "//src/secp256k1",
+    "//src/script",
+    "//src/script:standard",
+    "//src/support/allocators:secure",
+    "//src/support/allocators:zeroafterfree",
+    "//src/zcash:Address",
+  ],
+)
+
+cc_library(
+  name = "protocol",
+  visibility = ["//visibility:public"],
+  srcs = ["protocol.cpp"],
+  hdrs = ["protocol.h"],
+  deps = [
+    ":netbase",
+    ":serialize",
+    ":uint256",
+    ":util",
+    ":utilstrencodings",
+    ":version",
+  ],
+)
+
+cc_library(
+  name = "pubkey",
+  visibility = ["//visibility:public"],
+  srcs = ["pubkey.cpp"],
+  hdrs = ["pubkey.h"],
+  deps = [
+    ":hash",
+    ":serialize",
+    ":uint256",
+    "//src/secp256k1",
+  ],
+)
+
+cc_library(
   name = "serialize",
   visibility = ["//visibility:public"],
   hdrs = ["serialize.h"],
   deps = [
     "//src/compat:endian",
+  ],
+)
+
+cc_library(
+  name = "sigcache",
+  visibility = ["//visibility:public"],
+  srcs = ["sigcache.cpp"],
+  hdrs = ["sigcache.h"],
+  deps = [
+    ":pubkey",
+    ":uint256",
+    ":util",
+    "@boost//:thread",
+    "@boost//:tuple",
+    "//src/script:interpreter",
   ],
 )
 
@@ -61,9 +288,38 @@ cc_library(
 )
 
 cc_library(
+  name = "sync",
+  visibility = ["//visibility:public"],
+  hdrs = ["sync.h"],
+  srcs = ["sync.cpp"],
+  deps = [
+    ":threadsafety",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:foreach",
+    "@boost//:thread",
+  ],
+)
+
+cc_library(
   name = "threadsafety",
   visibility = ["//visibility:public"],
   hdrs = ["threadsafety.h"],
+)
+
+cc_library(
+  name = "timedata",
+  visibility = ["//visibility:public"],
+  srcs = ["timedata.cpp"],
+  hdrs = ["timedata.h"],
+  deps = [
+    ":netbase",
+    ":sync",
+    ":ui_interface",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:foreach",
+  ],
 )
 
 cc_library(
@@ -79,6 +335,15 @@ cc_library(
   deps = [
     ":serialize",
     ":uint256",
+  ],
+)
+
+cc_library(
+  name = "ui_interface",
+  visibility = ["//visibility:public"],
+  hdrs = ["ui_interface.h"],
+  deps = [
+    "@boost//:signals2",
   ],
 )
 
@@ -126,6 +391,19 @@ cc_library(
     "@openssl//:crypto",
     "//src/config:bitcoin-config",
     "//src/support:cleanse",
+  ],
+)
+
+cc_library(
+  name = "utilmoneystr",
+  visibility = ["//visibility:public"],
+  srcs = ["utilmoneystr.cpp"],
+  hdrs = ["utilmoneystr.h"],
+  deps = [
+    ":amount",
+    ":tinyformat",
+    ":utilstrencodings",
+    "//src/primitives:transaction",
   ],
 )
 

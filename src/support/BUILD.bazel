@@ -7,3 +7,15 @@ cc_library(
     "@openssl//:crypto",
   ],
 )
+
+cc_library(
+  name = "pagelocker",
+  visibility = ["//visibility:public"],
+  srcs = ["pagelocker.cpp"],
+  hdrs = ["pagelocker.h"],
+  deps = [
+    ":cleanse",
+    "@boost//:thread",
+    "//src/config:bitcoin-config",
+  ],
+)
