@@ -183,6 +183,23 @@ cc_library(
 )
 
 cc_library(
+  name = "leveldbwrapper",
+  visibility = ["//visibility:public"],
+  srcs = ["leveldbwrapper.cpp"],
+  hdrs = ["leveldbwrapper.h"],
+  deps = [
+    ":clientversion",
+    ":serialize",
+    ":streams",
+    ":util",
+    ":version",
+    "@boost//:filesystem",
+    "//src/leveldb",
+    "//src/leveldb:memenv",
+  ],
+)
+
+cc_library(
   name = "limitedmap",
   visibility = ["//visibility:public"],
   hdrs = ["limitedmap.h"],
@@ -294,6 +311,7 @@ cc_library(
     "pow.cpp",
     "rpcserver.cpp",
     "torcontrol.cpp",
+    "txdb.cpp",
     "txmempool.cpp",
   ],
   hdrs = [
@@ -314,6 +332,7 @@ cc_library(
     "pow.h",
     "rpcserver.h",
     "torcontrol.h",
+    "txdb.h",
     "txmempool.h",
   ],
   deps = [
@@ -326,7 +345,9 @@ cc_library(
     ":clientversion",
     ":compressor",
     ":core_memusage",
+    ":hash",
     ":httpserver",
+    ":leveldbwrapper",
     ":memusage",
     ":merkleblock",
     ":miner",
@@ -341,7 +362,6 @@ cc_library(
     ":sync",
     ":timedata",
     ":tinyformat",
-    ":txdb",
     ":uint256",
     ":ui_interface",
     ":util",
