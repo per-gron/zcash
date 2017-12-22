@@ -27,6 +27,27 @@ cc_library(
 )
 
 cc_library(
+  name = "asyncrpcoperation",
+  visibility = ["//visibility:public"],
+  srcs = ["asyncrpcopeartion.cpp"],
+  hdrs = ["asyncrpcopeartion.h"],
+  deps = [
+    # TODO(per-gron): Add me "@boost//:uuid",
+    "//src/univalue",
+  ],
+)
+
+cc_library(
+  name = "asyncrpcqueue",
+  visibility = ["//visibility:public"],
+  srcs = ["asyncrpcqueue.cpp"],
+  hdrs = ["asyncrpcqueue.h"],
+  deps = [
+    ":asyncrpcoperation",
+  ],
+)
+
+cc_library(
   name = "bloom",
   visibility = ["//visibility:public"],
   srcs = ["bloom.cpp"],
@@ -248,7 +269,7 @@ cc_library(
   ],
 )
 
-# TODO(per-gron): main, coins, alert, init, chainparams, checkpoints, deprecation, base58, key, arith_uint256, chain, pow, txmempool, policy/fees, coins have circular dependencies. Untangle.
+# TODO(per-gron): These are a tangle of circular dependencies. Untangle.
 # TODO(per-gron): Add these too:
 #    "//src/amqp:amqpnotificationinterface",
 #    "//src/zmq:zmqnotificationinterface",
@@ -264,11 +285,15 @@ cc_library(
     "checkpoints.cpp",
     "coins.cpp",
     "deprecation.cpp",
+    "httprpc.cpp",
     "init.cpp",
     "key.cpp",
     "main.cpp",
+    "metrics.cpp",
     "policy/fees.cpp",
     "pow.cpp",
+    "rpcserver.cpp",
+    "torcontrol.cpp",
     "txmempool.cpp",
   ],
   hdrs = [
@@ -280,15 +305,20 @@ cc_library(
     "checkpoints.h",
     "coins.h",
     "deprecation.h",
+    "httprpc.h",
     "init.h",
     "key.h",
     "main.h",
+    "metrics.h",
     "policy/fees.h",
     "pow.h",
+    "rpcserver.h",
+    "torcontrol.h",
     "txmempool.h",
   ],
   deps = [
     ":addrman",
+    ":asyncrpcqueue",
     ":amount",
     ":chainparamsseeds",
     ":chainparamsbase",
@@ -297,15 +327,13 @@ cc_library(
     ":compressor",
     ":core_memusage",
     ":httpserver",
-    ":httprpc",
     ":memusage",
     ":merkleblock",
-    ":metrics",
     ":miner",
     ":net",
     ":protocol",
     ":pubkey",
-    ":rpcserver",
+    ":rpcprotocol",
     ":scheduler",
     ":serialize",
     ":sigcache",
@@ -313,13 +341,13 @@ cc_library(
     ":sync",
     ":timedata",
     ":tinyformat",
-    ":torcontrol",
     ":txdb",
     ":uint256",
     ":ui_interface",
     ":util",
     ":utilmoneystr",
     ":utilstrencodings",
+    ":utiltime",
     ":validationinterface",
     ":version",
     "@boost//:algorithm",
@@ -328,8 +356,12 @@ cc_library(
     "@boost//:foreach",
     "@boost//:function",
     "@boost//:interprocess",
+    "@boost//:iostreams",
+    "@boost//:shared_ptr",
+    "@boost//:signals2",
     "@boost//:thread",
     "@boost//:unordered",
+    "@libevent//:event",
     "@libsodium//:sodium",
     "@openssl//:crypto",
     "//src/compat:sanity",
@@ -347,6 +379,7 @@ cc_library(
     "//src/snark:libsnark",
     "//src/support/allocators:secure",
     "//src/support/allocators:zeroafterfree",
+    "//src/univalue",
     "//src/zcash:Address",
     "//src/zcash:JoinSplit",
   ],
@@ -588,6 +621,16 @@ cc_library(
   hdrs = ["utilstrencodings.h"],
   deps = [
     ":tinyformat",
+  ],
+)
+
+cc_library(
+  name = "validationinterface",
+  visibility = ["//visibility:public"],
+  srcs = ["validationinterface.cpp"],
+  hdrs = ["validationinterface.h"],
+  deps = [
+    "//src/zcash:IncrementalMerkleTree",
   ],
 )
 
