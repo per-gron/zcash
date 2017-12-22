@@ -27,6 +27,18 @@ cc_library(
 )
 
 cc_library(
+  name = "arith_uint256",
+  visibility = ["//visibility:public"],
+  srcs = ["arith_uint256.cpp"],
+  hdrs = ["arith_uint256.h"],
+  deps = [
+    ":uint256",
+    ":utilstrencodings",
+    "//src/crypto:common",
+  ],
+)
+
+cc_library(
   name = "asyncrpcoperation",
   visibility = ["//visibility:public"],
   srcs = ["asyncrpcoperation.cpp"],
@@ -280,7 +292,6 @@ cc_library(
   visibility = ["//visibility:public"],
   srcs = [
     "alert.cpp",
-    "arith_uint256.cpp",
     "base58.cpp",
     "chain.cpp",
     "chainparams.cpp",
@@ -310,10 +321,11 @@ cc_library(
     "wallet/wallet.cpp",
     "wallet/wallet_ismine.cpp",
     "wallet/walletdb.cpp",
+    "zmq/zmqnotificationinterface.cpp",
+    "zmq/zmqpublishnotifier.cpp",
   ],
   hdrs = [
     "alert.h",
-    "arith_uint256.h",
     "base58.h",
     "chain.h",
     "chainparams.h",
@@ -343,9 +355,12 @@ cc_library(
     "wallet/wallet.h",
     "wallet/wallet_ismine.h",
     "wallet/walletdb.h",
+    "zmq/zmqnotificationinterface.h",
+    "zmq/zmqpublishnotifier.h",
   ],
   deps = [
     ":addrman",
+    ":arith_uint256",
     ":asyncrpcoperation",
     ":asyncrpcqueue",
     ":amount",
