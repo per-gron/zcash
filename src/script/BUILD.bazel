@@ -16,6 +16,34 @@ cc_library(
 )
 
 cc_library(
+  name = "sigcache",
+  visibility = ["//visibility:public"],
+  srcs = ["sigcache.cpp"],
+  hdrs = ["sigcache.h"],
+  deps = [
+    ":interpreter",
+    "@boost//:thread",
+    "@boost//:tuple",
+    "//src:pubkey",
+    "//src:uint256",
+    "//src:util",
+  ],
+)
+
+cc_library(
+  name = "sign",
+  visibility = ["//visibility:public"],
+  srcs = ["sign.cpp"],
+  hdrs = ["sign.h"],
+  deps = [
+    ":interpreter",
+    ":standard",
+    "//src/primitives:transaction",
+    "//src:uint256",
+  ],
+)
+
+cc_library(
   name = "script",
   visibility = ["//visibility:public"],
   hdrs = ["script.h"],

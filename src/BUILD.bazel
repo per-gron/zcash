@@ -29,8 +29,8 @@ cc_library(
 cc_library(
   name = "asyncrpcoperation",
   visibility = ["//visibility:public"],
-  srcs = ["asyncrpcopeartion.cpp"],
-  hdrs = ["asyncrpcopeartion.h"],
+  srcs = ["asyncrpcoperation.cpp"],
+  hdrs = ["asyncrpcoperation.h"],
   deps = [
     # TODO(per-gron): Add me "@boost//:uuid",
     "//src/univalue",
@@ -103,6 +103,15 @@ cc_library(
 )
 
 cc_library(
+  name = "coincontrol",
+  visibility = ["//visibility:public"],
+  hdrs = ["coincontrol.h"],
+  deps = [
+    "//src/primitives:transaction",
+  ],
+)
+
+cc_library(
   name = "compat",
   visibility = ["//visibility:public"],
   hdrs = ["compat.h"],
@@ -124,6 +133,12 @@ cc_library(
     "//src/script",
     "//src/script:standard",
   ],
+)
+
+cc_library(
+  name = "core_io",
+  visibility = ["//visibility:public"],
+  hdrs = ["core_io.h"],
 )
 
 cc_library(
@@ -238,36 +253,6 @@ cc_library(
 )
 
 cc_library(
-  name = "net",
-  visibility = ["//visibility:public"],
-  srcs = ["net.cpp"],
-  hdrs = ["net.h"],
-  deps = [
-    ":addrman",
-    ":clientversion",
-    ":bloom",
-    ":compat",
-    ":hash",
-    ":limitedmap",
-    ":mruset",
-    ":netbase",
-    ":protocol",
-    ":scheduler",
-    ":streams",
-    ":sync",
-    ":ui_interface",
-    ":uint256",
-    ":util",
-    ":utilstrencodings",
-    "@boost//:filesystem",
-    "@boost//:foreach",
-    "@boost//:signals2",
-    "//src/crypto:common",
-    "//src/primitives:transaction",
-  ],
-)
-
-cc_library(
   name = "netbase",
   visibility = ["//visibility:public"],
   srcs = ["netbase.cpp"],
@@ -305,14 +290,26 @@ cc_library(
     "httprpc.cpp",
     "init.cpp",
     "key.cpp",
+    "keystore.cpp",
     "main.cpp",
     "metrics.cpp",
+    "miner.cpp",
+    "net.cpp",
+    "paymentdisclosure.cpp",
+    "paymentdisclosuredb.cpp",
     "policy/fees.cpp",
     "pow.cpp",
     "rpcserver.cpp",
     "torcontrol.cpp",
     "txdb.cpp",
     "txmempool.cpp",
+    "wallet/asyncrpcoperation_sendmany.cpp",
+    "wallet/asyncrpcoperation_shieldcoinbase.cpp",
+    "wallet/crypter.cpp",
+    "wallet/db.cpp",
+    "wallet/wallet.cpp",
+    "wallet/wallet_ismine.cpp",
+    "wallet/walletdb.cpp",
   ],
   hdrs = [
     "alert.h",
@@ -326,50 +323,69 @@ cc_library(
     "httprpc.h",
     "init.h",
     "key.h",
+    "keystore.h",
     "main.h",
     "metrics.h",
+    "miner.h",
+    "net.h",
+    "paymentdisclosure.h",
+    "paymentdisclosuredb.h",
     "policy/fees.h",
     "pow.h",
     "rpcserver.h",
     "torcontrol.h",
     "txdb.h",
     "txmempool.h",
+    "wallet/asyncrpcoperation_sendmany.h",
+    "wallet/asyncrpcoperation_shieldcoinbase.h",
+    "wallet/crypter.h",
+    "wallet/db.h",
+    "wallet/wallet.h",
+    "wallet/wallet_ismine.h",
+    "wallet/walletdb.h",
   ],
   deps = [
     ":addrman",
+    ":asyncrpcoperation",
     ":asyncrpcqueue",
     ":amount",
+    ":bloom",
     ":chainparamsseeds",
     ":chainparamsbase",
     ":checkqueue",
     ":clientversion",
+    ":core_io",
+    ":coincontrol",
+    ":compat",
     ":compressor",
     ":core_memusage",
     ":hash",
     ":httpserver",
     ":leveldbwrapper",
+    ":limitedmap",
     ":memusage",
     ":merkleblock",
-    ":miner",
-    ":net",
+    ":mruset",
+    ":netbase",
     ":protocol",
     ":pubkey",
     ":rpcprotocol",
     ":scheduler",
     ":serialize",
-    ":sigcache",
     ":streams",
     ":sync",
     ":timedata",
     ":tinyformat",
     ":uint256",
     ":ui_interface",
+    ":undo",
     ":util",
     ":utilmoneystr",
     ":utilstrencodings",
     ":utiltime",
     ":validationinterface",
     ":version",
+    "@bdb//:db_cxx",
     "@boost//:algorithm",
     "@boost//:bind",
     "@boost//:filesystem",
@@ -377,31 +393,50 @@ cc_library(
     "@boost//:function",
     "@boost//:interprocess",
     "@boost//:iostreams",
+    "@boost//:optional",
+    "@boost//:scoped_ptr",
     "@boost//:shared_ptr",
     "@boost//:signals2",
     "@boost//:thread",
+    "@boost//:tuple",
     "@boost//:unordered",
+    "@boost//:variant",
+    "@boost//:version",
     "@libevent//:event",
     "@libsodium//:sodium",
     "@openssl//:crypto",
+    "@openssl//:ssl",
     "//src/compat:sanity",
     "//src/consensus",
     "//src/consensus:params",
     "//src/consensus:validation",
     "//src/crypto:common",
     "//src/crypto:equihash",
+    "//src/crypto:hmac_sha256",
     "//src/crypto:hmac_sha512",
+    "//src/leveldb",
+    "//src/pow/tromp:equi_miner",
     "//src/primitives:block",
     "//src/primitives:transaction",
     "//src/secp256k1",
     "//src/script",
+    "//src/script:sigcache",
+    "//src/script:sign",
     "//src/script:standard",
     "//src/snark:libsnark",
     "//src/support/allocators:secure",
     "//src/support/allocators:zeroafterfree",
     "//src/univalue",
     "//src/zcash:Address",
+    "//src/zcash:IncrementalMerkleTree",
     "//src/zcash:JoinSplit",
+    "//src/zcash:Note",
+    "//src/zcash:NoteEncryption",
+    "//src/zcash:Proof",
+  ],
+  defines = [
+    "ENABLE_MINING",
+    "ENABLE_WALLET"
   ],
 )
 
@@ -474,21 +509,6 @@ cc_library(
   hdrs = ["serialize.h"],
   deps = [
     "//src/compat:endian",
-  ],
-)
-
-cc_library(
-  name = "sigcache",
-  visibility = ["//visibility:public"],
-  srcs = ["sigcache.cpp"],
-  hdrs = ["sigcache.h"],
-  deps = [
-    ":pubkey",
-    ":uint256",
-    ":util",
-    "@boost//:thread",
-    "@boost//:tuple",
-    "//src/script:interpreter",
   ],
 )
 
@@ -569,6 +589,17 @@ cc_library(
   hdrs = ["uint256.h"],
   deps = [
     ":utilstrencodings",
+  ],
+)
+
+cc_library(
+  name = "undo",
+  visibility = ["//visibility:public"],
+  hdrs = ["undo.h"],
+  deps = [
+    ":compressor",
+    ":serialize",
+    "//src/primitives:transaction",
   ],
 )
 
@@ -658,4 +689,37 @@ cc_library(
   name = "version",
   visibility = ["//visibility:public"],
   hdrs = ["version.h"],
+)
+
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# zmq directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "zmq_zmqabstractnotifier",
+  visibility = ["//visibility:public"],
+  srcs = ["zmq/zmqabstractnotifier.cpp"],
+  hdrs = ["zmq/zmqabstractnotifier.h"],
+  deps = [
+    ":zmq_zmqconfig",
+    ":util",
+    "@zeromq//:zmq",
+  ],
+)
+
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# zmq directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "zmq_zmqconfig",
+  visibility = ["//visibility:public"],
+  hdrs = ["zmq/zmqconfig.h"],
+  deps = [
+    ":util",
+    "//src/config:bitcoin-config",
+    "//src/primitives:block",
+    "//src/primitives:transaction",
+  ],
+  defines = ["ENABLE_ZMQ"],
 )

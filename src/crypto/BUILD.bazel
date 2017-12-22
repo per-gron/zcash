@@ -30,6 +30,16 @@ cc_library(
 )
 
 cc_library(
+  name = "hmac_sha256",
+  visibility = ["//visibility:public"],
+  srcs = ["hmac_sha256.cpp"],
+  hdrs = ["hmac_sha256.h"],
+  deps = [
+    ":sha256",
+  ],
+)
+
+cc_library(
   name = "hmac_sha512",
   visibility = ["//visibility:public"],
   srcs = ["hmac_sha512.cpp"],
