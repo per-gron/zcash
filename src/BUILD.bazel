@@ -140,6 +140,28 @@ cc_library(
 )
 
 cc_library(
+  name = "httpserver",
+  visibility = ["//visibility:public"],
+  hdrs = ["httpserver.h"],
+  srcs = ["httpserver.cpp"],
+  deps = [
+    ":chainparamsbase",
+    ":compat",
+    ":netbase",
+    ":rpcprotocol",
+    ":sync",
+    ":ui_interface",
+    ":util",
+    "@boost//:algorithm",
+    "@boost//:foreach",
+    "@boost//:function",
+    "@boost//:thread",
+    "@boost//:scoped_ptr",
+    "@libevent//:event",
+  ],
+)
+
+cc_library(
   name = "limitedmap",
   visibility = ["//visibility:public"],
   hdrs = ["limitedmap.h"],
@@ -362,6 +384,22 @@ cc_library(
   name = "reverselock",
   visibility = ["//visibility:public"],
   hdrs = ["reverselock.h"],
+)
+
+cc_library(
+  name = "rpcprotocol",
+  visibility = ["//visibility:public"],
+  hdrs = ["rpcprotocol.h"],
+  srcs = ["rpcprotocol.cpp"],
+  deps = [
+    ":tinyformat",
+    ":util",
+    ":utilstrencodings",
+    ":utiltime",
+    ":version",
+    "@boost//:filesystem",
+    "//src/univalue",
+  ],
 )
 
 cc_library(
