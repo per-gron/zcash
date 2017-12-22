@@ -16,6 +16,25 @@ cc_library(
 )
 
 cc_library(
+  name = "script",
+  visibility = ["//visibility:public"],
+  hdrs = ["script.h"],
+  srcs = ["script.cpp"],
+  deps = [
+      "//src:tinyformat",
+      "//src:utilstrencodings",
+      "//src/crypto:common",
+  ],
+)
+
+cc_library(
+  name = "script_error",
+  visibility = ["//visibility:public"],
+  hdrs = ["script_error.h"],
+  srcs = ["script_error.cpp"],
+)
+
+cc_library(
   name = "sigcache",
   visibility = ["//visibility:public"],
   srcs = ["sigcache.cpp"],
@@ -43,25 +62,6 @@ cc_library(
     "//src:keystore",
     "//src:uint256",
   ],
-)
-
-cc_library(
-  name = "script",
-  visibility = ["//visibility:public"],
-  hdrs = ["script.h"],
-  srcs = ["script.cpp"],
-  deps = [
-      "//src:tinyformat",
-      "//src:utilstrencodings",
-      "//src/crypto:common",
-  ],
-)
-
-cc_library(
-  name = "script_error",
-  visibility = ["//visibility:public"],
-  hdrs = ["script_error.h"],
-  srcs = ["script_error.cpp"],
 )
 
 cc_library(

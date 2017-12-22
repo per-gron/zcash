@@ -26,6 +26,40 @@ cc_library(
   ],
 )
 
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# amqp directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "amqp_amqpabstractnotifier",
+  visibility = ["//visibility:public"],
+  srcs = ["amqp/amqpabstractnotifier.cpp"],
+  hdrs = ["amqp/amqpabstractnotifier.h"],
+  deps = [
+    ":amqp_amqpconfig",
+    ":util",
+  ],
+)
+
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# amqp directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "amqp_amqpconfig",
+  visibility = ["//visibility:public"],
+  hdrs = ["amqp/amqpconfig.h"],
+  deps = [
+    ":util",
+    "@proton//:qpid-proton",
+    "//src/config:bitcoin-config",
+    "//src/primitives:block",
+    "//src/primitives:transaction",
+  ],
+  defines = ["ENABLE_PROTON"],
+)
+
+
 cc_library(
   name = "arith_uint256",
   visibility = ["//visibility:public"],
