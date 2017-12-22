@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-// TODO(per-gron): #include "main.h"
-// TODO(per-gron): #include "crypto/equihash.h"
+#include "main.h"
+#include "crypto/equihash.h"
 
 #include "util.h"
 #include "utilstrencodings.h"
