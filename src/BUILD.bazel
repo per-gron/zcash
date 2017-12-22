@@ -16,6 +16,26 @@ cc_library(
 )
 
 cc_library(
+  name = "alert",
+  visibility = ["//visibility:public"],
+  srcs = ["alert.cpp"],
+  hdrs = ["alert.h"],
+  deps = [
+    ":clientversion",
+    ":net",
+    ":pubkey",
+    ":serialize",
+    ":sync",
+    ":timedata",
+    ":ui_interface",
+    ":util",
+    "@boost//:algorithm",
+    "@boost//:foreach",
+    "@boost//:thread",
+  ],
+)
+
+cc_library(
   name = "amount",
   visibility = ["//visibility:public"],
   srcs = ["amount.cpp"],
@@ -23,6 +43,23 @@ cc_library(
   deps = [
     ":serialize",
     ":tinyformat",
+  ],
+)
+
+cc_library(
+  name = "bloom",
+  visibility = ["//visibility:public"],
+  srcs = ["bloom.cpp"],
+  hdrs = ["bloom.h"],
+  deps = [
+    ":hash",
+    ":serialize",
+    ":streams",
+    ":util",
+    "@boost//:foreach",
+    "//src/primitives:transaction",
+    "//src/script",
+    "//src/script:standard",
   ],
 )
 
@@ -119,6 +156,36 @@ cc_library(
   deps = [
     "@boost//:foreach",
     "@boost//:unordered",
+  ],
+)
+
+cc_library(
+  name = "net",
+  visibility = ["//visibility:public"],
+  srcs = ["net.cpp"],
+  hdrs = ["net.h"],
+  deps = [
+    ":addrman",
+    ":clientversion",
+    ":bloom",
+    ":compat",
+    ":hash",
+    ":limitedmap",
+    ":mruset",
+    ":netbase",
+    ":protocol",
+    ":scheduler",
+    ":streams",
+    ":sync",
+    ":ui_interface",
+    ":uint256",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:filesystem",
+    "@boost//:foreach",
+    "@boost//:signals2",
+    "//src/crypto:common",
+    "//src/primitives:transaction",
   ],
 )
 
