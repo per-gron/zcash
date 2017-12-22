@@ -354,7 +354,6 @@ cc_library(
     "wallet/asyncrpcoperation_shieldcoinbase.cpp",
     "wallet/crypter.cpp",
     "wallet/wallet.cpp",
-    "wallet/wallet_ismine.cpp",
     "wallet/walletdb.cpp",
     "zmq/zmqnotificationinterface.cpp",
     "zmq/zmqpublishnotifier.cpp",
@@ -385,7 +384,6 @@ cc_library(
     "wallet/asyncrpcoperation_shieldcoinbase.h",
     "wallet/crypter.h",
     "wallet/wallet.h",
-    "wallet/wallet_ismine.h",
     "wallet/walletdb.h",
     "zmq/zmqnotificationinterface.h",
     "zmq/zmqpublishnotifier.h",
@@ -435,6 +433,7 @@ cc_library(
     ":validationinterface",
     ":version",
     ":wallet_db",
+    ":wallet_wallet_ismine",
     ":zmq_zmqabstractnotifier",
     "@bdb//:db_cxx",
     "@boost//:algorithm",
@@ -764,6 +763,24 @@ cc_library(
     ":version",
     "@boost//:filesystem",
     "@bdb//:db_cxx",
+  ],
+)
+
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# wallet directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "wallet_wallet_ismine",
+  visibility = ["//visibility:public"],
+  srcs = ["wallet/wallet_ismine.cpp"],
+  hdrs = ["wallet/wallet_ismine.h"],
+  deps = [
+    ":key",
+    ":keystore",
+    "@boost//:foreach",
+    "//src/script",
+    "//src/script:standard",
   ],
 )
 
