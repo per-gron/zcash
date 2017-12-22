@@ -1,0 +1,15 @@
+cc_library(
+  name = "leveldb",
+  visibility = ["//visibility:public"],
+  hdrs = glob(["include/**/*.h"]),
+  includes = ["include"],
+)
+
+cc_library(
+  name = "memenv",
+  visibility = ["//visibility:public"],
+  hdrs = [
+    "helpers/memenv/memenv.h",
+  ],
+  includes = ["helpers/memenv"],
+)
