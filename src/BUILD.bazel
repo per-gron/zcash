@@ -1,3 +1,23 @@
+cc_library(
+  name = "amount",
+  visibility = ["//visibility:public"],
+  srcs = ["amount.cpp"],
+  hdrs = ["amount.h"],
+  deps = [
+    ":serialize",
+    ":tinyformat",
+  ],
+)
+
+cc_library(
+  name = "compat",
+  visibility = ["//visibility:public"],
+  hdrs = ["compat.h"],
+  deps = [
+    "//src/config:bitcoin-config",
+  ],
+)
+
 # TODO(per-gron): hash and pubkey have a circular dependency. Untangle.
 cc_library(
   name = "hash",
@@ -25,6 +45,9 @@ cc_library(
   name = "serialize",
   visibility = ["//visibility:public"],
   hdrs = ["serialize.h"],
+  deps = [
+    "//src/compat:endian",
+  ],
 )
 
 cc_library(
@@ -35,6 +58,12 @@ cc_library(
     ":serialize",
     "//src/support/allocators:zeroafterfree",
   ],
+)
+
+cc_library(
+  name = "threadsafety",
+  visibility = ["//visibility:public"],
+  hdrs = ["threadsafety.h"],
 )
 
 cc_library(
@@ -60,6 +89,55 @@ cc_library(
   hdrs = ["uint256.h"],
   deps = [
     ":utilstrencodings",
+  ],
+)
+
+# TODO(per-gron): util, random, sync and chainparamsbase have circular dependencies. Untangle.
+cc_library(
+  name = "util",
+  visibility = ["//visibility:public"],
+  srcs = [
+    "chainparamsbase.cpp",
+    "random.cpp",
+    "sync.cpp",
+    "util.cpp",
+  ],
+  hdrs = [
+    "chainparamsbase.h",
+    "random.h",
+    "sync.h",
+    "util.h",
+  ],
+  deps = [
+    ":compat",
+    ":serialize",
+    ":threadsafety",
+    ":tinyformat",
+    ":uint256",
+    ":utiltime",
+    ":utilstrencodings",
+    "@boost//:algorithm",
+    "@boost//:filesystem",
+    "@boost//:foreach",
+    "@boost//:program_options",
+    "@boost//:signals2",
+    "@boost//:thread",
+    "@libsodium//:sodium",
+    "@openssl//:crypto",
+    "//src/config:bitcoin-config",
+    "//src/support:cleanse",
+  ],
+)
+
+cc_library(
+  name = "utiltime",
+  visibility = ["//visibility:public"],
+  srcs = ["utiltime.cpp"],
+  hdrs = ["utiltime.h"],
+  deps = [
+    "@boost//:date_time",
+    "@boost//:thread",
+    "//src/config:bitcoin-config",
   ],
 )
 

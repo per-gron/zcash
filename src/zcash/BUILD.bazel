@@ -15,6 +15,51 @@ cc_library(
 )
 
 cc_library(
+  name = "IncrementalMerkleTree",
+  visibility = ["//visibility:public"],
+  srcs = ["IncrementalMerkleTree.cpp"],
+  hdrs = ["IncrementalMerkleTree.hpp"],
+  deps = [
+    ":util",
+    ":Zcash",
+    "@boost//:optional",
+    "@boost//:static_assert",
+    "@boost//:type_traits",  # TODO(per-gron): The boost optional package should depend on this but doesn't
+    "//src:serialize",
+    "//src:uint256",
+    "//src/crypto:sha256",
+  ],
+)
+
+cc_library(
+  name = "JoinSplit",
+  visibility = ["//visibility:public"],
+  srcs = ["JoinSplit.cpp"],
+  hdrs = ["JoinSplit.hpp"],
+  deps = [
+    ":Address",
+    ":IncrementalMerkleTree",
+    ":Note",
+    ":NoteEncryption",
+    ":prf",
+    ":Proof",
+    ":util",
+    ":Zcash",
+    "@boost//:array",
+    "@boost//:foreach",
+    "@boost//:format",
+    "@libsodium//:sodium",
+    "//src:amount",
+    "//src:tinyformat",
+    "//src:uint252",
+    "//src:uint256",
+    "//src:util",
+    "//src/snark:libsnark",
+    "//src/zcash/circuit",
+  ],
+)
+
+cc_library(
   name = "Note",
   visibility = ["//visibility:public"],
   srcs = ["Note.cpp"],

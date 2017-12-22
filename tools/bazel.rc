@@ -1,1 +1,1 @@
-build --copt=-Isrc
+build --copt=-iquote --copt=src
