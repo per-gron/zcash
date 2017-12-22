@@ -9,7 +9,6 @@ cc_library(
     ":protocol",
     ":serialize",
     ":streams",
-    ":sync",
     ":timedata",
     ":util",
   ],
@@ -52,11 +51,24 @@ cc_library(
   deps = [
     ":util",
     "@proton//:qpid-proton",
+    "@proton//:qpid-proton-cpp",
     "//src/config:bitcoin-config",
     "//src/primitives:block",
     "//src/primitives:transaction",
   ],
-  defines = ["ENABLE_PROTON"],
+)
+
+# TODO(per-gron): This library ought to be declared in a BUILD file in the
+# amqp directory but it's not because there are files there that are part
+# of the big cyclic tangle, and Bazel does not allow having a BUILD file
+# there when those files are used by libraries in this file.
+cc_library(
+  name = "amqp_amqpsender",
+  visibility = ["//visibility:public"],
+  hdrs = ["amqp/amqpsender.h"],
+  deps = [
+    ":amqp_amqpconfig",
+  ],
 )
 
 
@@ -231,7 +243,6 @@ cc_library(
     ":compat",
     ":netbase",
     ":rpcprotocol",
-    ":sync",
     ":ui_interface",
     ":util",
     "@boost//:algorithm",
@@ -269,7 +280,6 @@ cc_library(
   deps = [
     ":key",
     ":pubkey",
-    ":sync",
     ":util",
     "@boost//:foreach",
     "@boost//:signals2",
@@ -345,7 +355,6 @@ cc_library(
     ":compat",
     ":hash",
     ":serialize",
-    ":sync",
     ":uint256",
     ":util",
     ":utilstrencodings",
@@ -357,13 +366,13 @@ cc_library(
 
 # TODO(per-gron): These are a tangle of circular dependencies. Untangle.
 # TODO(per-gron): Add these too:
-#    "//src/amqp:amqpnotificationinterface",
-#    "//src/zmq:zmqnotificationinterface",
 cc_library(
   name = "main",
   visibility = ["//visibility:public"],
   srcs = [
     "alert.cpp",
+    "amqp/amqpnotificationinterface.cpp",
+    "amqp/amqppublishnotifier.cpp",
     "base58.cpp",
     "chain.cpp",
     "chainparams.cpp",
@@ -393,6 +402,8 @@ cc_library(
   ],
   hdrs = [
     "alert.h",
+    "amqp/amqpnotificationinterface.h",
+    "amqp/amqppublishnotifier.h",
     "base58.h",
     "chain.h",
     "chainparams.h",
@@ -422,6 +433,8 @@ cc_library(
   ],
   deps = [
     ":addrman",
+    ":amqp_amqpabstractnotifier",
+    ":amqp_amqpsender",
     ":arith_uint256",
     ":asyncrpcoperation",
     ":asyncrpcqueue",
@@ -452,7 +465,6 @@ cc_library(
     ":scheduler",
     ":serialize",
     ":streams",
-    ":sync",
     ":timedata",
     ":tinyformat",
     ":uint256",
@@ -606,20 +618,6 @@ cc_library(
 )
 
 cc_library(
-  name = "sync",
-  visibility = ["//visibility:public"],
-  hdrs = ["sync.h"],
-  srcs = ["sync.cpp"],
-  deps = [
-    ":threadsafety",
-    ":util",
-    ":utilstrencodings",
-    "@boost//:foreach",
-    "@boost//:thread",
-  ],
-)
-
-cc_library(
   name = "threadsafety",
   visibility = ["//visibility:public"],
   hdrs = ["threadsafety.h"],
@@ -632,7 +630,6 @@ cc_library(
   hdrs = ["timedata.h"],
   deps = [
     ":netbase",
-    ":sync",
     ":ui_interface",
     ":util",
     ":utilstrencodings",
@@ -813,7 +810,6 @@ cc_library(
     ":protocol",
     ":serialize",
     ":streams",
-    ":sync",
     ":util",
     ":utilstrencodings",
     ":version",
