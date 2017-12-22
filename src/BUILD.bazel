@@ -228,6 +228,26 @@ cc_library(
 )
 
 cc_library(
+  name = "keystore",
+  visibility = ["//visibility:public"],
+  srcs = ["keystore.cpp"],
+  hdrs = ["keystore.h"],
+  deps = [
+    ":key",
+    ":pubkey",
+    ":sync",
+    ":util",
+    "@boost//:foreach",
+    "@boost//:signals2",
+    "@boost//:variant",
+    "//src/script",
+    "//src/script:standard",
+    "//src/zcash:Address",
+    "//src/zcash:NoteEncryption",
+  ],
+)
+
+cc_library(
   name = "leveldbwrapper",
   visibility = ["//visibility:public"],
   srcs = ["leveldbwrapper.cpp"],
@@ -318,7 +338,6 @@ cc_library(
     "deprecation.cpp",
     "httprpc.cpp",
     "init.cpp",
-    "keystore.cpp",
     "main.cpp",
     "metrics.cpp",
     "miner.cpp",
@@ -351,7 +370,6 @@ cc_library(
     "deprecation.h",
     "httprpc.h",
     "init.h",
-    "keystore.h",
     "main.h",
     "metrics.h",
     "miner.h",
@@ -393,6 +411,7 @@ cc_library(
     ":hash",
     ":httpserver",
     ":key",
+    ":keystore",
     ":leveldbwrapper",
     ":limitedmap",
     ":memusage",
@@ -417,6 +436,7 @@ cc_library(
     ":utiltime",
     ":validationinterface",
     ":version",
+    ":zmq_zmqabstractnotifier",
     "@bdb//:db_cxx",
     "@boost//:algorithm",
     "@boost//:bind",

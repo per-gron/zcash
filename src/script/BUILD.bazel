@@ -39,6 +39,8 @@ cc_library(
     ":interpreter",
     ":standard",
     "//src/primitives:transaction",
+    "//src:key",
+    "//src:keystore",
     "//src:uint256",
   ],
 )
