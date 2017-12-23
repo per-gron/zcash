@@ -234,6 +234,7 @@ cc_library(
     ],
     linkopts = lib_ldflags,
     visibility = ["//visibility:public"],
+    includes = ["include"],
     hdrs = glob(["$lib/**/*.h", "crypto/des/ncbc_enc.c", "crypto/**/LPdir_*.c", "*.h", "include/**/*.h"]) + [
       # TODO(per-gron): Don't hard code these
       "crypto/include/internal/bn_conf.h",
