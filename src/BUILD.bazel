@@ -865,6 +865,26 @@ cc_binary(
   ],
 )
 
+cc_binary(
+  name = "zcash-tx",
+  srcs = ["bitcoin-tx.cpp"],
+  deps = [
+    ":main",
+    ":clientversion",
+    ":core_io",
+    ":keystore",
+    ":util",
+    ":utilmoneystr",
+    ":utilstrencodings",
+    "@boost//:algorithm",
+    "//src/consensus",
+    "//src/primitives:transaction",
+    "//src/script",
+    "//src/script:sign",
+    "//src/univalue",
+  ],
+)
+
 # TODO(per-gron): This library ought to be declared in a BUILD file in the
 # zmq directory but it's not because there are files there that are part
 # of the big cyclic tangle, and Bazel does not allow having a BUILD file
