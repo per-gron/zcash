@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <event2/event.h>
+#include <event2/buffer.h>
 #include <db_cxx.h>
 #include <gmp.h>
 #include <sodium.h>
@@ -9,6 +9,7 @@
 
 int main() {
   CRYPTO_num_locks();
+  evbuffer_commit_space(nullptr, nullptr, 0);
   printf("hello\n");
   return 0;
 }

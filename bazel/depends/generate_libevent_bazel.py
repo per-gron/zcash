@@ -20,8 +20,13 @@ subprocess.call(["./configure"] + libevent_config_opts)
 subprocess.call(["make", "include/event2/event-config.h"])
 subprocess.call(["make", "evconfig-private.h"])
 
-srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES)")
-cflags = generator_util.extract_variable_from_makefile("$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)")
+# TODO(per-gron): This is not very nice; it assumes that the package is
+# being imported with a given name.
+external_dir = "external/libevent/"
+
+srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES)").split()
+cflags = ["-I%scompat" % external_dir] + generator_util.extract_variable_from_makefile("$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
+cflags = [flag for flag in cflags if flag != "-g"]
 
 generated_headers = {
     "include/event2/event-config.h": generator_util.read_file("include/event2/event-config.h"),
@@ -29,7 +34,7 @@ generated_headers = {
 }
 
 build_file = generator_util.build_header()
-build_file = ("""
+build_file += ("""
 cc_library(
   visibility = ["//visibility:public"],
   includes = [
@@ -42,6 +47,7 @@ cc_library(
   srcs = glob(["*.h"]) + [
     "include/event2/event-config.h",
     "evconfig-private.h",
+    "compat/sys/queue.h",
   ] + %s,
   textual_hdrs = [
     "arc4random.c",
@@ -51,7 +57,7 @@ cc_library(
   name = "event",
 )
 
-""" % (cflags.split(), srcs.split()))
+""" % (cflags, srcs))
 
 for generated_header in generated_headers:
     build_file += generator_util.copy_file_genrule(generated_header, generated_headers[generated_header])
