@@ -9,6 +9,15 @@ cc_library(
 )
 
 cc_library(
+  name = "events",
+  visibility = ["//visibility:public"],
+  hdrs = ["events.h"],
+  deps = [
+    "@libevent//:event",
+  ],
+)
+
+cc_library(
   name = "pagelocker",
   visibility = ["//visibility:public"],
   srcs = ["pagelocker.cpp"],

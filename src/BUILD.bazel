@@ -570,6 +570,18 @@ cc_library(
 )
 
 cc_library(
+  name = "rpcclient",
+  visibility = ["//visibility:public"],
+  hdrs = ["rpcclient.h"],
+  srcs = ["rpcclient.cpp"],
+  deps = [
+    ":rpcprotocol",
+    ":util",
+    "//src/univalue",
+  ],
+)
+
+cc_library(
   name = "rpcprotocol",
   visibility = ["//visibility:public"],
   hdrs = ["rpcprotocol.h"],
@@ -833,6 +845,23 @@ cc_library(
     "@boost//:foreach",
     "//src/script",
     "//src/script:standard",
+  ],
+)
+
+cc_binary(
+  name = "zcash-cli",
+  srcs = ["bitcoin-cli.cpp"],
+  deps = [
+    ":chainparamsbase",
+    ":clientversion",
+    ":rpcclient",
+    ":rpcprotocol",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:filesystem",
+    "@libevent//:event",
+    "//src/support:events",
+    "//src/univalue",
   ],
 )
 
