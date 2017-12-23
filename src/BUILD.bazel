@@ -194,12 +194,6 @@ cc_library(
 )
 
 cc_library(
-  name = "core_io",
-  visibility = ["//visibility:public"],
-  hdrs = ["core_io.h"],
-)
-
-cc_library(
   name = "core_memusage",
   visibility = ["//visibility:public"],
   hdrs = ["core_memusage.h"],
@@ -365,7 +359,6 @@ cc_library(
 )
 
 # TODO(per-gron): These are a tangle of circular dependencies. Untangle.
-# TODO(per-gron): Add these too:
 cc_library(
   name = "main",
   visibility = ["//visibility:public"],
@@ -378,6 +371,8 @@ cc_library(
     "chainparams.cpp",
     "checkpoints.cpp",
     "coins.cpp",
+    "core_read.cpp",
+    "core_write.cpp",
     "deprecation.cpp",
     "httprpc.cpp",
     "init.cpp",
@@ -409,6 +404,7 @@ cc_library(
     "chainparams.h",
     "checkpoints.h",
     "coins.h",
+    "core_io.h",
     "deprecation.h",
     "httprpc.h",
     "init.h",
@@ -444,7 +440,6 @@ cc_library(
     ":chainparamsbase",
     ":checkqueue",
     ":clientversion",
-    ":core_io",
     ":coincontrol",
     ":compat",
     ":compressor",
@@ -871,7 +866,6 @@ cc_binary(
   deps = [
     ":main",
     ":clientversion",
-    ":core_io",
     ":keystore",
     ":util",
     ":utilmoneystr",
