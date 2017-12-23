@@ -5,7 +5,6 @@ BUILD.bazel file there.
 import os
 import subprocess
 import glob
-import pprint
 import re
 import generator_util
 
@@ -139,7 +138,7 @@ def process_main_library():
     rule += "  name = 'gmp',\n"
     rule += "  visibility = ['//visibility:public'],\n"
     rule += "  linkopts = %s,\n" % link_flags
-    rule += "  deps = %s,\n" % pprint.pformat([":%s" % key for key in libraries.keys()])
+    rule += "  deps = %s,\n" % [":%s" % key for key in libraries.keys()]
     rule += ")\n\n"
     return rule
 
@@ -147,7 +146,7 @@ def process_library(name, descriptor):
     dir = descriptor["dir"]
 
     def belongs_here(file):
-        return os.path.dirname(file) == dir
+        return (os.path.dirname(file) or ".") == dir
 
     def src_label(src):
         return "%s_obj" % src
@@ -161,7 +160,7 @@ def process_library(name, descriptor):
     rule = ""
 
     local_c_flags = ["-I%s" % dir]
-    rule += "%s_copts = %s\n" % (name, pprint.pformat(cflags + extra_c_flags + local_c_flags))
+    rule += "%s_copts = %s\n" % (name, cflags + extra_c_flags + local_c_flags)
     rule += "%s_linkopts = %s\n" % (name, link_flags)
 
     for src in srcs:
@@ -174,7 +173,7 @@ def process_library(name, descriptor):
         rule += "  includes = ['.'],\n"
         rule += "  linkstatic = 1,\n"
         rule += "  hdrs = %s,\n" % hdrs
-        rule += "  deps = %s,\n" % pprint.pformat(descriptor["deps"])
+        rule += "  deps = %s,\n" % descriptor["deps"]
         rule += ")\n\n"
 
     rule += "cc_library(\n"
@@ -182,7 +181,7 @@ def process_library(name, descriptor):
     rule += "  copts = %s_copts,\n" % name
     rule += "  linkopts = %s_linkopts,\n" % name
     rule += "  hdrs = %s,\n" % hdrs
-    rule += "  deps = %s,\n" % pprint.pformat([src_label(src) for src in srcs])
+    rule += "  deps = %s,\n" % [src_label(src) for src in srcs]
     rule += ")\n\n"
 
     return rule
