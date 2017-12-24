@@ -23,17 +23,17 @@ libgmp_config_opts = [
     "--disable-shared",
 ]
 
-libraries = {
-    "gmp_core": { "dir": ".", "deps": [] },
-    "mpf": { "dir": "mpf", "deps": [] },
-    "mpn": { "dir": "mpn", "deps": [] },
-    "mpq": { "dir": "mpq", "deps": [] },
-    "mpz": { "dir": "mpz", "deps": ["gmp_core"] },
-    "printf": { "dir": "printf", "deps": ["gmp_core"] },
-    "scanf": { "dir": "scanf", "deps": ["gmp_core"] },
-    "rand": { "dir": "rand", "deps": ["gmp_core"] },
-    "cxx": { "dir": "cxx", "deps": [] },
-}
+libraries = [  # Order is significant
+    { "name": "gmp_core", "dir": ".", "deps": [] },
+    { "name": "mpf", "dir": "mpf", "deps": [] },
+    { "name": "mpn", "dir": "mpn", "deps": [] },
+    { "name": "mpq", "dir": "mpq", "deps": [] },
+    { "name": "mpz", "dir": "mpz", "deps": ["gmp_core"] },
+    { "name": "printf", "dir": "printf", "deps": ["gmp_core"] },
+    { "name": "scanf", "dir": "scanf", "deps": ["gmp_core"] },
+    { "name": "rand", "dir": "rand", "deps": ["gmp_core"] },
+    { "name": "cxx", "dir": "cxx", "deps": [] },
+]
 
 subprocess.call(["./configure"] + libgmp_config_opts)
 
@@ -138,7 +138,7 @@ def process_main_library():
     rule += "  name = 'gmp',\n"
     rule += "  visibility = ['//visibility:public'],\n"
     rule += "  linkopts = %s,\n" % link_flags
-    rule += "  deps = %s,\n" % [":%s" % key for key in libraries.keys()]
+    rule += "  deps = %s,\n" % [":%s" % lib["name"] for lib in libraries]
     rule += ")\n\n"
     return rule
 
@@ -161,14 +161,12 @@ def process_library(name, descriptor):
 
     local_c_flags = ["-I%s" % dir]
     rule += "%s_copts = %s\n" % (name, cflags + extra_c_flags + local_c_flags)
-    rule += "%s_linkopts = %s\n" % (name, link_flags)
 
     for src in srcs:
-        operation_cflag = "-DOPERATION_%s" % os.path.splitext(os.path.basename(src))[0]
+        operation_cflag = "OPERATION_%s" % os.path.splitext(os.path.basename(src))[0]
         rule += "cc_library(\n"
         rule += "  name = '%s',\n" % src_label(src)
-        rule += "  copts = %s_copts + ['%s'],\n" % (name, operation_cflag)
-        rule += "  linkopts = %s_linkopts,\n" % name
+        rule += "  copts = %s_copts + ['-D%s'],\n" % (name, operation_cflag)
         rule += "  srcs = ['%s'] + generated_includes,\n" % src
         rule += "  includes = ['.'],\n"
         rule += "  linkstatic = 1,\n"
@@ -179,7 +177,7 @@ def process_library(name, descriptor):
     rule += "cc_library(\n"
     rule += "  name = '%s',\n" % name
     rule += "  copts = %s_copts,\n" % name
-    rule += "  linkopts = %s_linkopts,\n" % name
+    rule += "  linkopts = %s,\n" % link_flags
     rule += "  hdrs = %s,\n" % hdrs
     rule += "  deps = %s,\n" % [src_label(src) for src in srcs]
     rule += ")\n\n"
@@ -189,7 +187,7 @@ def process_library(name, descriptor):
 def process_libraries():
     res = ""
     for lib in libraries:
-        res += process_library(lib, libraries[lib])
+        res += process_library(lib["name"], lib)
     return res
 
 def process_generated_headers():
