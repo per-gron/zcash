@@ -140,6 +140,7 @@ cc_library(
     "CURVE_ALT_BN128",
   ],
   deps = [
-    "@libsodium//:sodium"
+    "@libsodium//:sodium",
+    "@libgmp//:gmp",
   ],
 )

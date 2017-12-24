@@ -41,7 +41,7 @@ libraries = [  # Order is significant
 
 subprocess.call(["./configure"] + libgmp_config_opts)
 
-objs = generator_util.extract_variable_from_makefile("$(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES)").split()
+objs = generator_util.extract_variable_from_makefile("$(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES) $(CXX_OBJECTS)").split()
 cflags = generator_util.extract_variable_from_makefile("$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
 cflags = [flag for flag in cflags if flag != "-I.."]
 
@@ -95,9 +95,14 @@ def process_linked_files():
 def is_asm_obj(file):
     return os.path.isfile(re.sub(r"\.lo$", ".asm", file))
 
+def is_cpp_obj(file):
+    return os.path.isfile(re.sub(r"\.lo$", ".cc", file))
+
 def obj_to_src(file):
     if is_asm_obj(file):
         return re.sub(r"\.lo$", ".s", file)
+    if is_cpp_obj(file):
+        return re.sub(r"\.lo$", ".cc", file)
     else:
         return re.sub(r"\.lo$", ".c", file)
 
@@ -142,6 +147,7 @@ def process_main_library():
     rule += "  name = 'gmp',\n"
     rule += "  visibility = ['//visibility:public'],\n"
     rule += "  linkopts = %s,\n" % link_flags
+    rule += "  hdrs = ['gmp.h', 'gmpxx.h'],\n"
     rule += "  deps = %s,\n" % [lib["name"] for lib in libraries]
     rule += ")\n\n"
     return rule

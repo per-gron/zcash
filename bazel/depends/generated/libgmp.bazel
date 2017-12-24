@@ -12,6 +12,7 @@ cc_library(
   name = 'gmp',
   visibility = ['//visibility:public'],
   linkopts = ['-fPIC'],
+  hdrs = ['gmp.h', 'gmpxx.h'],
   deps = ['cxx', 'rand', 'scanf', 'printf', 'mpz', 'mpq', 'mpn', 'mpf', 'gmp_core'],
 )
 
@@ -21,7 +22,7 @@ cc_library(
   linkstatic = 1,
   linkopts = ['-fPIC'],
   hdrs = glob(['*.h', 'cxx/*.h']),
-  srcs = [] + generated_includes,
+  srcs = ['cxx/isfuns.cc', 'cxx/ismpf.cc', 'cxx/ismpq.cc', 'cxx/ismpz.cc', 'cxx/ismpznw.cc', 'cxx/limits.cc', 'cxx/osdoprnti.cc', 'cxx/osfuns.cc', 'cxx/osmpf.cc', 'cxx/osmpq.cc', 'cxx/osmpz.cc'] + generated_includes,
 )
 
 cc_library(
