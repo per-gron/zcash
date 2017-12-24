@@ -24,7 +24,7 @@ subprocess.call(["make", "evconfig-private.h"])
 # being imported with a given name.
 external_dir = "external/libevent/"
 
-srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES)").split()
+srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES) $(libevent_pthreads_la_SOURCES)").split()
 cflags = ["-I%scompat" % external_dir] + generator_util.extract_variable_from_makefile("$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
 cflags = [flag for flag in cflags if flag != "-g"]
 
