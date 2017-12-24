@@ -10,6 +10,10 @@ import generator_util
 
 # TODO(per-gron): Configure host
 
+# TODO(per-gron): This is not very nice; it assumes that the package is
+# being imported with a given name.
+external_dir = "external/libgmp/"
+
 extra_c_flags = [
     "-DHAVE_CONFIG_H",
     "-fPIC",
@@ -24,15 +28,15 @@ libgmp_config_opts = [
 ]
 
 libraries = [  # Order is significant
-    { "name": "gmp_core", "dir": ".", "deps": [] },
-    { "name": "mpf", "dir": "mpf", "deps": [] },
-    { "name": "mpn", "dir": "mpn", "deps": [] },
-    { "name": "mpq", "dir": "mpq", "deps": [] },
-    { "name": "mpz", "dir": "mpz", "deps": ["gmp_core"] },
-    { "name": "printf", "dir": "printf", "deps": ["gmp_core"] },
-    { "name": "scanf", "dir": "scanf", "deps": ["gmp_core"] },
-    { "name": "rand", "dir": "rand", "deps": ["gmp_core"] },
     { "name": "cxx", "dir": "cxx", "deps": [] },
+    { "name": "rand", "dir": "rand", "deps": [":gmp_core"] },
+    { "name": "scanf", "dir": "scanf", "deps": [":gmp_core"] },
+    { "name": "printf", "dir": "printf", "deps": [":gmp_core"] },
+    { "name": "mpz", "dir": "mpz", "deps": [":gmp_core"] },
+    { "name": "mpq", "dir": "mpq", "deps": [] },
+    { "name": "mpn", "dir": "mpn", "deps": [":gmp_core"] },
+    { "name": "mpf", "dir": "mpf", "deps": [] },
+    { "name": "gmp_core", "dir": ".", "deps": [] },
 ]
 
 subprocess.call(["./configure"] + libgmp_config_opts)
@@ -138,7 +142,7 @@ def process_main_library():
     rule += "  name = 'gmp',\n"
     rule += "  visibility = ['//visibility:public'],\n"
     rule += "  linkopts = %s,\n" % link_flags
-    rule += "  deps = %s,\n" % [":%s" % lib["name"] for lib in libraries]
+    rule += "  deps = %s,\n" % [lib["name"] for lib in libraries]
     rule += ")\n\n"
     return rule
 
@@ -149,7 +153,17 @@ def process_library(name, descriptor):
         return (os.path.dirname(file) or ".") == dir
 
     def src_label(src):
-        return "%s_obj" % src
+        return "%s_with_operation" % src
+
+    needs_operation = { "mpn": True, "mpz": True }.get(name, False)
+
+    def preprocessed_file(src):
+        if needs_operation:
+            return os.path.join(
+                os.path.dirname(src),
+                'pp_' + os.path.basename(src))
+        else:
+            return src
 
     srcs = [obj_to_src(file) for file in objs if belongs_here(file)]
 
@@ -159,27 +173,27 @@ def process_library(name, descriptor):
 
     rule = ""
 
-    local_c_flags = ["-I%s" % dir]
-    rule += "%s_copts = %s\n" % (name, cflags + extra_c_flags + local_c_flags)
+    local_c_flags = ["-I%s%s" % (external_dir, dir)]
 
-    for src in srcs:
-        operation_cflag = "OPERATION_%s" % os.path.splitext(os.path.basename(src))[0]
-        rule += "cc_library(\n"
-        rule += "  name = '%s',\n" % src_label(src)
-        rule += "  copts = %s_copts + ['-D%s'],\n" % (name, operation_cflag)
-        rule += "  srcs = ['%s'] + generated_includes,\n" % src
-        rule += "  includes = ['.'],\n"
-        rule += "  linkstatic = 1,\n"
-        rule += "  hdrs = %s,\n" % hdrs
-        rule += "  deps = %s,\n" % descriptor["deps"]
-        rule += ")\n\n"
+    if needs_operation:
+        for src in srcs:
+            # Bazel does not support per-file copts. Hack around by adding a #define
+            # to each file.
+            operation_cflag = "OPERATION_%s" % os.path.splitext(os.path.basename(src))[0]
+            rule += "genrule(\n"
+            rule += "  name = '%s',\n" % src_label(src)
+            rule += "  srcs = ['%s'],\n" % src
+            rule += "  outs = ['%s'],\n" % preprocessed_file(src)
+            rule += "  cmd = 'echo \"#define %s 1\" > $@ && cat $(location %s) >> $@'\n" % (operation_cflag, src)
+            rule += ")\n\n"
 
     rule += "cc_library(\n"
     rule += "  name = '%s',\n" % name
-    rule += "  copts = %s_copts,\n" % name
+    rule += "  copts = %s,\n" % (cflags + extra_c_flags + local_c_flags)
+    rule += "  linkstatic = 1,\n"
     rule += "  linkopts = %s,\n" % link_flags
     rule += "  hdrs = %s,\n" % hdrs
-    rule += "  deps = %s,\n" % [src_label(src) for src in srcs]
+    rule += "  srcs = %s + generated_includes,\n" % [preprocessed_file(src) for src in srcs]
     rule += ")\n\n"
 
     return rule
