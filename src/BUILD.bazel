@@ -340,24 +340,6 @@ cc_library(
   hdrs = ["mruset.h"],
 )
 
-cc_library(
-  name = "netbase",
-  visibility = ["//visibility:public"],
-  srcs = ["netbase.cpp"],
-  hdrs = ["netbase.h"],
-  deps = [
-    ":compat",
-    ":hash",
-    ":serialize",
-    ":uint256",
-    ":util",
-    ":utilstrencodings",
-    "@boost//:algorithm",
-    "@boost//:thread",
-    "//src/config:bitcoin-config",
-  ],
-)
-
 # TODO(per-gron): These are a tangle of circular dependencies. Untangle.
 cc_library(
   name = "main",
@@ -527,6 +509,35 @@ cc_library(
   defines = [
     "ENABLE_MINING",
     "ENABLE_WALLET"
+  ],
+)
+
+cc_library(
+  name = "netbase",
+  visibility = ["//visibility:public"],
+  srcs = ["netbase.cpp"],
+  hdrs = ["netbase.h"],
+  deps = [
+    ":compat",
+    ":hash",
+    ":serialize",
+    ":uint256",
+    ":util",
+    ":utilstrencodings",
+    "@boost//:algorithm",
+    "@boost//:thread",
+    "//src/config:bitcoin-config",
+  ],
+)
+
+cc_library(
+  name = "noui",
+  visibility = ["//visibility:public"],
+  srcs = ["noui.cpp"],
+  hdrs = ["noui.h"],
+  deps = [
+    ":ui_interface",
+    ":util",
   ],
 )
 
@@ -864,9 +875,9 @@ cc_binary(
   name = "zcash-tx",
   srcs = ["bitcoin-tx.cpp"],
   deps = [
-    ":main",
     ":clientversion",
     ":keystore",
+    ":main",
     ":util",
     ":utilmoneystr",
     ":utilstrencodings",
@@ -876,6 +887,22 @@ cc_binary(
     "//src/script",
     "//src/script:sign",
     "//src/univalue",
+  ],
+)
+
+cc_binary(
+  name = "zcashd",
+  srcs = ["bitcoind.cpp"],
+  deps = [
+    ":clientversion",
+    ":main",
+    ":noui",
+    ":scheduler",
+    ":util",
+    ":httpserver",
+    "@boost//:algorithm",
+    "@boost//:filesystem",
+    "@boost//:thread",
   ],
 )
 
