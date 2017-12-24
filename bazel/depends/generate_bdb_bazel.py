@@ -86,6 +86,6 @@ for generated_header in generated_headers:
     build_file += generator_util.copy_file_genrule(generated_headers_dir + "/" + generated_header, generated_headers[generated_header])
 
 build_file += process_lib("db", c_objs, 'glob(["src/**/*.h", "src/**/*.incl"])', [])
-build_file += process_lib("db_cxx", c_objs, '[]', [":db"])
+build_file += process_lib("db_cxx", cxx_objs, '[]', [":db"])
 
 generator_util.write_file("../BUILD.bazel", build_file)
