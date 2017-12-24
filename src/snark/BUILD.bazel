@@ -131,6 +131,9 @@ cc_library(
     "-DBN_SUPPORT_SNARK",
     "-Isrc/snark/src",
   ],
+  linkopts = [
+    "-lprocps"
+  ],
   defines = [
     "USE_ASM",
     "MONTGOMERY_OUTPUT",
