@@ -11,7 +11,7 @@ cc_library(
         "//src:uint256",
         "//src:utilstrencodings",
         "//src/crypto:common",
-    ]
+    ],
 )
 
 cc_library(
@@ -34,5 +34,5 @@ cc_library(
         "//src/zcash:Proof",
         "//src/zcash:Zcash",
         "@boost//:array"
-    ]
+    ],
 )

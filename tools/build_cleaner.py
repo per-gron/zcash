@@ -373,7 +373,6 @@ TODO:
 * Should secp256k1 really depend on other stuff?
 * Why does amqpconfig.h not depend on proton?
 * Why does zmqconfig.h not depend on zeromq?
-* primitives/BUILD.bazel )] formatting, twice
 * What about the boost type_traits stuff in IncrementalMerkleTree?
 * Actually run bazel query
 '''
