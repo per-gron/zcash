@@ -265,6 +265,11 @@ def prettify_dependencies(target_name, deps):
 
     return sorted(res, key = sort_key)
 
+def calculate_target_deps(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, target_search_paths, name):
+    search_paths = target_search_paths[name]
+    resolved_headers = resolve_included_headers(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, name, search_paths)
+    return prettify_dependencies(name, real_dependencies(resolved_headers))
+
 tree = ET.parse("all_deps.xml")
 root = tree.getroot()
 
@@ -281,6 +286,12 @@ target_names_to_process = \
     [name for name in target_tags.keys() if should_process_target(target_tags, name)]
 """Dict of all target names to Bazel paths of header search paths."""
 target_search_paths = get_header_search_paths(target_tags)
+"""Dict of (processed) target name to list of deps for that target, prettified
+and sorted."""
+target_deps = {}
+for name in target_names_to_process:
+    target_deps[name] = calculate_target_deps(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, target_search_paths, name)
+
 
 # With include search paths and #include statements, a list of included files can be retrieved
 # With that we can get what targets each target actually depends on
@@ -300,8 +311,9 @@ target_search_paths = get_header_search_paths(target_tags)
 
 # print "rule_hdr_bazelpaths", rule_hdr_bazelpaths # TODO(per-gron): Remove me
 
-for name in target_names_to_process:
-    search_paths = target_search_paths[name]
-    resolved_headers = resolve_included_headers(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, name, search_paths)
-    deps = prettify_dependencies(name, real_dependencies(resolved_headers))
-    print name, deps
+
+#def calculate_target(target_names_to_process):
+#    return res
+
+#res = calculate_target(target_names_to_process)
+print target_deps
