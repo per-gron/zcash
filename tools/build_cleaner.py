@@ -82,7 +82,7 @@ def label_to_path(workspace_dir, label):
         raise Exception("%s is not an absolute label", label)
     return os.path.join(workspace_dir, label[2::].replace(':', '/'))
 
-include_regex = re.compile(r'^\s*#\s*[Ii][Nn][Cc][Ll][Uu][Dd][Ee]\s*"(.*)"\s*$')
+include_regex = re.compile(r'^\s*#\s*[Ii][Nn][Cc][Ll][Uu][Dd][Ee]\s*[<"](.*)[>"]\s*$')
 def extract_nonsystem_includes(path):
     """Return a set of paths (relative to whatever the header search paths are)
     that are #include-d by the file at the given path."""
@@ -238,7 +238,8 @@ def real_dependencies(resolved_headers):
     deps = set()
     for header in resolved_headers:
         rules = resolved_headers[header]
-        # TODO(per-gron): Handle headers exported by more than one rule
+        if len(rules) != 1:
+            raise Exception("Header %s is exported by multiple rules: %s. This script does not support that." % (header, list(rules)))
         deps = deps.union(rules)
     return deps
 
@@ -298,8 +299,6 @@ target_search_paths = get_header_search_paths(target_tags)
 #        print path, rule_hdr_bazelpaths[path]
 
 # print "rule_hdr_bazelpaths", rule_hdr_bazelpaths # TODO(per-gron): Remove me
-
-# TODO(per-gron): Why are no external dependencies found?
 
 for name in target_names_to_process:
     search_paths = target_search_paths[name]
