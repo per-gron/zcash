@@ -15,7 +15,7 @@ def get_target_tags(root):
 def should_process_target(target_tags, name):
     """Returns True if the target is one that should be cleaned."""
     tag = target_tags[name]
-    return name.startswith("//src/") and tag.tag == 'rule'
+    return (name.startswith("//src/") or name.startswith("//src:")) and tag.tag == 'rule'
 
 def extract_label_list(target_tag, name):
     """For a given target XML tag and a name, for example 'deps' or 'srcs',
@@ -24,6 +24,14 @@ def extract_label_list(target_tag, name):
         if child.tag == "list" and child.attrib["name"] == name:
             return [c.attrib["value"] for c in child]
     return []  # Not found
+
+def extract_rule_string(target_tag, name):
+    """For a given target XML tag and a name, for example 'deps' or 'srcs',
+    extract the list of labels in that list."""
+    for child in target_tag:
+        if child.tag == "string" and child.attrib["name"] == name:
+            return child.attrib["value"]
+    return ""  # Not found
 
 def rule_input_labels(target_tag):
     """Given a target XML tag, get a list of labels for the files that are
@@ -50,14 +58,15 @@ def rules_input_labels(target_tags):
 
 def get_rule_hdr_bazelpaths(target_tags):
     """Returns a dict from Bazel paths (for example //src/a.h or @boost//a/b.h)
-    to the name of the rule that exports that header."""
+    to the names of the rules that export that header."""
     res = {}
     for name in target_tags:
-        for hdr in rule_headers_labels(target_tags[name]):
+        target_tag = target_tags[name]
+        for hdr in rule_headers_labels(target_tag):
             bazel_path = hdr.replace(":", "/").replace("///", "//")
             if bazel_path not in res:
-                res[bazel_path] = []
-            res[bazel_path] += [name]
+                res[bazel_path] = set()
+            res[bazel_path].add(name)
     return res
 
 def get_workspace_dir():
@@ -90,15 +99,53 @@ def extract_nonsystem_includes(path):
                 res.add(match.group(1))
         return res
 
-def extract_nonsystem_includes_of_target(workspace_dir, rule_input_labels, name):
-    """Return a set of paths (relative to whatever the header search paths are)
-    that are #include-d by all the files of the given target."""
-    res = set()
-    for label in rule_input_labels[name]:
-        if label.startswith('@bazel_tools//'):
-            continue
-        res = res.union(extract_nonsystem_includes(label_to_path(workspace_dir, label)))
-    return res
+def empty_if_just_dot(path):
+    if path == ".":
+        return ""
+    elif path.endswith('/') and not path == "/":
+        return path[:-1]
+    else:
+        return path
+
+class HeaderSearchPath:
+    """Represents a header search path exported by a Bazel rule. In most cases
+    the path is simply a Bazel path, for example @libsodium//include, but if
+    the package has an include_prefix it holds that separately as well."""
+
+    def __init__(self, search_path, strip_include_prefix = None, include_prefix = None):
+        # search_path must be a normalized path with no . or .. components and
+        # no unnecessary double slashes etc.
+        if strip_include_prefix and not search_path.endswith("/" + strip_include_prefix):
+            raise Exception(
+                "Search path %s does not start with strip_include_prefix %s" % (search_path, strip_include_prefix))
+
+        self.search_path = search_path
+        self.strip_include_prefix = strip_include_prefix
+        self.include_prefix = include_prefix
+
+    def __eq__(self, another):
+        return \
+            hasattr(another, 'search_path') and self.search_path == another.search_path and \
+            hasattr(another, 'strip_include_prefix') and self.strip_include_prefix == another.strip_include_prefix and \
+            hasattr(another, 'include_prefix') and self.include_prefix == another.include_prefix
+
+    def __hash__(self):
+        return hash("%s|%s|%s" % (self.search_path, self.strip_include_prefix, self.include_prefix))
+
+    def resolve(self, path):
+        """Takes a dict of Bazel paths of all header files in the project and a
+        path from an #include statement and returns the Bazel path that the file
+        would be at if it exists."""
+
+        if self.include_prefix:
+            to_strip = self.include_prefix + "/"
+            if not path.startswith(to_strip):
+                return None  # Not found
+            processed_path = path[len(to_strip):]
+        else:
+            processed_path = path
+
+        return ("%s/%s" % (self.search_path, processed_path)).replace("///", "//")
 
 def get_header_search_paths(target_tags):
     """Returns a dict of target name to a set of header search Bazel-paths (for
@@ -106,37 +153,34 @@ def get_header_search_paths(target_tags):
     target."""
 
     # This is configured in tools/bazel.rc, which this script doesn't see
-    builtin_search_paths = ["//src"]
-
-    def empty_if_just_dot(path):
-        if path == ".":
-            return ""
-        elif path.endswith('/') and not path == "/":
-            return path[:-1]
-        else:
-            return path
+    builtin_search_paths = [HeaderSearchPath("//src")]
 
     res = {}
     def process_target(name):
         target_tag = target_tags[name]
         if name in res or target_tag.tag != "rule":
             return
+        include_prefix = extract_rule_string(target_tag, "include_prefix") or None
+        strip_include_prefix = extract_rule_string(target_tag, "strip_include_prefix") or None
         target_workspacename = name.split("//")[0]
         target_dirname = name.split(":")[0]
         if not target_dirname.endswith("/"):
             target_dirname += "/"
-        paths = set(builtin_search_paths + [target_workspacename + "//"])
+        paths = set(builtin_search_paths + [HeaderSearchPath(target_workspacename + "//")])
         for dir in extract_label_list(target_tag, "includes"):
-            paths.add(target_dirname + empty_if_just_dot(dir))
+            include_path = target_dirname + empty_if_just_dot(dir)
+            if include_path.endswith("/"):
+                include_path = include_path[:-1]
+            paths.add(HeaderSearchPath(include_path, strip_include_prefix, include_prefix))
         for copt in extract_label_list(target_tag, "copts"):
             if not copt.startswith("-I"):
                 continue
             path = copt[2:]
             path = re.sub(r'^\$\(GENDIR\)\/', '', path)
             if path.startswith('external/'):
-                paths.add(re.sub(r'^external\/([^\/]+)\/', r'@\1//', path))
+                paths.add(HeaderSearchPath(re.sub(r'^external\/([^\/]+)\/', r'@\1//', path)))
             else:
-                paths.add('//' + path)
+                paths.add(HeaderSearchPath('//' + path))
         for dep in extract_label_list(target_tag, "deps"):
             process_target(dep)
             paths = paths.union(res[dep])
@@ -145,21 +189,80 @@ def get_header_search_paths(target_tags):
         process_target(name)
     return res
 
-def resolve_included_header(hdr_bazelpaths, target_name, search_paths, path):
-    for search_path in search_paths:
-        bazelpath = "%s/%s" % (search_path, path)
-        if bazelpath in hdr_bazelpaths:
-            return hdr_bazelpaths[bazelpath]
+def resolve_included_headers(workspace_dir, rule_input_labels, hdr_bazelpaths, target_name, search_paths):
+    """Given a build rule and its search paths, go through all the headers that
+    are included by that rule and find the rules that export that header.
+    Returns a dict of header that was included to a set of packages that export
+    that header (there can be more than one)."""
+    res = {}
 
-    # Not found. Perhaps the header search path is relative to the file path?
-    bazelpath = re.sub(r"/[^\/]*$", r"/", target_name.replace(":", "/")) + path
-    if bazelpath in hdr_bazelpaths:
-        return hdr_bazelpaths[bazelpath]
+    def add_to_res(resolved_path):
+        if resolved_path not in res:
+            res[resolved_path] = set()
+        res[resolved_path] = res[resolved_path].union(hdr_bazelpaths[resolved_path])
 
-    print "LOL!!! TODO(per-gron) %s - %s - %s" % (target_name, path, bazelpath)
-    return set()
-    raise Exception("Could not resolve header %s for target %s", path, target_name)
+    for input_label in rule_input_labels[name]:
+        for path in extract_nonsystem_includes(label_to_path(workspace_dir, input_label)):
+            found = False
+            for search_path in search_paths:
+                resolved_path = search_path.resolve(path)
+                if resolved_path in hdr_bazelpaths:
+                    found = True
+                    add_to_res(resolved_path)
+                    break
 
+            # Not found. Perhaps the header search path is relative to the file path?
+            bazelpath = re.sub(r"/[^\/]*$", r"/", input_label.replace(":", "/")) + path
+            if not found and bazelpath in hdr_bazelpaths:
+                found = True
+                add_to_res(bazelpath)
+
+            # If the path is still not found, it could be that it's referring
+            # to a header in the srcs section of the current library. These are
+            # unimportant to this script and can be ignored.
+
+            #if not found:
+            #    print "LOL!!! TODO(per-gron) %s - %s - %s - %s" % (input_label, target_name, path, bazelpath)
+            #    #raise Exception("Could not resolve header %s for target %s", path, target_name)
+
+    # Remove dependencies to self
+    for header in res.keys():
+        if target_name in res[header]:
+            del res[header]
+
+    return res
+
+def real_dependencies(resolved_headers):
+    """Takes the return value of resolve_included_headers and computes a set of
+    dependencies that the rule should have."""
+    deps = set()
+    for header in resolved_headers:
+        rules = resolved_headers[header]
+        # TODO(per-gron): Handle headers exported by more than one rule
+        deps = deps.union(rules)
+    return deps
+
+def prettify_dependencies(target_name, deps):
+    """Takes a set of absolute Bazel rule paths and converts it into a sorted
+    list of dependencies, of which some are potentially relative."""
+    [target_pkg, target_rulename] = target_name.split(":")
+
+    res = []
+    for dep in deps:
+        [dep_pkg, dep_rulename] = dep.split(":")
+        if dep_pkg == target_pkg:
+            res.append(":" + dep_rulename)
+        else:
+            res.append(dep)
+
+    def sort_key(val):
+        # Ensure relative rules are sorted before the others.
+        if val[0] == ":":
+            return "0" + val
+        else:
+            return "1" + val
+
+    return sorted(res, key = sort_key)
 
 tree = ET.parse("all_deps.xml")
 root = tree.getroot()
@@ -170,7 +273,7 @@ workspace_dir = get_workspace_dir()
 target_tags = get_target_tags(root)
 """Dict of all target names to labels of the directly included files."""
 rule_input_labels = rules_input_labels(target_tags)
-"""Dict of all Bazel paths to the target name that exports them."""
+"""Dict of all Bazel paths to a set of the the target name(s) that exports them."""
 rule_hdr_bazelpaths = get_rule_hdr_bazelpaths(target_tags)
 """List of all target names that should be cleaned."""
 target_names_to_process = \
@@ -190,10 +293,16 @@ target_search_paths = get_header_search_paths(target_tags)
 
 #print rule_hdr_bazelpaths
 
-#for name in target_names_to_process:
-#    print name, target_search_paths[name], extract_nonsystem_includes_of_target(workspace_dir, rule_input_labels, name)
+#for path in rule_hdr_bazelpaths:
+#    if path.endswith('r1cs_ppzksnark.hpp'):
+#        print path, rule_hdr_bazelpaths[path]
+
+# print "rule_hdr_bazelpaths", rule_hdr_bazelpaths # TODO(per-gron): Remove me
+
+# TODO(per-gron): Why are no external dependencies found?
 
 for name in target_names_to_process:
     search_paths = target_search_paths[name]
-    resolved_headers = [resolve_included_header(rule_hdr_bazelpaths, name, search_paths, header) for header in extract_nonsystem_includes_of_target(workspace_dir, rule_input_labels, name)]
-    # print name, search_paths, resolved_headers
+    resolved_headers = resolve_included_headers(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, name, search_paths)
+    deps = prettify_dependencies(name, real_dependencies(resolved_headers))
+    print name, deps
