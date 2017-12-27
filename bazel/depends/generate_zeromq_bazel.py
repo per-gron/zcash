@@ -49,12 +49,12 @@ def process_library():
     srcs = [obj_to_src(obj) for obj in objs] + [platform_hpp]
 
     rule += "cc_library(\n"
-    rule += '  visibility = ["//visibility:public"],\n'
-    rule += "  name = 'zmq',\n"
-    rule += "  copts = %s,\n" % (cflags + extra_cflags)
-    rule += "  linkopts = %s,\n" % (ldflags + extra_ldflags)
-    rule += "  includes = ['include'],\n"
-    rule += "  srcs = depset(%s + glob(['src/**/*.h', 'src/**/*.hpp', 'include/*.h'])),\n" % srcs
+    rule += '    visibility = ["//visibility:public"],\n'
+    rule += "    name = 'zmq',\n"
+    rule += "    copts = %s,\n" % (cflags + extra_cflags)
+    rule += "    linkopts = %s,\n" % (ldflags + extra_ldflags)
+    rule += "    includes = ['include'],\n"
+    rule += "    srcs = depset(%s + glob(['src/**/*.h', 'src/**/*.hpp', 'include/*.h'])),\n" % srcs
     rule += ")\n\n"
 
     return rule

@@ -9,13 +9,13 @@
 
 
 cflags = [
-  "-D_GNU_SOURCE",
-  "-D_REENTRANT",
-  "-O3",
-  "-Iexternal/bdb/src",
-  "-Wno-unused-but-set-variable",
-  "-Wno-strict-aliasing",
-  "-Wno-maybe-uninitialized",
+    "-D_GNU_SOURCE",
+    "-D_REENTRANT",
+    "-O3",
+    "-Iexternal/bdb/src",
+    "-Wno-unused-but-set-variable",
+    "-Wno-strict-aliasing",
+    "-Wno-maybe-uninitialized",
 ]
 lflags = ["-lpthread"]
 
@@ -6974,16 +6974,16 @@ genrule(
 )
 
 cc_library(
-  name = 'db',
-  copts = cflags,
-  linkopts = lflags,
-  visibility = ['//visibility:public'],
-  includes = ['genheaders'],
-  hdrs = ['genheaders/db.h',
+    name = 'db',
+    copts = cflags,
+    linkopts = lflags,
+    visibility = ['//visibility:public'],
+    includes = ['genheaders'],
+    hdrs = ['genheaders/db.h',
  'genheaders/db_int.h',
  'genheaders/clib_port.h',
  'genheaders/db_config.h'] + glob(["src/**/*.h", "src/**/*.incl"]),
-  srcs = ['src/mutex/mut_tas.c',
+    srcs = ['src/mutex/mut_tas.c',
  'src/mutex/mut_pthread.c',
  'src/btree/bt_compare.c',
  'src/btree/bt_compress.c',
@@ -7219,17 +7219,17 @@ cc_library(
  'src/xa/xa.c',
  'src/xa/xa_map.c',
  'src/common/zerofill.c'],
-  deps = [],
+    deps = [],
 )
 
 cc_library(
-  name = 'db_cxx',
-  copts = cflags,
-  linkopts = lflags,
-  visibility = ['//visibility:public'],
-  includes = ['genheaders'],
-  hdrs = ['genheaders/db_cxx.h'] + [],
-  srcs = ['lang/cxx/cxx_channel.cpp',
+    name = 'db_cxx',
+    copts = cflags,
+    linkopts = lflags,
+    visibility = ['//visibility:public'],
+    includes = ['genheaders'],
+    hdrs = ['genheaders/db_cxx.h'] + [],
+    srcs = ['lang/cxx/cxx_channel.cpp',
  'lang/cxx/cxx_db.cpp',
  'lang/cxx/cxx_dbc.cpp',
  'lang/cxx/cxx_dbstream.cpp',
@@ -7244,6 +7244,6 @@ cc_library(
  'lang/cxx/cxx_seq.cpp',
  'lang/cxx/cxx_site.cpp',
  'lang/cxx/cxx_txn.cpp'],
-  deps = [':db'],
+    deps = [':db'],
 )
 

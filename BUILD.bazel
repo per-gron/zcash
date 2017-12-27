@@ -1,23 +1,23 @@
 cc_binary(
-  name = "hello",
-  srcs = ["hello.cc"],
-  deps = [
-    "@boost//:thread",
-    "@openssl//:crypto",
-    "@openssl//:ssl",
-    "@com_google_googletest//:gtest",
-    "@bdb//:db_cxx",
-    "@libevent//:event",
-    "@libgmp//:gmp",
-    "@libsodium//:sodium",
-    "@zeromq//:zmq",
-    "@proton//:qpid-proton-cpp",
-  ]
+    name = "hello",
+    srcs = ["hello.cc"],
+    deps = [
+        "@boost//:thread",
+        "@openssl//:crypto",
+        "@openssl//:ssl",
+        "@com_google_googletest//:gtest",
+        "@bdb//:db_cxx",
+        "@libevent//:event",
+        "@libgmp//:gmp",
+        "@libsodium//:sodium",
+        "@zeromq//:zmq",
+        "@proton//:qpid-proton-cpp",
+    ]
 )
 
 load("@io_bazel_rules_rust//rust:rust.bzl", "rust_binary")
 
 rust_binary(
-  name = "hello_rust",
-  srcs = ["hello_rust.rs"],
+    name = "hello_rust",
+    srcs = ["hello_rust.rs"],
 )

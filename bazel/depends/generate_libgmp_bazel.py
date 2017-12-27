@@ -77,10 +77,10 @@ def extract_linked_files():
 def process_linked_file(src, target):
     rule = ""
     rule += "genrule(\n"
-    rule += "  name = '%s_copy',\n" % target
-    rule += "  srcs = ['%s'],\n" % src
-    rule += "  outs = ['%s'],\n" % target
-    rule += "  cmd = \"cp $(location %s) $@\",\n" % src
+    rule += "    name = '%s_copy',\n" % target
+    rule += "    srcs = ['%s'],\n" % src
+    rule += "    outs = ['%s'],\n" % target
+    rule += "    cmd = \"cp $(location %s) $@\",\n" % src
     rule += ")\n\n"
 
     return rule
@@ -120,9 +120,9 @@ def process_asm_genrules():
         out = re.sub(r"\.asm$", ".s", asm_src)
         operation = os.path.splitext(os.path.basename(asm_src))[0]
         rule += "genrule(\n"
-        rule += "  name = '%s_asm',\n" % asm_src
-        rule += "  srcs = ['%s'] + %s + glob(['mpn/x86_64/**/*.asm']),\n" % (asm_src, extra_srcs)
-        rule += "  outs = ['%s'],\n" % out
+        rule += "    name = '%s_asm',\n" % asm_src
+        rule += "    srcs = ['%s'] + %s + glob(['mpn/x86_64/**/*.asm']),\n" % (asm_src, extra_srcs)
+        rule += "    outs = ['%s'],\n" % out
         # Bazel has this thing that generated files reside in a different
         # directory tree than input files. The way m4 is used in libgmp does not
         # agree with that structure. As a workaround, config.m4 (which is a
@@ -136,7 +136,7 @@ def process_asm_genrules():
         # the /../ is significant: $$(dirname $(location mpn/asm-defs.m4))
         # points to a symlink and merely taking the dirname of that is not
         # the same as appending /..
-        rule += "  cmd = \"cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location %s) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_%s) > $@\",\n" % (asm_src, operation)
+        rule += "    cmd = \"cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location %s) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_%s) > $@\",\n" % (asm_src, operation)
         rule += ")\n\n"
 
     return rule
@@ -144,11 +144,11 @@ def process_asm_genrules():
 def process_main_library():
     rule = ""
     rule += "cc_library(\n"
-    rule += "  name = 'gmp',\n"
-    rule += "  visibility = ['//visibility:public'],\n"
-    rule += "  linkopts = %s,\n" % link_flags
-    rule += "  hdrs = ['gmp.h', 'gmpxx.h'],\n"
-    rule += "  deps = %s,\n" % [lib["name"] for lib in libraries]
+    rule += "    name = 'gmp',\n"
+    rule += "    visibility = ['//visibility:public'],\n"
+    rule += "    linkopts = %s,\n" % link_flags
+    rule += "    hdrs = ['gmp.h', 'gmpxx.h'],\n"
+    rule += "    deps = %s,\n" % [lib["name"] for lib in libraries]
     rule += ")\n\n"
     return rule
 
@@ -187,19 +187,19 @@ def process_library(name, descriptor):
             # to each file.
             operation_cflag = "OPERATION_%s" % os.path.splitext(os.path.basename(src))[0]
             rule += "genrule(\n"
-            rule += "  name = '%s',\n" % src_label(src)
-            rule += "  srcs = ['%s'],\n" % src
-            rule += "  outs = ['%s'],\n" % preprocessed_file(src)
-            rule += "  cmd = 'echo \"#define %s 1\" > $@ && cat $(location %s) >> $@'\n" % (operation_cflag, src)
+            rule += "    name = '%s',\n" % src_label(src)
+            rule += "    srcs = ['%s'],\n" % src
+            rule += "    outs = ['%s'],\n" % preprocessed_file(src)
+            rule += "    cmd = 'echo \"#define %s 1\" > $@ && cat $(location %s) >> $@'\n" % (operation_cflag, src)
             rule += ")\n\n"
 
     rule += "cc_library(\n"
-    rule += "  name = '%s',\n" % name
-    rule += "  copts = %s,\n" % (cflags + extra_c_flags + local_c_flags)
-    rule += "  linkstatic = 1,\n"
-    rule += "  linkopts = %s,\n" % link_flags
-    rule += "  hdrs = %s,\n" % hdrs
-    rule += "  srcs = %s + generated_includes,\n" % [preprocessed_file(src) for src in srcs]
+    rule += "    name = '%s',\n" % name
+    rule += "    copts = %s,\n" % (cflags + extra_c_flags + local_c_flags)
+    rule += "    linkstatic = 1,\n"
+    rule += "    linkopts = %s,\n" % link_flags
+    rule += "    hdrs = %s,\n" % hdrs
+    rule += "    srcs = %s + generated_includes,\n" % [preprocessed_file(src) for src in srcs]
     rule += ")\n\n"
 
     return rule

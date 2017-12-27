@@ -53,14 +53,14 @@ def process_lib(lib_name, objs, hdrs, generated_headers, deps):
 
     rule = ""
     rule += "cc_library(\n"
-    rule += "  name = '%s',\n" % lib_name
-    rule += "  copts = cflags,\n"
-    rule += "  linkopts = lflags,\n"
-    rule += "  visibility = ['//visibility:public'],\n"
-    rule += "  includes = ['%s'],\n" % generated_headers_dir
-    rule += "  hdrs = %s + %s,\n" % (pprint.pformat(header_paths), hdrs)
-    rule += "  srcs = %s,\n" % pprint.pformat(srcs)
-    rule += "  deps = %s,\n" % pprint.pformat(deps)
+    rule += "    name = '%s',\n" % lib_name
+    rule += "    copts = cflags,\n"
+    rule += "    linkopts = lflags,\n"
+    rule += "    visibility = ['//visibility:public'],\n"
+    rule += "    includes = ['%s'],\n" % generated_headers_dir
+    rule += "    hdrs = %s + %s,\n" % (pprint.pformat(header_paths), hdrs)
+    rule += "    srcs = %s,\n" % pprint.pformat(srcs)
+    rule += "    deps = %s,\n" % pprint.pformat(deps)
     rule += ")\n\n"
 
     return rule
@@ -72,13 +72,13 @@ external_dir = "external/bdb/"
 build_file = generator_util.build_header()
 build_file += """
 cflags = [
-  "-D_GNU_SOURCE",
-  "-D_REENTRANT",
-  "-O3",
-  "-I{{EXTERNAL_DIR}}src",
-  "-Wno-unused-but-set-variable",
-  "-Wno-strict-aliasing",
-  "-Wno-maybe-uninitialized",
+    "-D_GNU_SOURCE",
+    "-D_REENTRANT",
+    "-O3",
+    "-I{{EXTERNAL_DIR}}src",
+    "-Wno-unused-but-set-variable",
+    "-Wno-strict-aliasing",
+    "-Wno-maybe-uninitialized",
 ]
 lflags = ["-lpthread"]
 

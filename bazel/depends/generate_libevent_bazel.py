@@ -36,25 +36,25 @@ generated_headers = {
 build_file = generator_util.build_header()
 build_file += ("""
 cc_library(
-  visibility = ["//visibility:public"],
-  includes = [
-    "include",
-  ],
-  copts = %s + [
-    "-DHAVE_CONFIG_H",
-    "-w",  # Silence "warning: comparison between pointer and integer"
-  ],
-  srcs = glob(["*.h"]) + [
-    "include/event2/event-config.h",
-    "evconfig-private.h",
-    "compat/sys/queue.h",
-  ] + %s,
-  textual_hdrs = [
-    "arc4random.c",
-    "epoll_sub.c",
-  ],
-  hdrs = glob(["include/**/*.h"]),
-  name = "event",
+    visibility = ["//visibility:public"],
+    includes = [
+        "include",
+    ],
+    copts = %s + [
+        "-DHAVE_CONFIG_H",
+        "-w",  # Silence "warning: comparison between pointer and integer"
+    ],
+    srcs = glob(["*.h"]) + [
+        "include/event2/event-config.h",
+        "evconfig-private.h",
+        "compat/sys/queue.h",
+    ] + %s,
+    textual_hdrs = [
+        "arc4random.c",
+        "epoll_sub.c",
+    ],
+    hdrs = glob(["include/**/*.h"]),
+    name = "event",
 )
 
 """ % (cflags, srcs))

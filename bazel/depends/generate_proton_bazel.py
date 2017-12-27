@@ -407,12 +407,12 @@ def process_library(name, lib_descriptor):
 
     rule += "cc_library(\n"
     if lib_descriptor["public"]:
-        rule += '  visibility = ["//visibility:public"],\n'
-    rule += "  name = '%s',\n" % name
-    rule += "  deps = %s,\n" % lib_descriptor["deps"]
-    rule += "  includes = %s,\n" % lib_descriptor["includes"]
-    rule += "  copts = %s,\n" % (cflags + extra_cflags + lib_descriptor["cflags"])
-    rule += "  srcs = %s + glob(['%s/**/*.h', '%s/**/*.hpp']) + %s,\n" % (srcs, lib_dir, lib_dir, generated_files)
+        rule += '    visibility = ["//visibility:public"],\n'
+    rule += "    name = '%s',\n" % name
+    rule += "    deps = %s,\n" % lib_descriptor["deps"]
+    rule += "    includes = %s,\n" % lib_descriptor["includes"]
+    rule += "    copts = %s,\n" % (cflags + extra_cflags + lib_descriptor["cflags"])
+    rule += "    srcs = %s + glob(['%s/**/*.h', '%s/**/*.hpp']) + %s,\n" % (srcs, lib_dir, lib_dir, generated_files)
     rule += ")\n\n"
 
     return rule
