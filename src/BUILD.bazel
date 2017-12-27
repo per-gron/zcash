@@ -191,7 +191,6 @@ cc_library(
   srcs = ["compressor.cpp"],
   deps = [
     ":hash",
-    ":pubkey",
     ":serialize",
     "//src/primitives:transaction",
     "//src/script",
@@ -261,7 +260,7 @@ cc_library(
   hdrs = ["key.h"],
   deps = [
     ":arith_uint256",
-    ":pubkey",
+    ":hash",
     ":serialize",
     ":uint256",
     ":util",
@@ -278,8 +277,8 @@ cc_library(
   srcs = ["keystore.cpp"],
   hdrs = ["keystore.h"],
   deps = [
+    ":hash",
     ":key",
-    ":pubkey",
     ":util",
     "@boost//:foreach",
     "@boost//:signals2",
@@ -458,7 +457,6 @@ cc_library(
     ":mruset",
     ":netbase",
     ":protocol",
-    ":pubkey",
     ":rpcprotocol",
     ":scheduler",
     ":serialize",
@@ -579,19 +577,6 @@ cc_library(
     ":util",
     ":utilstrencodings",
     ":version",
-  ],
-)
-
-cc_library(
-  name = "pubkey",
-  visibility = ["//visibility:public"],
-  srcs = ["pubkey.cpp"],
-  hdrs = ["pubkey.h"],
-  deps = [
-    ":hash",
-    ":serialize",
-    ":uint256",
-    "//src/secp256k1",
   ],
 )
 

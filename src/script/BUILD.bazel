@@ -6,7 +6,7 @@ cc_library(
   deps = [
       ":script",
       ":script_error",
-      "//src:pubkey",
+      "//src:hash",
       "//src:uint256",
       "//src/crypto:ripemd160",
       "//src/crypto:sha1",
@@ -43,7 +43,7 @@ cc_library(
     ":interpreter",
     "@boost//:thread",
     "@boost//:tuple",
-    "//src:pubkey",
+    "//src:hash",
     "//src:uint256",
     "//src:util",
   ],
@@ -72,7 +72,7 @@ cc_library(
   deps = [
       ":interpreter",
       ":script",
-      "//src:pubkey",
+      "//src:hash",
       "//src:uint256",
       "//src:util",
       "//src:utilstrencodings",
