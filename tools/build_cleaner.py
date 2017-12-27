@@ -259,8 +259,11 @@ def prettify_dependencies(target_name, deps):
     res = []
     for dep in deps:
         [dep_pkg, dep_rulename] = dep.split(":")
+        pkg_name = dep_pkg.split("/")[-1]
         if dep_pkg == target_pkg:
             res.append(":" + dep_rulename)
+        elif pkg_name == dep_rulename:
+            res.append(dep_pkg)
         else:
             res.append(dep)
 
@@ -329,7 +332,7 @@ def replace_deps(build_file_path, package, new_deps_lists):
             if deps:
                 deps.value = "%s" % new_deps_list_syntax
             else:
-                call_node.value.append("deps = %s" % new_deps_list_syntax)
+                call_node.value.append("deps = %s," % new_deps_list_syntax)
 
     with open(build_file_path, "w") as source_code:
         source_code.write(build_file.dumps())
