@@ -316,7 +316,11 @@ def replace_deps(build_file_path, package, new_deps_lists):
         name = eval(name_node.value.value)
         deps = get_named_parameter(call_node, "deps")
 
-        new_deps_list = new_deps_lists.get("%s:%s" % (package, name), [])
+        absolute_rule_name = "%s:%s" % (package, name)
+        if absolute_rule_name not in new_deps_lists:
+            # Only edit rules that we have info about
+            continue
+        new_deps_list = new_deps_lists[absolute_rule_name]
         new_deps_list_syntax = "[\n%s\n    ]" % "\n".join(["        \"%s\"," % dep for dep in new_deps_list])
         if len(new_deps_list) == 0:
             if deps:
@@ -354,35 +358,6 @@ target_deps = {}
 for name in target_names_to_process:
     target_deps[name] = calculate_target_deps(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, target_search_paths, name)
 
-
-# With include search paths and #include statements, a list of included files can be retrieved
-# With that we can get what targets each target actually depends on
-# The actual deps and the calculated deps are then compared
-
-#for name in target_names_to_process:
-#    print name, rule_input_labels[name]
-
-#for name in target_names_to_process:
-#    print name, target_search_paths[name]
-
-#print rule_hdr_bazelpaths
-
-#for path in rule_hdr_bazelpaths:
-#    if path.endswith('r1cs_ppzksnark.hpp'):
-#        print path, rule_hdr_bazelpaths[path]
-
-# print "rule_hdr_bazelpaths", rule_hdr_bazelpaths # TODO(per-gron): Remove me
-
-
-#def calculate_target(target_names_to_process):
-#    return res
-
-#res = calculate_target(target_names_to_process)
-#print target_deps
-print packages_to_process
-print workspace_dir
-
-replace_deps("/vagrant/zcash/src/BUILD.bazel", "//src", {
-    "//src:zmq_zmqconfig": [":a", ":b"],
-    "//src:version2": [":x", ":y"],
-})
+for package in packages_to_process:
+    build_file = os.path.join(workspace_dir + package, "BUILD.bazel")
+    replace_deps(build_file, package, target_deps)
