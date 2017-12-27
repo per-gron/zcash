@@ -66,14 +66,15 @@ def process_library(name, deps):
     rule += "cc_library(\n"
     if name == "sodium":
         rule += '  visibility = ["//visibility:public"],\n'
+        rule += '  hdrs = headers,\n'
     rule += "  name = '%s',\n" % name
     rule += "  copts = cflags,\n"
     rule += "  linkstatic = 1,\n"
     rule += "  linkopts = ldflags,\n"
     rule += "  includes = ['src/libsodium/include', 'src/libsodium/include/sodium'],\n"
     rule += "  deps = %s,\n" % [":%s" % dep for dep in deps]
-    rule += "  srcs = %s,\n" % srcs
-    rule += "  textual_hdrs = headers,\n"
+    rule += "  srcs = %s + headers,\n" % srcs
+    rule += "  textual_hdrs = assembly_files,\n"
     rule += ")\n\n"
 
     return rule
@@ -87,7 +88,8 @@ def process_libraries():
 build_file = generator_util.build_header()
 build_file += "cflags = %s\n" % (cflags + extra_cflags)
 build_file += "ldflags = %s\n" % (ldflags + extra_ldflags)
-build_file += "headers = glob(['src/**/*.h', 'src/**/*.S'])\n\n"
+build_file += "headers = glob(['src/**/*.h'])\n"
+build_file += "assembly_files = glob(['src/**/*.S'])\n\n"
 build_file += process_libraries()
 build_file += generator_util.copy_file_genrule(
     version_h, generator_util.read_file(version_h))
