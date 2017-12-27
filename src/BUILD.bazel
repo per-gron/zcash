@@ -129,16 +129,6 @@ cc_library(
 )
 
 cc_library(
-  name = "chainparamsbase",
-  visibility = ["//visibility:public"],
-  srcs = ["chainparamsbase.cpp"],
-  hdrs = ["chainparamsbase.h"],
-  deps = [
-    ":util",
-  ],
-)
-
-cc_library(
   name = "chainparamsseeds",
   visibility = ["//visibility:public"],
   hdrs = ["chainparamsseeds.h"],
@@ -238,7 +228,6 @@ cc_library(
   hdrs = ["httpserver.h"],
   srcs = ["httpserver.cpp"],
   deps = [
-    ":chainparamsbase",
     ":compat",
     ":netbase",
     ":rpcprotocol",
@@ -439,7 +428,6 @@ cc_library(
     ":amount",
     ":bloom",
     ":chainparamsseeds",
-    ":chainparamsbase",
     ":checkqueue",
     ":clientversion",
     ":coincontrol",
@@ -869,7 +857,6 @@ cc_binary(
   name = "zcash-cli",
   srcs = ["bitcoin-cli.cpp"],
   deps = [
-    ":chainparamsbase",
     ":clientversion",
     ":rpcclient",
     ":rpcprotocol",
