@@ -90,7 +90,7 @@ def label_to_path(workspace_dir, label):
         raise Exception("%s is not an absolute label", label)
     return os.path.join(workspace_dir, label[2::].replace(':', '/'))
 
-include_regex = re.compile(r'^\s*#\s*[Ii][Nn][Cc][Ll][Uu][Dd][Ee]\s*[<"](.*)[>"]\s*$')
+include_regex = re.compile(r'^\s*#\s*[Ii][Nn][Cc][Ll][Uu][Dd][Ee]\s*[<"](.*)[>"]')
 def extract_nonsystem_includes(path):
     """Return a set of paths (relative to whatever the header search paths are)
     that are #include-d by the file at the given path."""
@@ -268,11 +268,13 @@ def prettify_dependencies(target_name, deps):
             res.append(dep)
 
     def sort_key(val):
+        # Ensure : is treated as smaller than /
+        processed_val = val.lower().replace(":", "!")
         # Ensure relative rules are sorted before the others.
         if val[0] == ":":
-            return "0" + val
+            return "0" + processed_val
         else:
-            return "1" + val
+            return "1" + processed_val
 
     return sorted(res, key = sort_key)
 
@@ -364,3 +366,14 @@ for name in target_names_to_process:
 for package in packages_to_process:
     build_file = os.path.join(workspace_dir + package, "BUILD.bazel")
     replace_deps(build_file, package, target_deps)
+
+
+'''
+TODO:
+* Should secp256k1 really depend on other stuff?
+* Why does amqpconfig.h not depend on proton?
+* Why does zmqconfig.h not depend on zeromq?
+* primitives/BUILD.bazel )] formatting, twice
+* What about the boost type_traits stuff in IncrementalMerkleTree?
+* Actually run bazel query
+'''
