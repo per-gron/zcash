@@ -2,8 +2,14 @@
 # Generate full dependency graph: bazel query --output xml --xml:default_values 'deps(//src/...)'
 
 import os
+
+if "BAZEL_REAL" not in os.environ:
+    # This script is designed to run from within bazel run
+    raise Exception("No BAZEL_REAL environment variable found. Was the script run with `bazel run //tools:build_cleaner`?")
+
 import re
 import xml.etree.ElementTree as ET
+from redbaron import RedBaron
 
 def get_target_tags(root):
     """Get a dict of all target names to their XML tag in the input data."""
@@ -70,7 +76,9 @@ def get_rule_hdr_bazelpaths(target_tags):
     return res
 
 def get_workspace_dir():
-    workspace_dir = os.getcwd()
+    # Use os.environ['PWD'] instead of os.getcwd() because it works when the
+    # script is run with bazel run
+    workspace_dir = os.environ['PWD']
     while workspace_dir != os.path.dirname(workspace_dir):
         if os.path.isfile(os.path.join(workspace_dir, "WORKSPACE")):
             return workspace_dir
@@ -270,7 +278,59 @@ def calculate_target_deps(workspace_dir, rule_input_labels, rule_hdr_bazelpaths,
     resolved_headers = resolve_included_headers(workspace_dir, rule_input_labels, rule_hdr_bazelpaths, name, search_paths)
     return prettify_dependencies(name, real_dependencies(resolved_headers))
 
-tree = ET.parse("all_deps.xml")
+def get_packages_to_process(target_names_to_process):
+    """Given a list of Bazel rule names, for example //src:a, //src:b, //src/a:b
+    return a list of the Bazel packages, in this case, //src and //src/a"""
+    pkgs = set()
+    for name in target_names_to_process:
+        [pkg, rule] = name.split(":")
+        pkgs.add(pkg)
+    return pkgs
+
+def get_named_parameter(call_node, name):
+    """Given a RedBaron CallNode, find a given named parameter
+    CallArgumentNode."""
+    for arg_node in call_node:
+        if arg_node.target.value == name:
+            return arg_node
+
+def replace_deps(build_file_path, package, new_deps_lists):
+    """Given a Bazel BUILD file path, its package name and a dict of absolute
+    rule names to their dependencies, update the deps in the BUILD file."""
+    supported_rule_types = set(["cc_binary", "cc_library", "cc_test"])
+    with open(build_file_path, "r") as source_code:
+        build_file = RedBaron(source_code.read())
+
+    for invocation_node in build_file:
+        if invocation_node.type != "atomtrailers":
+            continue
+        name_node = invocation_node[0]
+        if name_node.type != "name" or name_node.value not in supported_rule_types:
+            continue
+        call_node = invocation_node[1]
+        if call_node.type != "call":
+            continue
+        name_node = get_named_parameter(call_node, "name")
+        if not name_node:
+            continue
+        name = eval(name_node.value.value)
+        deps = get_named_parameter(call_node, "deps")
+
+        new_deps_list = new_deps_lists.get("%s:%s" % (package, name), [])
+        new_deps_list_syntax = "[\n%s\n    ]" % "\n".join(["        \"%s\"," % dep for dep in new_deps_list])
+        if len(new_deps_list) == 0:
+            if deps:
+                call_node.remove(deps)
+        else:
+            if deps:
+                deps.value = "%s" % new_deps_list_syntax
+            else:
+                call_node.value.append("deps = %s" % new_deps_list_syntax)
+
+    with open(build_file_path, "w") as source_code:
+        source_code.write(build_file.dumps())
+
+tree = ET.parse("/vagrant/zcash/tools/all_deps.xml")
 root = tree.getroot()
 
 """Path of whatever is called // in the BUILD files"""
@@ -286,6 +346,8 @@ target_names_to_process = \
     [name for name in target_tags.keys() if should_process_target(target_tags, name)]
 """Dict of all target names to Bazel paths of header search paths."""
 target_search_paths = get_header_search_paths(target_tags)
+"""Set of all packages that are being processed."""
+packages_to_process = get_packages_to_process(target_names_to_process)
 """Dict of (processed) target name to list of deps for that target, prettified
 and sorted."""
 target_deps = {}
@@ -316,4 +378,11 @@ for name in target_names_to_process:
 #    return res
 
 #res = calculate_target(target_names_to_process)
-print target_deps
+#print target_deps
+print packages_to_process
+print workspace_dir
+
+replace_deps("/vagrant/zcash/src/BUILD.bazel", "//src", {
+    "//src:zmq_zmqconfig": [":a", ":b"],
+    "//src:version2": [":x", ":y"],
+})
