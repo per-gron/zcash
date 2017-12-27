@@ -95,8 +95,8 @@ cc_library(
     visibility = ["//visibility:public"],
     srcs = ["asyncrpcoperation.cpp"],
     hdrs = ["asyncrpcoperation.h"],
+    # TODO(per-gron): Add "@boost//:uuid" ?
     deps = [
-        # TODO(per-gron): Add me "@boost//:uuid",
         "//src/univalue",
     ],
 )

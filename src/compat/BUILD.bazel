@@ -10,7 +10,7 @@ cc_library(
     hdrs = ["endian.h"],
     deps = [
         ":byteswap",
-    ]
+    ],
 )
 
 cc_library(
@@ -23,5 +23,5 @@ cc_library(
     ],
     deps = [
         "//src/config:bitcoin-config",
-    ]
+    ],
 )

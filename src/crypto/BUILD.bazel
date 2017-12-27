@@ -6,7 +6,7 @@ cc_library(
         "@libsodium//:sodium",
         "//src/compat:endian",
         "//src/config:bitcoin-config",
-    ]
+    ],
 )
 
 cc_library(
