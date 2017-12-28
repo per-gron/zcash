@@ -1,1 +1,1 @@
-build --copt=-iquote --copt=src
+build --copt=-iquote --copt=src --linkopt=-fPIC --linkopt=-Wl,-z,noexecstack --linkopt=-fstack-protector-all --linkopt=-Wl,-z,relro --linkopt=-Wl,-z,now --linkopt=-pie --linkopt=-fPIE

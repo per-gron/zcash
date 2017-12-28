@@ -116,12 +116,10 @@ cflags = \
     "-DENGINESDIR=\\\"engines\\\"",
     "-DNO_WINDOWS_BRAINDEATH",  # Makes cversion.c not include buildinf.h, which we don't want anyway
   ]
-ex_libs = {- shell_string_to_skylark_array($target{ex_libs}." ".$config{ex_libs}) -}
-# TODO(per-gron): Is it right to use ex_libs like this?
-ldflags = ex_libs + {- shell_string_to_skylark_array($target{lflags}) -}
+ldflags = {- shell_string_to_skylark_array($target{lflags}) -}
 
-lib_cflags = cflags + {- shell_string_to_skylark_array($target{shared_cflag} || "") -}
-lib_ldflags = ldflags + {- shell_string_to_skylark_array($target{shared_ldflag}." ".$config{shared_ldflag}) -}
+lib_cflags = cflags + ["-fPIC"]
+lib_ldflags = ldflags
 bin_cflags = cflags + {- shell_string_to_skylark_array($target{bin_cflags}) -}
 bin_ldflags = ldflags
 

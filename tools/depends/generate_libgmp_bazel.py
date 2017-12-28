@@ -20,8 +20,6 @@ extra_c_flags = [
     "-w",
 ]
 
-link_flags = ["-fPIC"]
-
 libgmp_config_opts = [
     "--enable-cxx",
     "--disable-shared",
@@ -146,7 +144,6 @@ def process_main_library():
     rule += "cc_library(\n"
     rule += "    name = 'gmp',\n"
     rule += "    visibility = ['//visibility:public'],\n"
-    rule += "    linkopts = %s,\n" % link_flags
     rule += "    hdrs = ['gmp.h', 'gmpxx.h'],\n"
     rule += "    deps = %s,\n" % [lib["name"] for lib in libraries]
     rule += ")\n\n"
@@ -197,7 +194,6 @@ def process_library(name, descriptor):
     rule += "    name = '%s',\n" % name
     rule += "    copts = %s,\n" % (cflags + extra_c_flags + local_c_flags)
     rule += "    linkstatic = 1,\n"
-    rule += "    linkopts = %s,\n" % link_flags
     rule += "    hdrs = %s,\n" % hdrs
     rule += "    srcs = %s + generated_includes,\n" % [preprocessed_file(src) for src in srcs]
     rule += ")\n\n"

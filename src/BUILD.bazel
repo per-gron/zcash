@@ -521,7 +521,6 @@ cc_library(
         "ENABLE_MINING",
         "ENABLE_WALLET"
     ],
-    linkopts = ["-lanl"],
 )
 
 cc_library(
@@ -540,6 +539,7 @@ cc_library(
         "@boost//:thread",
         "//src/config:bitcoin-config",
     ],
+    linkopts = ["-lanl"],
 )
 
 cc_library(

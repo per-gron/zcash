@@ -36,7 +36,6 @@ extra_cflags = [
     "-I$(GENDIR)/%ssrc/libsodium/include/sodium" % external_dir,
     "-Wno-unknown-pragmas",
 ]
-extra_ldflags = []
 
 makefile = "src/libsodium/Makefile"
 
@@ -44,7 +43,6 @@ cflags_str = generator_util.extract_variable_from_makefile(
     "$(DEFS) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
     makefile)
 cflags = ["'%s'" % flag for flag in shlex.split((" " + cflags_str).replace(' -g ', ' '))]
-ldflags = shlex.split(generator_util.extract_variable_from_makefile("$(LDFLAGS)", makefile))
 
 version_h = "src/libsodium/include/sodium/version.h"
 
@@ -70,7 +68,6 @@ def process_library(name, deps):
     rule += "    name = '%s',\n" % name
     rule += "    copts = cflags,\n"
     rule += "    linkstatic = 1,\n"
-    rule += "    linkopts = ldflags,\n"
     rule += "    includes = ['src/libsodium/include', 'src/libsodium/include/sodium'],\n"
     rule += "    deps = %s,\n" % [":%s" % dep for dep in deps]
     rule += "    srcs = %s + headers,\n" % srcs
@@ -87,7 +84,6 @@ def process_libraries():
 
 build_file = generator_util.build_header()
 build_file += "cflags = %s\n" % (cflags + extra_cflags)
-build_file += "ldflags = %s\n" % (ldflags + extra_ldflags)
 build_file += "headers = glob(['src/**/*.h'])\n"
 build_file += "assembly_files = glob(['src/**/*.S'])\n\n"
 build_file += process_libraries()
