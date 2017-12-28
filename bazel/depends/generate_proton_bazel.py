@@ -362,7 +362,7 @@ libraries = {
         ],
     },
     "qpid-proton-cpp": {
-        "deps": [":qpid-proton-core"],
+        "deps": [":qpid-proton", ":qpid-proton-core"],
         "public": True,
         "dir": "proton-c/bindings/cpp",
         "includes": ["proton-c/bindings/cpp/include"],
