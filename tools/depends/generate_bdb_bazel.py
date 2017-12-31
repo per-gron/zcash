@@ -74,7 +74,6 @@ build_file += """
 cflags = [
     "-D_GNU_SOURCE",
     "-D_REENTRANT",
-    "-O3",
     "-I{{EXTERNAL_DIR}}src",
     "-Wno-unused-but-set-variable",
     "-Wno-strict-aliasing",
