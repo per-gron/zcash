@@ -69,7 +69,6 @@ cc_library(
         "-Wno-long-long",
         "-Wno-overlength-strings",
         "-fvisibility=hidden",
-        "-O3",
         "-I$(GENDIR)/src/secp256k1/src",
         "-Isrc/secp256k1",
         "-DHAVE_CONFIG_H",
