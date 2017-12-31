@@ -18,6 +18,7 @@ extra_c_flags = [
     "-DHAVE_CONFIG_H",
     "-fPIC",
     "-w",
+    "-I$(GENDIR)/%s" % external_dir,
 ]
 
 libgmp_config_opts = [
