@@ -18,9 +18,9 @@ new_http_archive(
 
 http_archive(
     name = "com_github_nelhage_boost",
-    strip_prefix = "rules_boost-d19a448592c5818dc547e6a3ddda39a50c393b16",
-    urls = ["https://github.com/nelhage/rules_boost/archive/d19a448592c5818dc547e6a3ddda39a50c393b16.tar.gz"],
-    sha256 = "28cbed93a399711de1637837adde71e5519946b7ed1fec18f487d6b5fc493280",
+    strip_prefix = "rules_boost-76739bbac98d20b0ad0a4fe571f60b104a75caf3",
+    urls = ["https://github.com/per-gron/rules_boost/archive/76739bbac98d20b0ad0a4fe571f60b104a75caf3.tar.gz"],
+    sha256 = "11fc5806f85b69d6c924b4e8fecbcc2d967b0e5104e2ea5ec689bce932be82df",
 )
 load("@com_github_nelhage_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
