@@ -22,9 +22,9 @@ cc_library(
     deps = [
         ":util",
         ":Zcash",
+        "@boost//:foreach",
         "@boost//:optional",
         "@boost//:static_assert",
-        "@boost//:type_traits",  # TODO(per-gron): The boost optional package should depend on this but doesn't
         "//src:serialize",
         "//src:uint256",
         "//src/crypto:sha256",

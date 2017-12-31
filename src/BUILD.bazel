@@ -95,9 +95,9 @@ cc_library(
     visibility = ["//visibility:public"],
     srcs = ["asyncrpcoperation.cpp"],
     hdrs = ["asyncrpcoperation.h"],
-    # TODO(per-gron): Add "@boost//:uuid" ?
     deps = [
         "//src/univalue",
+        "@boost//:uuid",
     ],
 )
 
@@ -466,6 +466,7 @@ cc_library(
         ":zmq_zmqabstractnotifier",
         "@bdb//:db_cxx",
         "@boost//:algorithm",
+        "@boost//:assign",
         "@boost//:bind",
         "@boost//:date_time",
         "@boost//:dynamic_bitset",
@@ -621,6 +622,8 @@ cc_library(
     hdrs = ["serialize.h"],
     deps = [
         "//src/compat:endian",
+        "@boost//:array",
+        "@boost//:optional",
     ],
 )
 
@@ -779,6 +782,7 @@ cc_library(
     hdrs = ["validationinterface.h"],
     deps = [
         "//src/zcash:IncrementalMerkleTree",
+        "@boost//:signals2",
     ],
 )
 
