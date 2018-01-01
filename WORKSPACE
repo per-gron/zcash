@@ -67,6 +67,14 @@ new_http_archive(
 )
 
 new_http_archive(
+    name = "procps",
+    strip_prefix = "procps-v3.3.12-e0784ddaed30d095bb1d9a8ad6b5a23d10a212c4",
+    urls = ["https://gitlab.com/procps-ng/procps/repository/v3.3.12/archive.tar.bz2"],
+    sha256 = "20d6e82eb51ecd8eedf2cd046497cf01908d4dd41988694a8225e38643c6d657",
+    build_file = "tools/depends/generated/procps.bazel",
+)
+
+new_http_archive(
     name = "py_appdirs",
     strip_prefix = "appdirs-1.4.3",
     urls = ["https://github.com/ActiveState/appdirs/archive/1.4.3.tar.gz"],

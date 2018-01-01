@@ -130,9 +130,6 @@ cc_library(
         "-DBN_SUPPORT_SNARK",
         "-Isrc/snark/src",
     ],
-    linkopts = [
-        "-lprocps"
-    ],
     defines = [
         "USE_ASM",
         "MONTGOMERY_OUTPUT",
@@ -141,5 +138,6 @@ cc_library(
     deps = [
         "@libsodium//:sodium",
         "@libgmp//:gmp",
+        "@procps//:procps",
     ],
 )
