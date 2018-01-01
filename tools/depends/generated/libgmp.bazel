@@ -13,6 +13,7 @@ cc_library(
     visibility = ['//visibility:public'],
     hdrs = ['gmp.h', 'gmpxx.h'],
     deps = ['cxx', 'rand', 'scanf', 'printf', 'mpz', 'mpq', 'mpn', 'mpf', 'gmp_core'],
+    includes = ['.'],
 )
 
 cc_library(

@@ -147,6 +147,7 @@ def process_main_library():
     rule += "    visibility = ['//visibility:public'],\n"
     rule += "    hdrs = ['gmp.h', 'gmpxx.h'],\n"
     rule += "    deps = %s,\n" % [lib["name"] for lib in libraries]
+    rule += "    includes = ['.'],\n"
     rule += ")\n\n"
     return rule
 
