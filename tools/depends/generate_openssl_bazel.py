@@ -91,7 +91,11 @@ BAZEL_tmpl_contents += r"""
      use Text::ParseWords ();
 
      sub shell_string_to_skylark_array {
-         return "[".join(",", map { "\"$_\"" } Text::ParseWords::shellwords(@_))."]";
+         return to_skylark_array(Text::ParseWords::shellwords(@_));
+     }
+
+     sub to_skylark_array {
+         return "[".join(",", map { "\"$_\"" } @_)."]";
      }
 
      '';
@@ -109,7 +113,7 @@ minor = "{- $config{minor} -}"
 
 cflags = \
   {- shell_string_to_skylark_array(join(" ",(map { "-D".$_} @{$target{defines}}, @{$config{defines}}))) -} + \
-  {- shell_string_to_skylark_array($target{cflags}) -} + \
+  {- to_skylark_array(grep(!/^(-O\d)|(-m64)$/, Text::ParseWords::shellwords($target{cflags}))) -} + \
   {- shell_string_to_skylark_array($config{cflags}) -} + \
   [
     "-DOPENSSLDIR=\\\"apps\\\"",

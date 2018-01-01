@@ -24,7 +24,7 @@ minor = "1.0"
 
 cflags = \
   ["-DNDEBUG","-DOPENSSL_THREADS","-DOPENSSL_NO_DYNAMIC_ENGINE","-DOPENSSL_PIC","-DPURIFY","-DOPENSSL_NO_ERR"] + \
-  ["-Wall","-O3","-pthread","-m64","-DL_ENDIAN"] + \
+  ["-Wall","-pthread","-DL_ENDIAN"] + \
   [] + \
   [
     "-DOPENSSLDIR=\\\"apps\\\"",
