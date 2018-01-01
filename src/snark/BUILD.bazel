@@ -125,7 +125,6 @@ cc_library(
         "-Wno-unused-parameter",
         "-Wno-comment",
         "-Wfatal-errors",
-        "-O2",
         "-march=native",
         "-mtune=native",
         "-DBN_SUPPORT_SNARK",
