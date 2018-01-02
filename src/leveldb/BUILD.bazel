@@ -119,7 +119,6 @@ cc_library(
         "//conditions:default": [],
     }),
     linkopts = [
-        "-lstdc++",
         "-lpthread",
     ],
 )
