@@ -52,6 +52,7 @@ def process_library():
     rule += "    linkopts = %s,\n" % ldflags
     rule += "    srcs = %s + glob(['include/*.h']),\n" % srcs
     rule += "    hdrs = glob(['proc/*.h']),\n"
+    rule += "    includes = ['.'],\n"
     rule += ")\n\n"
 
     return rule
