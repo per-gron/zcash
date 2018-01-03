@@ -2,11 +2,11 @@
 directory. Run this script in the libgmp source directory. It creates a
 BUILD.bazel file there.
 """
-import os
-import subprocess
-import glob
-import re
 import generator_util
+import glob
+import os
+import re
+import subprocess
 
 # TODO(per-gron): Configure host
 
@@ -42,7 +42,7 @@ subprocess.call(["./configure"] + libgmp_config_opts)
 
 objs = generator_util.extract_variable_from_makefile("$(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES) $(CXX_OBJECTS)").split()
 cflags = generator_util.extract_variable_from_makefile("$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
-cflags = [flag for flag in cflags if flag != "-I.."]
+cflags = [flag for flag in cflags if flag != "-I.." and not re.match(r"^-O\d$", flag)]
 
 make_generated_files = [
     'fib_table.h',
