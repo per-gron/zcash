@@ -13,7 +13,7 @@ cc_library(
     includes = [
         "include",
     ],
-    copts = ['-Iexternal/libevent/compat', '-O2', '-Wall', '-fno-strict-aliasing', '-pthread', '-W', '-Wfloat-equal', '-Wundef', '-Wpointer-arith', '-Wstrict-prototypes', '-Wmissing-prototypes', '-Wwrite-strings', '-Wredundant-decls', '-Wchar-subscripts', '-Wcomment', '-Wformat', '-Wwrite-strings', '-Wmissing-declarations', '-Wredundant-decls', '-Wnested-externs', '-Wbad-function-cast', '-Wswitch', '-Wno-unused-parameter', '-Wstrict-aliasing', '-Winit-self', '-Wmissing-field-initializers', '-Wdeclaration-after-statement', '-Waddress', '-Wnormalized=id', '-Woverride-init', '-Wlogical-op'] + [
+    copts = ['-Iexternal/libevent/compat', '-Wall', '-fno-strict-aliasing', '-pthread', '-W', '-Wfloat-equal', '-Wundef', '-Wpointer-arith', '-Wstrict-prototypes', '-Wmissing-prototypes', '-Wwrite-strings', '-Wredundant-decls', '-Wchar-subscripts', '-Wcomment', '-Wformat', '-Wwrite-strings', '-Wmissing-declarations', '-Wredundant-decls', '-Wnested-externs', '-Wbad-function-cast', '-Wswitch', '-Wno-unused-parameter', '-Wstrict-aliasing', '-Winit-self', '-Wmissing-field-initializers', '-Wdeclaration-after-statement', '-Waddress', '-Wnormalized=id', '-Woverride-init', '-Wlogical-op'] + [
         "-DHAVE_CONFIG_H",
         "-w",  # Silence "warning: comparison between pointer and integer"
     ],
@@ -177,7 +177,7 @@ include_event2_event_config_h_contents = r"""/* event2/event-config.h
 /* #undef EVENT__HAVE_KQUEUE */
 
 /* Define if the system has zlib */
-#define EVENT__HAVE_LIBZ 1
+/* #undef EVENT__HAVE_LIBZ */
 
 /* Define to 1 if you have the `mach_absolute_time' function. */
 /* #undef EVENT__HAVE_MACH_ABSOLUTE_TIME */
@@ -441,7 +441,7 @@ include_event2_event_config_h_contents = r"""/* event2/event-config.h
 /* #undef EVENT__HAVE_WORKING_KQUEUE */
 
 /* Define to 1 if you have the <zlib.h> header file. */
-#define EVENT__HAVE_ZLIB_H 1
+/* #undef EVENT__HAVE_ZLIB_H */
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define EVENT__LT_OBJDIR ".libs/"

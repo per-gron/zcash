@@ -2,10 +2,11 @@
 directory. Run this script in the libevent source directory. It creates a
 BUILD.bazel file there.
 """
-import os
-import subprocess
-import glob
 import generator_util
+import glob
+import os
+import re
+import subprocess
 
 libevent_config_opts = [
     "--disable-shared",
@@ -26,7 +27,7 @@ external_dir = "external/libevent/"
 
 srcs = generator_util.extract_variable_from_makefile("$(libevent_la_SOURCES) $(libevent_pthreads_la_SOURCES)").split()
 cflags = ["-I%scompat" % external_dir] + generator_util.extract_variable_from_makefile("$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)").split()
-cflags = [flag for flag in cflags if flag != "-g"]
+cflags = [flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag)]
 
 generated_headers = {
     "include/event2/event-config.h": generator_util.read_file("include/event2/event-config.h"),
