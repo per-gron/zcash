@@ -397,7 +397,8 @@ def process_library(name, lib_descriptor):
         "$(CXX_FLAGS) $(C_FLAGS) $(CXX_DEFINES) $(C_DEFINES)",
         makefile = "%s/flags.make" % makefiles_dir,
         cwd = build_dir)
-    cflags = shlex.split((" " + cflags_str).replace(' -g ', ' '))
+    cflags = shlex.split(cflags_str)
+    cflags = [flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag)]
 
     objs = shlex.split(generator_util.extract_variable_from_makefile(
         "$(%s_OBJECTS)" % name.replace("-", "__"),
