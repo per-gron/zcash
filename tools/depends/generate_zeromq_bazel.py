@@ -22,7 +22,8 @@ platform_hpp = "src/platform.hpp"
 
 cflags_str = generator_util.extract_variable_from_makefile(
     "$(DEFS) $(src_libzmq_la_CPPFLAGS) $(CPPFLAGS) $(src_libzmq_la_CXXFLAGS) $(CXXFLAGS)")
-cflags = ["'%s'" % flag for flag in shlex.split((" " + cflags_str).replace(' -g ', ' '))]
+cflags = shlex.split(cflags_str)
+cflags = ["'%s'" % flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag)]
 ldflags = shlex.split(generator_util.extract_variable_from_makefile("$(LDFLAGS)"))
 objs = shlex.split(generator_util.extract_variable_from_makefile(
     "$(src_libzmq_la_OBJECTS)"))
