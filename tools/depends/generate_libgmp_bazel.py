@@ -135,7 +135,8 @@ def process_asm_genrules():
         # the /../ is significant: $$(dirname $(location mpn/asm-defs.m4))
         # points to a symlink and merely taking the dirname of that is not
         # the same as appending /..
-        rule += "    cmd = \"cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location %s) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_%s) > $@\",\n" % (asm_src, operation)
+        rule += "    cmd = \"cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location %s) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_%s) > $@\",\n" % (asm_src, operation)
+        rule += "    tools = ['@m4//:m4'],\n"
         rule += ")\n\n"
 
     return rule

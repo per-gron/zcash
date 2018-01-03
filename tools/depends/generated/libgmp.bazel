@@ -2640,448 +2640,512 @@ genrule(
     name = 'mpn/invert_limb_table.asm_asm',
     srcs = ['mpn/invert_limb_table.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/invert_limb_table.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/invert_limb_table.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_invert_limb_table) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/invert_limb_table.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_invert_limb_table) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/add_n.asm_asm',
     srcs = ['mpn/add_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/add_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_add_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_add_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sub_n.asm_asm',
     srcs = ['mpn/sub_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sub_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sub_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sub_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/cnd_add_n.asm_asm',
     srcs = ['mpn/cnd_add_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/cnd_add_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/cnd_add_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_cnd_add_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/cnd_add_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_cnd_add_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/cnd_sub_n.asm_asm',
     srcs = ['mpn/cnd_sub_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/cnd_sub_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/cnd_sub_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_cnd_sub_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/cnd_sub_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_cnd_sub_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/com.asm_asm',
     srcs = ['mpn/com.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/com.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/com.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_com) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/com.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_com) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mul_1.asm_asm',
     srcs = ['mpn/mul_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mul_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mul_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mul_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addmul_1.asm_asm',
     srcs = ['mpn/addmul_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addmul_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addmul_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addmul_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addmul_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addmul_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/submul_1.asm_asm',
     srcs = ['mpn/submul_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/submul_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/submul_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_submul_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/submul_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_submul_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/add_err1_n.asm_asm',
     srcs = ['mpn/add_err1_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/add_err1_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err1_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_add_err1_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err1_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_add_err1_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/add_err2_n.asm_asm',
     srcs = ['mpn/add_err2_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/add_err2_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err2_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_add_err2_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err2_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_add_err2_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/add_err3_n.asm_asm',
     srcs = ['mpn/add_err3_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/add_err3_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err3_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_add_err3_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/add_err3_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_add_err3_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sub_err1_n.asm_asm',
     srcs = ['mpn/sub_err1_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sub_err1_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err1_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sub_err1_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err1_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sub_err1_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sub_err2_n.asm_asm',
     srcs = ['mpn/sub_err2_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sub_err2_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err2_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sub_err2_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err2_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sub_err2_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sub_err3_n.asm_asm',
     srcs = ['mpn/sub_err3_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sub_err3_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err3_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sub_err3_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sub_err3_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sub_err3_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/lshift.asm_asm',
     srcs = ['mpn/lshift.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/lshift.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/lshift.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_lshift) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/lshift.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_lshift) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rshift.asm_asm',
     srcs = ['mpn/rshift.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rshift.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rshift.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rshift) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rshift.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rshift) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/dive_1.asm_asm',
     srcs = ['mpn/dive_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/dive_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/dive_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_dive_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/dive_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_dive_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/divrem_1.asm_asm',
     srcs = ['mpn/divrem_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/divrem_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/divrem_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_divrem_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/divrem_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_divrem_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/divrem_2.asm_asm',
     srcs = ['mpn/divrem_2.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/divrem_2.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/divrem_2.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_divrem_2) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/divrem_2.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_divrem_2) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mod_34lsub1.asm_asm',
     srcs = ['mpn/mod_34lsub1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mod_34lsub1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_34lsub1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mod_34lsub1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_34lsub1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mod_34lsub1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mode1o.asm_asm',
     srcs = ['mpn/mode1o.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mode1o.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mode1o.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mode1o) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mode1o.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mode1o) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mod_1_1.asm_asm',
     srcs = ['mpn/mod_1_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mod_1_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mod_1_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mod_1_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mod_1_2.asm_asm',
     srcs = ['mpn/mod_1_2.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mod_1_2.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_2.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mod_1_2) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_2.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mod_1_2) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mod_1_4.asm_asm',
     srcs = ['mpn/mod_1_4.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mod_1_4.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_4.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mod_1_4) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mod_1_4.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mod_1_4) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/lshiftc.asm_asm',
     srcs = ['mpn/lshiftc.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/lshiftc.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/lshiftc.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_lshiftc) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/lshiftc.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_lshiftc) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mul_basecase.asm_asm',
     srcs = ['mpn/mul_basecase.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mul_basecase.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_basecase.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mul_basecase) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_basecase.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mul_basecase) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sqr_basecase.asm_asm',
     srcs = ['mpn/sqr_basecase.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sqr_basecase.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sqr_basecase.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sqr_basecase) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sqr_basecase.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sqr_basecase) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/popcount.asm_asm',
     srcs = ['mpn/popcount.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/popcount.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/popcount.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_popcount) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/popcount.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_popcount) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/hamdist.asm_asm',
     srcs = ['mpn/hamdist.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/hamdist.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/hamdist.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_hamdist) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/hamdist.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_hamdist) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/gcd_1.asm_asm',
     srcs = ['mpn/gcd_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/gcd_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/gcd_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_gcd_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/gcd_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_gcd_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mullo_basecase.asm_asm',
     srcs = ['mpn/mullo_basecase.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mullo_basecase.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mullo_basecase.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mullo_basecase) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mullo_basecase.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mullo_basecase) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/div_qr_1n_pi1.asm_asm',
     srcs = ['mpn/div_qr_1n_pi1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/div_qr_1n_pi1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_1n_pi1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_div_qr_1n_pi1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_1n_pi1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_div_qr_1n_pi1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/div_qr_2n_pi1.asm_asm',
     srcs = ['mpn/div_qr_2n_pi1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/div_qr_2n_pi1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_2n_pi1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_div_qr_2n_pi1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_2n_pi1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_div_qr_2n_pi1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/div_qr_2u_pi1.asm_asm',
     srcs = ['mpn/div_qr_2u_pi1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/div_qr_2u_pi1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_2u_pi1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_div_qr_2u_pi1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/div_qr_2u_pi1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_div_qr_2u_pi1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/bdiv_q_1.asm_asm',
     srcs = ['mpn/bdiv_q_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/bdiv_q_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/bdiv_q_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_bdiv_q_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/bdiv_q_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_bdiv_q_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/bdiv_dbm1c.asm_asm',
     srcs = ['mpn/bdiv_dbm1c.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/bdiv_dbm1c.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/bdiv_dbm1c.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_bdiv_dbm1c) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/bdiv_dbm1c.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_bdiv_dbm1c) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/redc_1.asm_asm',
     srcs = ['mpn/redc_1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/redc_1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/redc_1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_redc_1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/redc_1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_redc_1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/and_n.asm_asm',
     srcs = ['mpn/and_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/and_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/and_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_and_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/and_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_and_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/andn_n.asm_asm',
     srcs = ['mpn/andn_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/andn_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/andn_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_andn_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/andn_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_andn_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/nand_n.asm_asm',
     srcs = ['mpn/nand_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/nand_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/nand_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_nand_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/nand_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_nand_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/ior_n.asm_asm',
     srcs = ['mpn/ior_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/ior_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/ior_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_ior_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/ior_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_ior_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/iorn_n.asm_asm',
     srcs = ['mpn/iorn_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/iorn_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/iorn_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_iorn_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/iorn_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_iorn_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/nior_n.asm_asm',
     srcs = ['mpn/nior_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/nior_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/nior_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_nior_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/nior_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_nior_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/xor_n.asm_asm',
     srcs = ['mpn/xor_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/xor_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/xor_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_xor_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/xor_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_xor_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/xnor_n.asm_asm',
     srcs = ['mpn/xnor_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/xnor_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/xnor_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_xnor_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/xnor_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_xnor_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/copyi.asm_asm',
     srcs = ['mpn/copyi.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/copyi.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/copyi.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_copyi) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/copyi.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_copyi) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/copyd.asm_asm',
     srcs = ['mpn/copyd.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/copyd.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/copyd.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_copyd) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/copyd.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_copyd) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sec_tabselect.asm_asm',
     srcs = ['mpn/sec_tabselect.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sec_tabselect.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sec_tabselect.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sec_tabselect) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sec_tabselect.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sec_tabselect) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/invert_limb.asm_asm',
     srcs = ['mpn/invert_limb.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/invert_limb.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/invert_limb.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_invert_limb) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/invert_limb.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_invert_limb) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sqr_diag_addlsh1.asm_asm',
     srcs = ['mpn/sqr_diag_addlsh1.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sqr_diag_addlsh1.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sqr_diag_addlsh1.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sqr_diag_addlsh1) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sqr_diag_addlsh1.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sqr_diag_addlsh1) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/mul_2.asm_asm',
     srcs = ['mpn/mul_2.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/mul_2.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_2.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_mul_2) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/mul_2.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_mul_2) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addmul_2.asm_asm',
     srcs = ['mpn/addmul_2.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addmul_2.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addmul_2.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addmul_2) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addmul_2.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addmul_2) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addlsh1_n.asm_asm',
     srcs = ['mpn/addlsh1_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addlsh1_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh1_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addlsh1_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh1_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addlsh1_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sublsh1_n.asm_asm',
     srcs = ['mpn/sublsh1_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sublsh1_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sublsh1_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sublsh1_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sublsh1_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sublsh1_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rsblsh1_n.asm_asm',
     srcs = ['mpn/rsblsh1_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rsblsh1_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh1_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rsblsh1_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh1_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rsblsh1_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rsh1add_n.asm_asm',
     srcs = ['mpn/rsh1add_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rsh1add_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsh1add_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rsh1add_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsh1add_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rsh1add_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rsh1sub_n.asm_asm',
     srcs = ['mpn/rsh1sub_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rsh1sub_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsh1sub_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rsh1sub_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsh1sub_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rsh1sub_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addlsh2_n.asm_asm',
     srcs = ['mpn/addlsh2_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addlsh2_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh2_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addlsh2_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh2_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addlsh2_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/sublsh2_n.asm_asm',
     srcs = ['mpn/sublsh2_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/sublsh2_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sublsh2_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_sublsh2_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/sublsh2_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_sublsh2_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rsblsh2_n.asm_asm',
     srcs = ['mpn/rsblsh2_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rsblsh2_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh2_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rsblsh2_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh2_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rsblsh2_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addlsh_n.asm_asm',
     srcs = ['mpn/addlsh_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addlsh_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addlsh_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addlsh_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addlsh_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/rsblsh_n.asm_asm',
     srcs = ['mpn/rsblsh_n.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/rsblsh_n.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh_n.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_rsblsh_n) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/rsblsh_n.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_rsblsh_n) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
     name = 'mpn/addaddmul_1msb0.asm_asm',
     srcs = ['mpn/addaddmul_1msb0.asm'] + ['config.m4', 'mpn/asm-defs.m4', 'mpn/x86_64/x86_64-defs.m4'] + glob(['mpn/x86_64/**/*.asm']),
     outs = ['mpn/addaddmul_1msb0.s'],
-    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addaddmul_1msb0.asm) | (cd $$(dirname $(location mpn/asm-defs.m4)) && m4 -DOPERATION_addaddmul_1msb0) > $@",
+    cmd = "cat $(location config.m4) > $$(dirname $(location mpn/asm-defs.m4))/../config.m4 && cat $(location mpn/addaddmul_1msb0.asm) | (export M4=$$(pwd)/$(location @m4//:m4) && cd $$(dirname $(location mpn/asm-defs.m4)) && $$M4 -DOPERATION_addaddmul_1msb0) > $@",
+    tools = ['@m4//:m4'],
 )
 
 genrule(
