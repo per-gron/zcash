@@ -42,7 +42,8 @@ makefile = "src/libsodium/Makefile"
 cflags_str = generator_util.extract_variable_from_makefile(
     "$(DEFS) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
     makefile)
-cflags = ["'%s'" % flag for flag in shlex.split((" " + cflags_str).replace(' -g ', ' '))]
+cflags = shlex.split(cflags_str)
+cflags = ["'%s'" % flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag)]
 
 version_h = "src/libsodium/include/sodium/version.h"
 
