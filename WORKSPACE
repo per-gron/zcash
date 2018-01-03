@@ -147,6 +147,13 @@ new_http_archive(
     build_file = "tools/depends/generated/proton.bazel",
 )
 
+http_archive(
+    name = "zcash_cc_toolchain",
+    strip_prefix = "zcash_cc_toolchain",
+    urls = ["https://github.com/per-gron/zcash-toolchain/releases/download/v0.0.3/zcash_cc_toolchain.tar.xz"],
+    sha256 = "b9d44063e415c0c2863799588aa110af041b02dac29556013b00def8108a58cc",
+)
+
 new_http_archive(
     name = "zeromq",
     strip_prefix = "zeromq-4.2.1",
