@@ -59,6 +59,14 @@ new_http_archive(
 )
 
 new_http_archive(
+    name = "m4",
+    strip_prefix = "m4-2",
+    urls = ["http://haddonthethird.net/m4/m4-2.tar.bz2"],
+    sha256 = "e4315fef49b08912b1d1db3774dd98f971397b2751c648512b6c8d852590dc50",
+    build_file = "tools/depends/m4.bazel",
+)
+
+new_http_archive(
     name = "openssl",
     strip_prefix = "openssl-1.1.0d",
     urls = ["https://www.openssl.org/source/openssl-1.1.0d.tar.gz"],
