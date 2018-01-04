@@ -485,7 +485,6 @@ cc_library(
         "//src/script:sign",
         "//src/script:standard",
         "//src/snark:libsnark",
-        "//src/support/allocators:secure",
         "//src/support/allocators:zeroafterfree",
         "//src/univalue",
         "//src/zcash:Address",
