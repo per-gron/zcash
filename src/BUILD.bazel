@@ -466,6 +466,7 @@ cc_library(
         ":wallet_wallet_ismine",
         ":zmq_zmqabstractnotifier",
         "//src/compat:sanity",
+        "//src/config:bitcoin-config",
         "//src/consensus",
         "//src/consensus:params",
         "//src/consensus:validation",
