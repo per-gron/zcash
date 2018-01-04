@@ -807,12 +807,12 @@ cc_library(
         ":serialize",
         ":streams",
         ":util",
-        "@boost//:foreach",
-        "@openssl//:ssl",
         "//src/script",
         "//src/script:standard",
         "//src/support/allocators:secure",
         "//src/zcash:Address",
+        "@boost//:foreach",
+        "@openssl//:ssl",
     ],
 )
 
@@ -922,8 +922,8 @@ cc_library(
     srcs = ["zmq/zmqabstractnotifier.cpp"],
     hdrs = ["zmq/zmqabstractnotifier.h"],
     deps = [
-        ":zmq_zmqconfig",
         ":util",
+        ":zmq_zmqconfig",
         "@zeromq//:zmq",
     ],
 )
