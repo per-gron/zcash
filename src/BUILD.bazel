@@ -938,6 +938,7 @@ cc_library(
         "//src/config:bitcoin-config",
         "//src/primitives:block",
         "//src/primitives:transaction",
+        "@zeromq//:zmq",
     ],
     defines = ["ENABLE_ZMQ=1"],
 )
