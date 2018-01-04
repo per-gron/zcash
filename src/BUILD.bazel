@@ -478,7 +478,6 @@ cc_library(
         "//src/pow/tromp:equi_miner",
         "//src/primitives:block",
         "//src/primitives:transaction",
-        "//src/secp256k1",
         "//src/script",
         "//src/script:interpreter",
         "//src/script:script_error",
