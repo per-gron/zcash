@@ -55,12 +55,10 @@ cc_library(
     visibility = ["//visibility:public"],
     hdrs = ["amqp/amqpconfig.h"],
     deps = [
-        ":util",
-        "@proton//:qpid-proton",
-        "@proton//:qpid-proton-cpp",
         "//src/config:bitcoin-config",
         "//src/primitives:block",
         "//src/primitives:transaction",
+        "@proton//:qpid-proton-cpp",
     ],
 )
 
@@ -926,7 +924,6 @@ cc_library(
     deps = [
         ":util",
         ":zmq_zmqconfig",
-        "@zeromq//:zmq",
     ],
 )
 
@@ -943,5 +940,5 @@ cc_library(
         "//src/primitives:block",
         "//src/primitives:transaction",
     ],
-    defines = ["ENABLE_ZMQ"],
+    defines = ["ENABLE_ZMQ=1"],
 )
