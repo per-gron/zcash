@@ -516,7 +516,6 @@ cc_library(
         "@libevent//:event",
         "@libsodium//:sodium",
         "@openssl//:crypto",
-        "@openssl//:ssl",
     ],
     defines = [
         "ENABLE_MINING",
@@ -812,7 +811,7 @@ cc_library(
         "//src/support/allocators:secure",
         "//src/zcash:Address",
         "@boost//:foreach",
-        "@openssl//:ssl",
+        "@openssl//:crypto",
     ],
 )
 
