@@ -3,9 +3,9 @@ cc_library(
     visibility = ["//visibility:public"],
     hdrs = ["common.h"],
     deps = [
-        "@libsodium//:sodium",
         "//src/compat:endian",
         "//src/config:bitcoin-config",
+        "@libsodium//:sodium",
     ],
 )
 
@@ -19,13 +19,13 @@ cc_library(
     ],
     deps = [
         ":sha256",
-        "@boost//:optional",
-        "@boost//:static_assert",
-        "@libsodium//:sodium",
         "//src:util",
         "//src:utilstrencodings",
         "//src/compat:endian",
         "//src/config:bitcoin-config",
+        "@boost//:optional",
+        "@boost//:static_assert",
+        "@libsodium//:sodium",
     ],
 )
 
