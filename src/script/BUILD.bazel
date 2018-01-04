@@ -4,14 +4,14 @@ cc_library(
     hdrs = ["interpreter.h"],
     srcs = ["interpreter.cpp"],
     deps = [
-            ":script",
-            ":script_error",
-            "//src:hash",
-            "//src:uint256",
-            "//src/crypto:ripemd160",
-            "//src/crypto:sha1",
-            "//src/crypto:sha256",
-            "//src/primitives:transaction",
+        ":script",
+        ":script_error",
+        "//src:hash",
+        "//src:uint256",
+        "//src/crypto:ripemd160",
+        "//src/crypto:sha1",
+        "//src/crypto:sha256",
+        "//src/primitives:transaction",
     ],
 )
 
@@ -21,9 +21,9 @@ cc_library(
     hdrs = ["script.h"],
     srcs = ["script.cpp"],
     deps = [
-            "//src:tinyformat",
-            "//src:utilstrencodings",
-            "//src/crypto:common",
+        "//src:tinyformat",
+        "//src:utilstrencodings",
+        "//src/crypto:common",
     ],
 )
 
@@ -41,11 +41,11 @@ cc_library(
     hdrs = ["sigcache.h"],
     deps = [
         ":interpreter",
-        "@boost//:thread",
-        "@boost//:tuple",
         "//src:hash",
         "//src:uint256",
         "//src:util",
+        "@boost//:thread",
+        "@boost//:tuple",
     ],
 )
 
@@ -57,10 +57,11 @@ cc_library(
     deps = [
         ":interpreter",
         ":standard",
-        "//src/primitives:transaction",
         "//src:key",
         "//src:keystore",
         "//src:uint256",
+        "//src/primitives:transaction",
+        "@boost//:foreach",
     ],
 )
 
@@ -70,13 +71,13 @@ cc_library(
     hdrs = ["standard.h"],
     srcs = ["standard.cpp"],
     deps = [
-            ":interpreter",
-            ":script",
-            "//src:hash",
-            "//src:uint256",
-            "//src:util",
-            "//src:utilstrencodings",
-            "@boost//:foreach",
-            "@boost//:variant",
+        ":interpreter",
+        ":script",
+        "//src:hash",
+        "//src:uint256",
+        "//src:util",
+        "//src:utilstrencodings",
+        "@boost//:foreach",
+        "@boost//:variant",
     ],
 )

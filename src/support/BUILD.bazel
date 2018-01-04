@@ -24,7 +24,7 @@ cc_library(
     hdrs = ["pagelocker.h"],
     deps = [
         ":cleanse",
-        "@boost//:thread",
         "//src/config:bitcoin-config",
+        "@boost//:thread",
     ],
 )

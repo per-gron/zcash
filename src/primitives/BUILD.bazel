@@ -6,8 +6,8 @@ cc_library(
     deps = [
         ":transaction",
         "//src:hash",
-        "//src:tinyformat",
         "//src:serialize",
+        "//src:tinyformat",
         "//src:uint256",
         "//src:utilstrencodings",
         "//src/crypto:common",
@@ -33,6 +33,6 @@ cc_library(
         "//src/zcash:NoteEncryption",
         "//src/zcash:Proof",
         "//src/zcash:Zcash",
-        "@boost//:array"
+        "@boost//:array",
     ],
 )

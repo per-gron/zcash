@@ -22,12 +22,12 @@ cc_library(
     deps = [
         ":util",
         ":Zcash",
-        "@boost//:foreach",
-        "@boost//:optional",
-        "@boost//:static_assert",
         "//src:serialize",
         "//src:uint256",
         "//src/crypto:sha256",
+        "@boost//:foreach",
+        "@boost//:optional",
+        "@boost//:static_assert",
     ],
 )
 
@@ -45,10 +45,6 @@ cc_library(
         ":Proof",
         ":util",
         ":Zcash",
-        "@boost//:array",
-        "@boost//:foreach",
-        "@boost//:format",
-        "@libsodium//:sodium",
         "//src:amount",
         "//src:tinyformat",
         "//src:uint252",
@@ -56,6 +52,11 @@ cc_library(
         "//src:util",
         "//src/snark:libsnark",
         "//src/zcash/circuit",
+        "@boost//:array",
+        "@boost//:foreach",
+        "@boost//:format",
+        "@boost//:optional",
+        "@libsodium//:sodium",
     ],
 )
 
@@ -85,11 +86,11 @@ cc_library(
     deps = [
         ":prf",
         ":Zcash",
+        "//src:uint252",
+        "//src:uint256",
         "@boost//:array",
         "@boost//:static_assert",
         "@libsodium//:sodium",
-        "//src:uint252",
-        "//src:uint256",
     ],
 )
 
@@ -111,11 +112,11 @@ cc_library(
     srcs = ["Proof.cpp"],
     hdrs = ["Proof.hpp"],
     deps = [
-        "@boost//:static_assert",
         "//src:serialize",
         "//src:uint256",
         "//src/crypto:common",
         "//src/snark:libsnark",
+        "@boost//:static_assert",
     ],
 )
 
