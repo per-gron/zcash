@@ -330,11 +330,14 @@ with generator_util.cd(build_dir):
     # Generate encodings.h and protocol.h
     subprocess.call(["make", "generated_c_files"])
 
-generated_files = [
+generated_public_files = [
     "proton-c/include/proton/version.h",
+]
+generated_private_files = [
     "proton-c/src/encodings.h",
     "proton-c/src/protocol.h",
 ]
+generated_files = generated_public_files + generated_private_files
 
 # TODO(per-gron): This is not very nice; it assumes that the package is
 # being imported with a given name.
@@ -406,6 +409,10 @@ def process_library(name, lib_descriptor):
         cwd = build_dir))
     srcs = [obj_to_src(obj) for obj in objs]
 
+    public_generated_headers = []
+    if name == "qpid-proton":
+        public_generated_headers = generated_public_files
+
     rule += "cc_library(\n"
     if lib_descriptor["public"]:
         rule += '    visibility = ["//visibility:public"],\n'
@@ -413,7 +420,9 @@ def process_library(name, lib_descriptor):
     rule += "    deps = %s,\n" % lib_descriptor["deps"]
     rule += "    includes = %s,\n" % lib_descriptor["includes"]
     rule += "    copts = %s,\n" % (cflags + extra_cflags + lib_descriptor["cflags"])
-    rule += "    srcs = %s + glob(['%s/**/*.h', '%s/**/*.hpp']) + %s,\n" % (srcs, lib_dir, lib_dir, generated_files)
+    rule += "    srcs = %s + %s + glob(['%s/**/*.h', '%s/**/*.hpp']) + %s,\n" % (srcs, generated_private_files, lib_dir, lib_dir, generated_public_files)
+    if lib_descriptor["public"]:
+        rule += "    hdrs = glob(['%s/include/**/*.h', '%s/include/**/*.hpp']) + %s,\n" % (lib_dir, lib_dir, public_generated_headers)
     rule += ")\n\n"
 
     return rule
