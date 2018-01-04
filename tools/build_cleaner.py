@@ -209,7 +209,7 @@ def resolve_included_headers(workspace_dir, rule_input_labels, hdr_bazelpaths, t
             res[resolved_path] = set()
         res[resolved_path] = res[resolved_path].union(hdr_bazelpaths[resolved_path])
 
-    for input_label in rule_input_labels[name]:
+    for input_label in rule_input_labels[target_name]:
         for path in extract_nonsystem_includes(label_to_path(workspace_dir, input_label)):
             found = False
             for search_path in search_paths:
@@ -366,13 +366,3 @@ for name in target_names_to_process:
 for package in packages_to_process:
     build_file = os.path.join(workspace_dir + package, "BUILD.bazel")
     replace_deps(build_file, package, target_deps)
-
-
-'''
-TODO:
-* Should secp256k1 really depend on other stuff?
-* Why does amqpconfig.h not depend on proton?
-* Why does zmqconfig.h not depend on zeromq?
-* What about the boost type_traits stuff in IncrementalMerkleTree?
-* Actually run bazel query
-'''
