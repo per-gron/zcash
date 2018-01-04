@@ -474,7 +474,6 @@ cc_library(
         "//src/crypto:common",
         "//src/crypto:equihash",
         "//src/crypto:hmac_sha256",
-        "//src/crypto:hmac_sha512",
         "//src/leveldb",
         "//src/pow/tromp:equi_miner",
         "//src/primitives:block",
