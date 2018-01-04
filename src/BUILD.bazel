@@ -937,7 +937,6 @@ cc_library(
     visibility = ["//visibility:public"],
     hdrs = ["zmq/zmqconfig.h"],
     deps = [
-        ":util",
         "//src/config:bitcoin-config",
         "//src/primitives:block",
         "//src/primitives:transaction",
