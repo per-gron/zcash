@@ -121,10 +121,10 @@ cc_library(
         ":serialize",
         ":streams",
         ":util",
-        "@boost//:foreach",
         "//src/primitives:transaction",
         "//src/script",
         "//src/script:standard",
+        "@boost//:foreach",
     ],
 )
 
@@ -151,8 +151,8 @@ cc_library(
     srcs = ["clientversion.cpp"],
     deps = [
         ":tinyformat",
-        "@boost//:preprocessor",
         "//src/config:bitcoin-config",
+        "@boost//:preprocessor",
     ],
 )
 
@@ -236,8 +236,8 @@ cc_library(
         "@boost//:algorithm",
         "@boost//:foreach",
         "@boost//:function",
-        "@boost//:thread",
         "@boost//:scoped_ptr",
+        "@boost//:thread",
         "@libevent//:event",
     ],
 )
@@ -269,13 +269,13 @@ cc_library(
         ":hash",
         ":key",
         ":util",
-        "@boost//:foreach",
-        "@boost//:signals2",
-        "@boost//:variant",
         "//src/script",
         "//src/script:standard",
         "//src/zcash:Address",
         "//src/zcash:NoteEncryption",
+        "@boost//:foreach",
+        "@boost//:signals2",
+        "@boost//:variant",
     ],
 )
 
@@ -290,9 +290,9 @@ cc_library(
         ":streams",
         ":util",
         ":version",
-        "@boost//:filesystem",
         "//src/leveldb",
         "//src/leveldb:memenv",
+        "@boost//:filesystem",
     ],
 )
 
@@ -420,12 +420,12 @@ cc_library(
     deps = [
         ":addrman",
         ":alertkeys",
+        ":amount",
         ":amqp_amqpabstractnotifier",
         ":amqp_amqpsender",
         ":arith_uint256",
         ":asyncrpcoperation",
         ":asyncrpcqueue",
-        ":amount",
         ":bloom",
         ":chainparamsseeds",
         ":checkqueue",
@@ -451,8 +451,8 @@ cc_library(
         ":streams",
         ":timedata",
         ":tinyformat",
-        ":uint256",
         ":ui_interface",
+        ":uint256",
         ":undo",
         ":util",
         ":utilmoneystr",
@@ -536,9 +536,9 @@ cc_library(
         ":uint256",
         ":util",
         ":utilstrencodings",
+        "//src/config:bitcoin-config",
         "@boost//:algorithm",
         "@boost//:thread",
-        "//src/config:bitcoin-config",
     ],
     linkopts = ["-lanl"],
 )
@@ -598,8 +598,8 @@ cc_library(
         ":utilstrencodings",
         ":utiltime",
         ":version",
-        "@boost//:filesystem",
         "//src/univalue",
+        "@boost//:filesystem",
     ],
 )
 
@@ -725,8 +725,10 @@ cc_library(
         ":threadsafety",
         ":tinyformat",
         ":uint256",
-        ":utiltime",
         ":utilstrencodings",
+        ":utiltime",
+        "//src/config:bitcoin-config",
+        "//src/support:cleanse",
         "@boost//:algorithm",
         "@boost//:filesystem",
         "@boost//:foreach",
@@ -735,8 +737,6 @@ cc_library(
         "@boost//:thread",
         "@libsodium//:sodium",
         "@openssl//:crypto",
-        "//src/config:bitcoin-config",
-        "//src/support:cleanse",
     ],
 )
 
@@ -759,9 +759,9 @@ cc_library(
     srcs = ["utiltime.cpp"],
     hdrs = ["utiltime.h"],
     deps = [
+        "//src/config:bitcoin-config",
         "@boost//:date_time",
         "@boost//:thread",
-        "//src/config:bitcoin-config",
     ],
 )
 
@@ -851,9 +851,9 @@ cc_library(
     deps = [
         ":key",
         ":keystore",
-        "@boost//:foreach",
         "//src/script",
         "//src/script:standard",
+        "@boost//:foreach",
     ],
 )
 
@@ -866,10 +866,10 @@ cc_binary(
         ":rpcprotocol",
         ":util",
         ":utilstrencodings",
-        "@boost//:filesystem",
-        "@libevent//:event",
         "//src/support:events",
         "//src/univalue",
+        "@boost//:filesystem",
+        "@libevent//:event",
     ],
 )
 
@@ -897,11 +897,11 @@ cc_binary(
     srcs = ["bitcoind.cpp"],
     deps = [
         ":clientversion",
+        ":httpserver",
         ":main",
         ":noui",
         ":scheduler",
         ":util",
-        ":httpserver",
         "@boost//:algorithm",
         "@boost//:filesystem",
         "@boost//:thread",
