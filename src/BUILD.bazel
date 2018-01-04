@@ -215,6 +215,7 @@ cc_library(
         ":serialize",
         ":uint256",
         ":version",
+        "//src/crypto:common",
         "//src/crypto:hmac_sha512",
         "//src/crypto:ripemd160",
         "//src/crypto:sha256",
