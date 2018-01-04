@@ -610,6 +610,7 @@ cc_library(
     hdrs = ["scheduler.h"],
     deps = [
         ":reverselock",
+        "@boost//:bind",
         "@boost//:chrono",
         "@boost//:function",
         "@boost//:thread",
