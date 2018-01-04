@@ -422,6 +422,7 @@ cc_library(
         ":alertkeys",
         ":amount",
         ":amqp_amqpabstractnotifier",
+        ":amqp_amqpconfig",
         ":amqp_amqpsender",
         ":arith_uint256",
         ":asyncrpcoperation",
