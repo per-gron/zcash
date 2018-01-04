@@ -2,6 +2,9 @@ cc_library(
     name = "byteswap",
     visibility = ["//visibility:public"],
     hdrs = ["byteswap.h"],
+    deps = [
+        "//src/config:bitcoin-config",
+    ],
 )
 
 cc_library(
@@ -10,6 +13,7 @@ cc_library(
     hdrs = ["endian.h"],
     deps = [
         ":byteswap",
+        "//src/config:bitcoin-config",
     ],
 )
 
