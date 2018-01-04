@@ -481,6 +481,7 @@ cc_library(
         "//src/secp256k1",
         "//src/script",
         "//src/script:interpreter",
+        "//src/script:script_error",
         "//src/script:sigcache",
         "//src/script:sign",
         "//src/script:standard",
