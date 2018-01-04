@@ -835,8 +835,10 @@ cc_library(
         ":util",
         ":utilstrencodings",
         ":version",
-        "@boost//:filesystem",
         "@bdb//:db_cxx",
+        "@boost//:filesystem",
+        "@boost//:thread",
+        "@boost//:version",
     ],
 )
 
@@ -884,12 +886,13 @@ cc_binary(
         ":util",
         ":utilmoneystr",
         ":utilstrencodings",
-        "@boost//:algorithm",
         "//src/consensus",
         "//src/primitives:transaction",
         "//src/script",
         "//src/script:sign",
         "//src/univalue",
+        "@boost//:algorithm",
+        "@boost//:assign",
     ],
 )
 
