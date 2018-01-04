@@ -55,7 +55,8 @@ def process_library():
     rule += "    copts = %s,\n" % (cflags + extra_cflags)
     rule += "    linkopts = %s,\n" % (ldflags + extra_ldflags)
     rule += "    includes = ['include'],\n"
-    rule += "    srcs = depset(%s + glob(['src/**/*.h', 'src/**/*.hpp', 'include/*.h'])),\n" % srcs
+    rule += "    srcs = depset(%s + glob(['src/**/*.h', 'src/**/*.hpp'])),\n" % srcs
+    rule += "    hdrs = glob(['include/*.h']),\n"
     rule += ")\n\n"
 
     return rule
