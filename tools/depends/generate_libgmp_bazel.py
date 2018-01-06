@@ -33,8 +33,8 @@ libraries = [  # Order is significant
     { "name": "printf", "dir": "printf", "deps": [":gmp_core"] },
     { "name": "mpz", "dir": "mpz", "deps": [":gmp_core"] },
     { "name": "mpq", "dir": "mpq", "deps": [] },
-    { "name": "mpn", "dir": "mpn", "deps": [":gmp_core"] },
     { "name": "mpf", "dir": "mpf", "deps": [] },
+    { "name": "mpn", "dir": "mpn", "deps": [":gmp_core"] },
     { "name": "gmp_core", "dir": ".", "deps": [] },
 ]
 
