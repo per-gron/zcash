@@ -1,0 +1,394 @@
+cc_library(
+    name = "json_test_vectors",
+    hdrs = ["json_test_vectors.h"],
+    srcs = ["json_test_vectors.cpp"],
+    deps = [
+        "//src:serialize",
+        "//src:streams",
+        "//src:utilstrencodings",
+        "//src/univalue",
+        "//src:version",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "main",
+    srcs = ["main.cpp"],
+    deps = [
+        ":test_block",
+        ":test_checkblock",
+        ":test_checktransaction",
+        ":test_circuit",
+        ":test_deprecation",
+        ":test_equihash",
+        ":test_foundersreward",
+        ":test_httprpc",
+        ":test_joinsplit",
+        ":test_keystore",
+        ":test_libzcash_utils",
+        ":test_mempool",
+        ":test_merkletree",
+        ":test_metrics",
+        ":test_miner",
+        ":test_noteencryption",
+        ":test_paymentdisclosure",
+        ":test_pow",
+        ":test_proofs",
+        ":test_random",
+        ":test_rpc",
+        ":test_tautology",
+        ":test_transaction",
+        ":test_txid",
+        ":test_validation",
+        "//src:hash",
+        "//src:util",
+        "//src/crypto:common",
+        "//src/snark:libsnark",
+        "//src/zcash:JoinSplit",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_block",
+    srcs = ["test_block.cpp"],
+    deps = [
+        "//src:streams",
+        "//src:version",
+        "//src/primitives:block",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_library(
+    name = "test_checkblock",
+    srcs = ["test_checkblock.cpp"],
+    deps = [
+        "//src:main",
+        "//src/consensus:validation",
+        "//src/zcash:Proof",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_checktransaction",
+    srcs = ["test_checktransaction.cpp"],
+    deps = [
+        "//src:main",
+        "//src/consensus:validation",
+        "//src/primitives:transaction",
+        "@com_google_googletest//:gtest",
+        "@libsodium//:sodium",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_circuit",
+    srcs = ["test_circuit.cpp"],
+    deps = [
+        "//src/snark:libsnark",
+        "//src:uint256",
+        "//src/zcash:IncrementalMerkleTree",
+        "//src/zcash:util",
+        "//src/zcash/circuit",
+        "@boost//:foreach",
+        "@boost//:format",
+        "@boost//:optional",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_deprecation",
+    srcs = ["test_deprecation.cpp"],
+    deps = [
+        "//src:clientversion",
+        "//src:main",
+        "//src:ui_interface",
+        "//src:util",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_equihash",
+    srcs = ["test_equihash.cpp"],
+    deps = [
+        "//src:uint256",
+        "//src/config:bitcoin-config",
+        "//src/crypto:equihash",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_foundersreward",
+    srcs = ["test_foundersreward.cpp"],
+    deps = [
+        "//src:amount",
+        "//src:main",
+        "//src:util",
+        "//src:utilmoneystr",
+        "//src:utilstrencodings",
+        "//src/zcash:Address",
+        "@boost//:filesystem",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_httprpc",
+    srcs = ["test_httprpc.cpp"],
+    deps = [
+        "//src:httpserver",
+        "//src:main",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+    copts = ["-DBAZEL_BUILD"],
+)
+
+cc_library(
+    name = "test_joinsplit",
+    srcs = ["test_joinsplit.cpp"],
+    deps = [
+        "//src:util",
+        "//src:utilstrencodings",
+        "//src/zcash:IncrementalMerkleTree",
+        "//src/zcash:JoinSplit",
+        "//src/zcash:Note",
+        "//src/zcash:NoteEncryption",
+        "//src/zcash:prf",
+        "@boost//:foreach",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_keystore",
+    srcs = ["test_keystore.cpp"],
+    deps = [
+        "//src:keystore",
+        "//src:util",
+        "//src:wallet_crypter",
+        "//src/zcash:Address",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_libzcash_utils",
+    srcs = ["test_libzcash_utils.cpp"],
+    deps = [
+        "//src/zcash:util",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_mempool",
+    srcs = ["test_mempool.cpp"],
+    deps = [
+        "//src:main",
+        "//src:util",
+        "//src/consensus:validation",
+        "//src/primitives:transaction",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_merkletree",
+    srcs = ["test_merkletree.cpp"],
+    deps = [
+        ":json_test_vectors",
+        "//src:serialize",
+        "//src/snark:libsnark",
+        "//src:streams",
+        "//src/test/data:merkle_commitments",
+        "//src/test/data:merkle_path",
+        "//src/test/data:merkle_roots",
+        "//src/test/data:merkle_roots_empty",
+        "//src/test/data:merkle_serialization",
+        "//src/test/data:merkle_witness_serialization",
+        "//src:utilstrencodings",
+        "//src:version",
+        "//src/zcash:IncrementalMerkleTree",
+        "//src/zcash:util",
+        "@boost//:foreach",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_metrics",
+    srcs = ["test_metrics.cpp"],
+    deps = [
+        "//src:main",
+        "//src:utiltime",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_miner",
+    srcs = ["test_miner.cpp"],
+    deps = [
+        "//src:key",
+        "//src:main",
+        "//src:util",
+        "@boost//:optional",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_noteencryption",
+    srcs = ["test_noteencryption.cpp"],
+    deps = [
+        "//src/crypto:sha256",
+        "//src/zcash:NoteEncryption",
+        "//src/zcash:prf",
+        "@com_google_googletest//:gtest",
+        "@libsodium//:sodium",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_paymentdisclosure",
+    srcs = ["test_paymentdisclosure.cpp"],
+    deps = [
+        "//src:amount",
+        "//src:main",
+        "//src:util",
+        "//src:utilmoneystr",
+        "//src:utilstrencodings",
+        "//src/zcash:Address",
+        "@boost//:filesystem",
+        "@boost//:uuid",
+        "@com_google_googletest//:gtest",
+        "@libsodium//:sodium",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_pow",
+    srcs = ["test_pow.cpp"],
+    deps = [
+        "//src:main",
+        "//src:util",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_proofs",
+    srcs = ["test_proofs.cpp"],
+    deps = [
+        ":json_test_vectors",
+        "//src:streams",
+        "//src:utilstrencodings",
+        "//src:version",
+        "//src/snark:libsnark",
+        "//src/test/data:g1_compressed",
+        "//src/test/data:g2_compressed",
+        "//src/zcash:Proof",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_random",
+    srcs = ["test_random.cpp"],
+    deps = [
+        "//src:util",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_rpc",
+    srcs = ["test_rpc.cpp"],
+    deps = [
+        "//src:clientversion",
+        "//src:main",
+        "//src:streams",
+        "//src:utilstrencodings",
+        "//src/primitives:block",
+        "//src/univalue",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_tautology",
+    srcs = ["test_tautology.cpp"],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+    deps = [
+        "//src:main",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_library(
+    name = "test_transaction",
+    srcs = ["test_transaction.cpp"],
+    deps = [
+        "//src/primitives:transaction",
+        "//src/zcash:Address",
+        "//src/zcash:Note",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_txid",
+    srcs = ["test_txid.cpp"],
+    deps = [
+        "//src:clientversion",
+        "//src:serialize",
+        "//src:streams",
+        "//src:uint256",
+        "//src:util",
+        "//src:utilstrencodings",
+        "//src/primitives:transaction",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+cc_library(
+    name = "test_validation",
+    srcs = ["test_validation.cpp"],
+    deps = [
+        "//src:main",
+        "//src/consensus:validation",
+        "@com_google_googletest//:gtest",
+    ],
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+)
+
+# TODO(per-gron): What about utils.cpp ?

@@ -1,0 +1,101 @@
+cc_library(
+    name = "alertTests",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["alertTests.raw.h"],
+)
+
+cc_library(
+    name = "base58_encode_decode",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["base58_encode_decode.json.h"],
+)
+
+cc_library(
+    name = "base58_keys_invalid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["base58_keys_invalid.json.h"],
+)
+
+cc_library(
+    name = "base58_keys_valid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["base58_keys_valid.json.h"],
+)
+
+cc_library(
+    name = "g1_compressed",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["g1_compressed.json.h"],
+)
+
+cc_library(
+    name = "g2_compressed",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["g2_compressed.json.h"],
+)
+
+cc_library(
+    name = "merkle_commitments",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_commitments.json.h"],
+)
+
+cc_library(
+    name = "merkle_path",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_path.json.h"],
+)
+
+cc_library(
+    name = "merkle_roots",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_roots.json.h"],
+)
+
+cc_library(
+    name = "merkle_roots_empty",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_roots_empty.json.h"],
+)
+
+cc_library(
+    name = "merkle_serialization",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_serialization.json.h"],
+)
+
+cc_library(
+    name = "merkle_witness_serialization",
+    visibility = ["//src/gtest:__pkg__"],
+    hdrs = ["merkle_witness_serialization.json.h"],
+)
+
+cc_library(
+    name = "tx_invalid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["tx_invalid.json.h"],
+)
+
+cc_library(
+    name = "tx_valid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["tx_valid.json.h"],
+)
+
+cc_library(
+    name = "script_invalid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["script_invalid.json.h"],
+)
+
+cc_library(
+    name = "script_valid",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["script_valid.json.h"],
+)
+
+cc_library(
+    name = "sighash",
+    visibility = ["//src/test:__pkg__"],
+    hdrs = ["sighash.json.h"],
+)

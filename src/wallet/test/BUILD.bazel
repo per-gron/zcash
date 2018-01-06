@@ -1,0 +1,12 @@
+cc_test(
+    name = "wallet_tests",
+    size = "small",
+    linkstatic = 1,  # TODO(per-gron): Make this not needed
+    srcs = ["wallet_tests.cpp"],
+    deps = [
+        "//src:main",
+        "//src/test:test_bitcoin",
+        "@boost//:foreach",
+        "@boost//:test",
+    ],
+)

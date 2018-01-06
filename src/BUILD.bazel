@@ -393,6 +393,7 @@ cc_library(
         "coins.h",
         "core_io.h",
         "deprecation.h",
+        "httprpc.cpp",  # TODO(per-gron): Remove direct #includes of this file
         "httprpc.h",
         "init.h",
         "main.h",
@@ -404,6 +405,7 @@ cc_library(
         "policy/fees.h",
         "pow.h",
         "rpcserver.h",
+        "torcontrol.cpp",  # TODO(per-gron): Remove direct #includes of this file
         "torcontrol.h",
         "txdb.h",
         "txmempool.h",
