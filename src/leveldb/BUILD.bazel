@@ -110,7 +110,8 @@ cc_library(
         "-Wno-unused-variable",
         "-Wno-unused-function",
         "-DNDEBUG",
-        "-Isrc/leveldb",
+        "-iquote",
+        "src/leveldb",
     ],
     defines = [
         "LEVELDB_PLATFORM_POSIX",
@@ -131,10 +132,269 @@ cc_library(
     includes = ["helpers/memenv"],
     copts = [
         "-DNDEBUG",
-        "-Isrc/leveldb",
+        "-iquote",
+        "src/leveldb",
     ],
     deps = [
         ":leveldb",
+    ],
+)
+
+cc_library(
+    name = "testharness",
+    srcs = ["util/testharness.cc"],
+    hdrs = ["util/testharness.h"],
+    includes = ["."],
+    deps = [
+        ":leveldb",
+    ],
+)
+
+cc_library(
+    name = "testutil",
+    srcs = ["util/testutil.cc"],
+    hdrs = ["util/testutil.h"],
+    includes = ["."],
+    deps = [
+        ":leveldb",
+    ],
+)
+
+cc_test(
+    name = "db_autocompact_test",
+    srcs = ["db/autocompact_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "db_c_test",
+    srcs = ["db/c_test.c"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_corruption_test",
+    srcs = ["db/corruption_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "db_db_test",
+    srcs = ["db/db_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "db_dbformat_test",
+    srcs = ["db/dbformat_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_filename_test",
+    srcs = ["db/filename_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_log_test",
+    srcs = ["db/log_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_skiplist_test",
+    srcs = ["db/skiplist_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_version_edit_test",
+    srcs = ["db/version_edit_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "db_version_set_test",
+    srcs = ["db/version_set_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "db_write_batch_test",
+    srcs = ["db/write_batch_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "helpers/memenv_memenv_test",
+    srcs = ["helpers/memenv/memenv_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":memenv",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "issues_issue178_test",
+    srcs = ["issues/issue178_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "issues_issue200_test",
+    srcs = ["issues/issue200_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "table_filter_block_test",
+    srcs = ["table/filter_block_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "table_table_test",
+    srcs = ["table/table_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "util_arena_test",
+    srcs = ["util/arena_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "util_bloom_test",
+    srcs = ["util/bloom_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+        ":testutil",
+    ],
+)
+
+cc_test(
+    name = "util_cache_test",
+    srcs = ["util/cache_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "util_coding_test",
+    srcs = ["util/coding_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "util_crc32c_test",
+    srcs = ["util/crc32c_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "util_env_test",
+    srcs = ["util/env_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
+    ],
+)
+
+cc_test(
+    name = "util_hash_test",
+    srcs = ["util/hash_test.cc"],
+    copts = ["-iquote", "src/leveldb"],
+    deps = [
+        ":leveldb",
+        ":testharness",
     ],
 )
 
