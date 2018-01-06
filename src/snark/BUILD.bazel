@@ -128,12 +128,14 @@ cc_library(
         "-march=native",
         "-mtune=native",
         "-DBN_SUPPORT_SNARK",
-        "-Isrc/snark/src",
+        "-iquote",
+        "src/snark/src",
     ],
     defines = [
         "USE_ASM",
         "MONTGOMERY_OUTPUT",
         "CURVE_ALT_BN128",
+        "BINARY_OUTPUT",
     ],
     deps = [
         "@libgmp//:gmp",
