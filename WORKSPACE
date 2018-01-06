@@ -168,8 +168,8 @@ new_http_archive(
 http_archive(
     name = "zcash_cc_toolchain",
     strip_prefix = "zcash_cc_toolchain",
-    urls = ["https://github.com/per-gron/zcash-toolchain/releases/download/v0.0.3/zcash_cc_toolchain.tar.xz"],
-    sha256 = "b9d44063e415c0c2863799588aa110af041b02dac29556013b00def8108a58cc",
+    urls = ["https://github.com/per-gron/zcash-toolchain/releases/download/v0.0.4/zcash_cc_toolchain.tar.xz"],
+    sha256 = "989f50ef1ad1340c24939948dc4c769e702530e61dc4213e35efa0d237d5d625",
 )
 
 new_http_archive(
