@@ -77,6 +77,14 @@ new_http_archive(
 )
 
 new_http_archive(
+    name = "perl",
+    strip_prefix = "ActivePerl-5.24.3.2404-x86_64-linux-glibc-2.15-404865",
+    urls = ["http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-x86_64-linux-glibc-2.15-404865.tar.gz"],
+    sha256 = "71e24949ae5622cb3487c7ba7fe0db08e92c9008d7f34bdae84116b47da54e10",
+    build_file = "tools/depends/perl.bazel",
+)
+
+new_http_archive(
     name = "procps",
     strip_prefix = "procps-v3.3.12-e0784ddaed30d095bb1d9a8ad6b5a23d10a212c4",
     urls = ["https://gitlab.com/procps-ng/procps/repository/v3.3.12/archive.tar.bz2"],

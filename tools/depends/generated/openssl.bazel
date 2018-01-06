@@ -4758,11 +4758,15 @@ genrule(
     # called external, which Bazel cannot handle.
     local = 1,
     srcs = [
-      "crypto/include/internal/bn_conf.h.in",
-      "util/dofile.pl",
-      "configdata.pm",
+        "crypto/include/internal/bn_conf.h.in",
+        "util/dofile.pl",
+        "configdata.pm",
+        "@perl//:perl-support",
     ],
-    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm))\" /usr/bin/perl -Mconfigdata $(location util/dofile.pl) $(location crypto/include/internal/bn_conf.h.in) > \"$@\"",
+    tools = [
+        "@perl//:perl",
+    ],
+    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm)):external/perl/perl/lib\" $(location @perl//:perl) -Mconfigdata $(location util/dofile.pl) $(location crypto/include/internal/bn_conf.h.in) > \"$@\"",
 )
 genrule(
     name = "crypto/include/internal/dso_conf.h-genrule",
@@ -4771,11 +4775,15 @@ genrule(
     # called external, which Bazel cannot handle.
     local = 1,
     srcs = [
-      "crypto/include/internal/dso_conf.h.in",
-      "util/dofile.pl",
-      "configdata.pm",
+        "crypto/include/internal/dso_conf.h.in",
+        "util/dofile.pl",
+        "configdata.pm",
+        "@perl//:perl-support",
     ],
-    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm))\" /usr/bin/perl -Mconfigdata $(location util/dofile.pl) $(location crypto/include/internal/dso_conf.h.in) > \"$@\"",
+    tools = [
+        "@perl//:perl",
+    ],
+    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm)):external/perl/perl/lib\" $(location @perl//:perl) -Mconfigdata $(location util/dofile.pl) $(location crypto/include/internal/dso_conf.h.in) > \"$@\"",
 )
 genrule(
     name = "include/openssl/opensslconf.h-genrule",
@@ -4784,11 +4792,15 @@ genrule(
     # called external, which Bazel cannot handle.
     local = 1,
     srcs = [
-      "include/openssl/opensslconf.h.in",
-      "util/dofile.pl",
-      "configdata.pm",
+        "include/openssl/opensslconf.h.in",
+        "util/dofile.pl",
+        "configdata.pm",
+        "@perl//:perl-support",
     ],
-    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm))\" /usr/bin/perl -Mconfigdata $(location util/dofile.pl) $(location include/openssl/opensslconf.h.in) > \"$@\"",
+    tools = [
+        "@perl//:perl",
+    ],
+    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm)):external/perl/perl/lib\" $(location @perl//:perl) -Mconfigdata $(location util/dofile.pl) $(location include/openssl/opensslconf.h.in) > \"$@\"",
 )
 cc_library(
     name = "crypto",
@@ -5262,11 +5274,15 @@ genrule(
     # called external, which Bazel cannot handle.
     local = 1,
     srcs = [
-      "util/mkbuildinf.pl",
-      "util/dofile.pl",
-      "configdata.pm",
+        "util/mkbuildinf.pl",
+        "util/dofile.pl",
+        "configdata.pm",
+        "@perl//:perl-support",
     ],
-    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm))\" /usr/bin/perl -Mconfigdata $(location util/dofile.pl) $(location util/mkbuildinf.pl) > \"$@\"",
+    tools = [
+        "@perl//:perl",
+    ],
+    cmd = "PERLLIB=\"$$(dirname $(location configdata.pm)):external/perl/perl/lib\" $(location @perl//:perl) -Mconfigdata $(location util/dofile.pl) $(location util/mkbuildinf.pl) > \"$@\"",
 )
 cc_library(
     name = "ssl",

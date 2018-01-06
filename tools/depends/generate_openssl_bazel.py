@@ -171,12 +171,16 @@ genrule(
 genrule(
     name = "$args{src}-genrule",
     srcs = [
-      "$args{generator}->[0]",
-      "crypto/perlasm/x86_64-xlate.pl",
-      "crypto/ec/ecp_nistz256_table.c",
+        "$args{generator}->[0]",
+        "crypto/perlasm/x86_64-xlate.pl",
+        "crypto/ec/ecp_nistz256_table.c",
+        "\@perl//:perl-support",
     ],
     outs = ["$args{src}"],
-    cmd = "/usr/bin/perl \$(location $args{generator}->[0]) $target{perlasm_scheme} \\\"\$@\\\"",
+    tools = [
+        "\@perl//:perl",
+    ],
+    cmd = "\$(location \@perl//:perl) \$(location $args{generator}->[0]) $target{perlasm_scheme} \\\"\$@\\\"",
 )
 EOF
       } elsif ($args{src} =~ /\.h$/) {
@@ -188,11 +192,15 @@ genrule(
     # called external, which Bazel cannot handle.
     local = 1,
     srcs = [
-      "$args{generator}->[0]",
-      "util/dofile.pl",
-      "configdata.pm",
+        "$args{generator}->[0]",
+        "util/dofile.pl",
+        "configdata.pm",
+        "\@perl//:perl-support",
     ],
-    cmd = "PERLLIB=\\\"\$\$(dirname \$(location configdata.pm))\\\" /usr/bin/perl -Mconfigdata \$(location util/dofile.pl) \$(location $args{generator}->[0]) > \\\"\$@\\\"",
+    tools = [
+        "\@perl//:perl",
+    ],
+    cmd = "PERLLIB=\\\"\$\$(dirname \$(location configdata.pm)):external/perl/perl/lib\\\" \$(location \@perl//:perl) -Mconfigdata \$(location util/dofile.pl) \$(location $args{generator}->[0]) > \\\"\$@\\\"",
 )
 EOF
       } else {
