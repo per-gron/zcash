@@ -1,5 +1,10 @@
 # This file is part of the Bazel based build system.
 
+load("//tools:params.bzl", "fetch_sprout_params")
+fetch_sprout_params(
+    name = "sprout-params",
+)
+
 http_archive(
     name = "io_bazel_rules_rust",
     sha256 = "5cf8b372e1c61bc42e7975fe1deb05daea9c2005a29f1dacbe423cb9a709c0a8",
