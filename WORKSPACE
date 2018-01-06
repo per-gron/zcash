@@ -39,7 +39,17 @@ new_http_archive(
     strip_prefix = "hexdump-rel-20160408",
     urls = ["https://github.com/wahern/hexdump/archive/rel-20160408.tar.gz"],
     sha256 = "84890f042f8c301e0c59f8f229ea30f0659e001ed2ebf6ccc73b0f01e4072747",
-    build_file = "tools/depends/hexdump.bazel",
+    build_file_content = r"""
+cc_binary(
+    name = "hexdump",
+    visibility = ["//visibility:public"],
+    srcs = [
+        "hexdump.c",
+        "hexdump.h",
+    ],
+    copts = ["-DHEXDUMP_MAIN"],
+)
+""",
 )
 
 new_http_archive(
@@ -73,7 +83,14 @@ new_http_archive(
     strip_prefix = "m4-2",
     urls = ["http://haddonthethird.net/m4/m4-2.tar.bz2"],
     sha256 = "e4315fef49b08912b1d1db3774dd98f971397b2751c648512b6c8d852590dc50",
-    build_file = "tools/depends/m4.bazel",
+    build_file_content = r"""
+cc_binary(
+    name = "m4",
+    visibility = ["//visibility:public"],
+    srcs = glob(["*.c", "*.h"]),
+    copts = ["-Wno-unused-function"],
+)
+""",
 )
 
 new_http_archive(
@@ -89,7 +106,19 @@ new_http_archive(
     strip_prefix = "ActivePerl-5.24.3.2404-x86_64-linux-glibc-2.15-404865",
     urls = ["http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-x86_64-linux-glibc-2.15-404865.tar.gz"],
     sha256 = "71e24949ae5622cb3487c7ba7fe0db08e92c9008d7f34bdae84116b47da54e10",
-    build_file = "tools/depends/perl.bazel",
+    build_file_content = r"""
+filegroup(
+    name = "perl",
+    visibility = ["//visibility:public"],
+    srcs = ["perl/bin/perl"],
+)
+
+filegroup(
+    name = "perl-support",
+    visibility = ["//visibility:public"],
+    srcs = glob(["perl/etc/**/*", "perl/lib/**/*",]),
+)
+""",
 )
 
 new_http_archive(
