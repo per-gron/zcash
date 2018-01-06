@@ -43,10 +43,7 @@ cflags_str = generator_util.extract_variable_from_makefile(
     "$(DEFS) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
     makefile)
 cflags = shlex.split(cflags_str)
-# Claim to not have explicit_bzero even if we do have it, because it was
-# introduced in glibc 2.25, which is much more recent than other symbols used
-# (and thus unnecessarily makes the program not run on lots of Linuxes).
-cflags = ["'%s'" % flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag) and flag != "-DHAVE_EXPLICIT_BZERO=1" and not re.match(r"^-D_FORTIFY_SOURCE=", flag)]
+cflags = ["'%s'" % flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag) and not re.match(r"^-D_FORTIFY_SOURCE=", flag)]
 
 version_h = "src/libsodium/include/sodium/version.h"
 
