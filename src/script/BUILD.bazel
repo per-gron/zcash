@@ -81,3 +81,17 @@ cc_library(
         "@boost//:variant",
     ],
 )
+
+cc_library(
+    name = "zcashconsensus",
+    visibility = ["//visibility:public"],
+    hdrs = ["zcashconsensus.h"],
+    srcs = ["zcashconsensus.cpp"],
+    deps = [
+        ":interpreter",
+        "//src/config:bitcoin-config",
+        "//src:hash",
+        "//src/primitives:transaction",
+        "//src:version",
+    ],
+)
