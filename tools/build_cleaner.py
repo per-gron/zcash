@@ -211,27 +211,20 @@ def resolve_included_headers(workspace_dir, rule_input_labels, hdr_bazelpaths, t
 
     for input_label in rule_input_labels[target_name]:
         for path in extract_nonsystem_includes(label_to_path(workspace_dir, input_label)):
-            found = False
-            for search_path in search_paths:
-                resolved_path = search_path.resolve(path)
-                if resolved_path in hdr_bazelpaths:
-                    found = True
-                    add_to_res(resolved_path)
-                    break
-
-            # Not found. Perhaps the header search path is relative to the file path?
+            # First check if the header search path is relative to the file path
             bazelpath = re.sub(r"/[^\/]*$", r"/", input_label.replace(":", "/")) + path
-            if not found and bazelpath in hdr_bazelpaths:
-                found = True
+            if bazelpath in hdr_bazelpaths:
                 add_to_res(bazelpath)
+            else:
+                for search_path in search_paths:
+                    resolved_path = search_path.resolve(path)
+                    if resolved_path in hdr_bazelpaths:
+                        add_to_res(resolved_path)
+                        break
 
             # If the path is still not found, it could be that it's referring
             # to a header in the srcs section of the current library. These are
             # unimportant to this script and can be ignored.
-
-            #if not found:
-            #    print "LOL!!! TODO(per-gron) %s - %s - %s - %s" % (input_label, target_name, path, bazelpath)
-            #    #raise Exception("Could not resolve header %s for target %s", path, target_name)
 
     # Remove dependencies to self
     for header in res.keys():
