@@ -35,6 +35,14 @@ http_archive(
 )
 
 new_http_archive(
+    name = "hexdump",
+    strip_prefix = "hexdump-rel-20160408",
+    urls = ["https://github.com/wahern/hexdump/archive/rel-20160408.tar.gz"],
+    sha256 = "84890f042f8c301e0c59f8f229ea30f0659e001ed2ebf6ccc73b0f01e4072747",
+    build_file = "tools/depends/hexdump.bazel",
+)
+
+new_http_archive(
     name = "libevent",
     strip_prefix = "libevent-release-2.1.8-stable",
     urls = ["https://github.com/libevent/libevent/archive/release-2.1.8-stable.tar.gz"],

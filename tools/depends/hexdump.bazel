@@ -1,0 +1,9 @@
+cc_binary(
+    name = "hexdump",
+    visibility = ["//visibility:public"],
+    srcs = [
+        "hexdump.c",
+        "hexdump.h",
+    ],
+    copts = ["-DHEXDUMP_MAIN"],
+)
