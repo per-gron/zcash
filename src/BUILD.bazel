@@ -492,7 +492,6 @@ cc_library(
         "//src/zcash:NoteEncryption",
         "//src/zcash:Proof",
         "//src/zcash:Zcash",
-        "@bdb//:db_cxx",
         "@boost//:algorithm",
         "@boost//:assign",
         "@boost//:bind",
