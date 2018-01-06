@@ -1,101 +1,103 @@
-cc_library(
+load(":hex_header.bzl", "json_hex_header", "raw_hex_header")
+
+raw_hex_header(
     name = "alertTests",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["alertTests.raw.h"],
+    src = "alertTests.raw",
 )
 
-cc_library(
+json_hex_header(
     name = "base58_encode_decode",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["base58_encode_decode.json.h"],
+    src = "base58_encode_decode.json",
 )
 
-cc_library(
+json_hex_header(
     name = "base58_keys_invalid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["base58_keys_invalid.json.h"],
+    src = "base58_keys_invalid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "base58_keys_valid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["base58_keys_valid.json.h"],
+    src = "base58_keys_valid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "g1_compressed",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["g1_compressed.json.h"],
+    src = "g1_compressed.json",
 )
 
-cc_library(
+json_hex_header(
     name = "g2_compressed",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["g2_compressed.json.h"],
+    src = "g2_compressed.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_commitments",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_commitments.json.h"],
+    src = "merkle_commitments.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_path",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_path.json.h"],
+    src = "merkle_path.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_roots",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_roots.json.h"],
+    src = "merkle_roots.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_roots_empty",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_roots_empty.json.h"],
+    src = "merkle_roots_empty.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_serialization",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_serialization.json.h"],
+    src = "merkle_serialization.json",
 )
 
-cc_library(
+json_hex_header(
     name = "merkle_witness_serialization",
     visibility = ["//src/gtest:__pkg__"],
-    hdrs = ["merkle_witness_serialization.json.h"],
+    src = "merkle_witness_serialization.json",
 )
 
-cc_library(
+json_hex_header(
     name = "tx_invalid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["tx_invalid.json.h"],
+    src = "tx_invalid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "tx_valid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["tx_valid.json.h"],
+    src = "tx_valid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "script_invalid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["script_invalid.json.h"],
+    src = "script_invalid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "script_valid",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["script_valid.json.h"],
+    src = "script_valid.json",
 )
 
-cc_library(
+json_hex_header(
     name = "sighash",
     visibility = ["//src/test:__pkg__"],
-    hdrs = ["sighash.json.h"],
+    src = "sighash.json",
 )

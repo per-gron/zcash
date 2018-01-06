@@ -669,7 +669,7 @@ TEST(proofs, g2_deserialization)
 }
 
 #include "json_test_vectors.h"
-#include "test/data/g1_compressed.json.h"
+#include "data/g1_compressed.json.h"
 
 TEST(proofs, g1_test_vectors)
 {
@@ -685,7 +685,7 @@ TEST(proofs, g1_test_vectors)
     }
 }
 
-#include "test/data/g2_compressed.json.h"
+#include "data/g2_compressed.json.h"
 
 TEST(proofs, g2_test_vectors)
 {
