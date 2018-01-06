@@ -48,6 +48,14 @@ cc_test(
         "//src/zcash:JoinSplit",
         "@com_google_googletest//:gtest",
     ],
+    data = [
+        "@sprout-params//:sprout_proving_key",
+        "@sprout-params//:sprout_verifying_key",
+    ],
+    copts = [
+        r"-DSPROUT_PROVING_KEY=\"$(location @sprout-params//:sprout_proving_key)\"",
+        r"-DSPROUT_VERIFYING_KEY=\"$(location @sprout-params//:sprout_verifying_key)\"",
+    ],
     linkstatic = 1,  # TODO(per-gron): Make this not needed
 )
 

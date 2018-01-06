@@ -718,7 +718,15 @@ cc_library(
         "@boost//:test",
         "@boost//:thread",
     ],
-    copts = ["-DBAZEL_BUILD"],
+    data = [
+        "@sprout-params//:sprout_proving_key",
+        "@sprout-params//:sprout_verifying_key",
+    ],
+    copts = [
+        "-DBAZEL_BUILD",
+        r"-DSPROUT_PROVING_KEY=\"$(location @sprout-params//:sprout_proving_key)\"",
+        r"-DSPROUT_VERIFYING_KEY=\"$(location @sprout-params//:sprout_verifying_key)\"",
+    ],
 )
 
 cc_library(
