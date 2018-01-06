@@ -1,13 +1,14 @@
-# Find relevant targets: bazel query //src/...
-# Generate full dependency graph: bazel query --output xml --xml:default_values 'deps(//src/...)'
-
 import os
 
-if "BAZEL_REAL" not in os.environ:
-    # This script is designed to run from within bazel run
-    raise Exception("No BAZEL_REAL environment variable found. Was the script run with `bazel run //tools:build_cleaner`?")
+if "BAZEL_CMD" not in os.environ:
+    # This script is designed to run from within build_cleaner.sh
+    #
+    # It can't be run from within bazel run because it needs to invoke Bazel
+    # which isn't possible because of the global bazel lock.
+    raise Exception("No BAZEL_CMD environment variable found. Was the script run with `tools/build_cleaner.sh`?")
 
 import re
+import subprocess
 import xml.etree.ElementTree as ET
 from redbaron import RedBaron
 
@@ -82,9 +83,9 @@ def get_rule_hdr_bazelpaths(target_tags):
     return res
 
 def get_workspace_dir():
-    # Use os.environ['PWD'] instead of os.getcwd() because it works when the
-    # script is run with bazel run
-    workspace_dir = os.environ['PWD']
+    # Use os.environ['WORKING_DIRECTORY'] as supplied by the build_cleaner.sh
+    # wrapper script; the actual working directory is clobbered by Bazel.
+    workspace_dir = os.environ['WORKING_DIRECTORY']
     while workspace_dir != os.path.dirname(workspace_dir):
         if os.path.isfile(os.path.join(workspace_dir, "WORKSPACE")):
             return workspace_dir
@@ -345,11 +346,24 @@ def replace_deps(build_file_path, package, new_deps_lists):
     with open(build_file_path, "w") as source_code:
         source_code.write(build_file.dumps())
 
-tree = ET.parse("/vagrant/zcash/tools/all_deps.xml")
-root = tree.getroot()
+class cd:
+    def __init__(self, newPath):
+        self.newPath = newPath
+
+    def __enter__(self):
+        self.savedPath = os.getcwd()
+        os.chdir(self.newPath)
+
+    def __exit__(self, etype, value, traceback):
+        os.chdir(self.savedPath)
 
 """Path of whatever is called // in the BUILD files"""
 workspace_dir = get_workspace_dir()
+
+with cd(workspace_dir):
+    deps_xml = subprocess.check_output([os.environ["BAZEL_CMD"], "query", "--output", "xml", "--xml:default_values", "deps(//src/...)"])
+root = ET.fromstring(deps_xml)
+
 """Dict of all target names to their target XML tags."""
 target_tags = get_target_tags(root)
 """Dict of all target names to labels of the directly included files."""
