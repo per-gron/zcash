@@ -128,6 +128,7 @@ cc_library(
         "-march=native",
         "-mtune=native",
         "-DBN_SUPPORT_SNARK",
+        "-DNO_PT_COMPRESSION=1",
         "-iquote",
         "src/snark/src",
     ],
