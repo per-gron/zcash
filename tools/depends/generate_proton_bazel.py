@@ -379,6 +379,8 @@ extra_cflags = [
     "-DUSE_ATOLL",
     "-DUSE_CLOCK_GETTIME",
     "-DUSE_STRERROR_R",
+    "-Dqpid_proton_EXPORTS",
+    "-Dqpid_proton_cpp_EXPORTS",
 ]
 
 def process_library(name, lib_descriptor):
