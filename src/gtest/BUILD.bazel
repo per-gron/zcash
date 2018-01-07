@@ -14,6 +14,7 @@ cc_library(
 
 cc_test(
     name = "main",
+    size = "small",
     srcs = ["main.cpp"],
     deps = [
         ":test_block",
