@@ -61,8 +61,8 @@ cc_library(
     includes = ["src"],
     strip_include_prefix = "src",
     include_prefix = "libsnark",
-    # NOTE(per-gron): Because of how Bazel handles include_prefix it is necessary
-    # to specify the headers both in hdrs and srcs.
+    # NOTE(per-gron): Because of how Bazel handles include_prefix it is
+    # necessary to specify the headers both in hdrs and srcs.
     hdrs = libsnark_headers,
     textual_hdrs = [
         "src/algebra/curves/curve_utils.tcc",
@@ -119,14 +119,11 @@ cc_library(
         "src/gadgetlib1/constraint_profiling.cpp",
     ],
     copts = [
-        "-std=c++11",
         "-Wall",
         "-Wextra",
         "-Wno-unused-parameter",
         "-Wno-comment",
         "-Wfatal-errors",
-        "-march=native",
-        "-mtune=native",
         "-DBN_SUPPORT_SNARK",
         "-DNO_PT_COMPRESSION=1",
         "-iquote",
