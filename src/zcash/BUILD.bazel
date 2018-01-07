@@ -14,6 +14,28 @@ cc_library(
     ],
 )
 
+cc_binary(
+    name = "CreateJoinSplit",
+    visibility = ["//visibility:public"],
+    srcs = ["CreateJoinSplit.cpp"],
+    deps = [
+        ":JoinSplit",
+        "//src/primitives:transaction",
+        "//src/snark:libsnark",
+        "//src:util",
+    ],
+)
+
+cc_binary(
+    name = "GenerateParams",
+    visibility = ["//visibility:public"],
+    srcs = ["GenerateParams.cpp"],
+    deps = [
+        ":JoinSplit",
+        "//src/crypto:common",
+    ],
+)
+
 cc_library(
     name = "IncrementalMerkleTree",
     visibility = ["//visibility:public"],
