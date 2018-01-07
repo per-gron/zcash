@@ -3,7 +3,6 @@
 cc_test(
     name = "accounting_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["accounting_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -16,7 +15,6 @@ cc_test(
 cc_test(
     name = "addrman_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["addrman_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -30,7 +28,6 @@ cc_test(
 cc_test(
     name = "alert_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["alert_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -53,7 +50,6 @@ cc_test(
 cc_test(
     name = "allocator_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["allocator_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -66,7 +62,6 @@ cc_test(
 cc_test(
     name = "arith_uint256_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["arith_uint256_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -80,7 +75,6 @@ cc_test(
 cc_test(
     name = "base32_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["base32_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -92,7 +86,6 @@ cc_test(
 cc_test(
     name = "base58_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["base58_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -115,7 +108,6 @@ cc_test(
 cc_test(
     name = "base64_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["base64_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -135,7 +127,6 @@ cc_library(
 cc_test(
     name = "bip32_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["bip32_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -151,7 +142,6 @@ cc_test(
 cc_test(
     name = "bloom_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["bloom_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -173,7 +163,6 @@ cc_test(
 cc_test(
     name = "checkblock_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["checkblock_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -190,7 +179,6 @@ cc_test(
 cc_test(
     name = "Checkpoints_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["Checkpoints_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -203,7 +191,6 @@ cc_test(
 cc_test(
     name = "coins_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["coins_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -223,7 +210,6 @@ cc_test(
 cc_test(
     name = "compress_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["compress_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -236,7 +222,6 @@ cc_test(
 cc_test(
     name = "crypto_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["crypto_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -256,7 +241,6 @@ cc_test(
 cc_test(
     name = "DoS_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["DoS_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -275,7 +259,6 @@ cc_test(
 cc_test(
     name = "equihash_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["equihash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -292,7 +275,6 @@ cc_test(
 cc_test(
     name = "getarg_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["getarg_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -306,7 +288,6 @@ cc_test(
 cc_test(
     name = "hash_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["hash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -319,7 +300,6 @@ cc_test(
 cc_test(
     name = "key_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["key_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -337,7 +317,6 @@ cc_test(
 cc_test(
     name = "main_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["main_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -350,7 +329,6 @@ cc_test(
 cc_test(
     name = "mempool_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["mempool_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -363,7 +341,6 @@ cc_test(
 cc_test(
     name = "miner_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["miner_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -381,7 +358,6 @@ cc_test(
 cc_test(
     name = "mruset_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["mruset_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -394,7 +370,6 @@ cc_test(
 cc_test(
     name = "multisig_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["multisig_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -415,7 +390,6 @@ cc_test(
 cc_test(
     name = "netbase_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["netbase_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -428,7 +402,6 @@ cc_test(
 cc_test(
     name = "pmt_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["pmt_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -447,7 +420,6 @@ cc_test(
 cc_test(
     name = "policyestimator_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["policyestimator_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -461,7 +433,6 @@ cc_test(
 cc_test(
     name = "pow_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["pow_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -474,7 +445,6 @@ cc_test(
 cc_test(
     name = "raii_event_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["raii_event_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -487,7 +457,6 @@ cc_test(
 cc_test(
     name = "reverselock_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["reverselock_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -499,7 +468,6 @@ cc_test(
 cc_test(
     name = "rpc_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["rpc_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -516,7 +484,6 @@ cc_test(
 cc_test(
     name = "rpc_wallet_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["rpc_wallet_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -539,7 +506,6 @@ cc_test(
 cc_test(
     name = "sanity_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["sanity_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -552,7 +518,6 @@ cc_test(
 cc_test(
     name = "scheduler_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["scheduler_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -568,7 +533,6 @@ cc_test(
 cc_test(
     name = "script_P2SH_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["script_P2SH_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -586,7 +550,6 @@ cc_test(
 cc_test(
     name = "script_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["script_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -610,7 +573,6 @@ cc_test(
 cc_test(
     name = "scriptnum_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["scriptnum_tests.cpp"],
     deps = [
         ":bignum",
@@ -623,7 +585,6 @@ cc_test(
 cc_test(
     name = "serialize_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["serialize_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -639,7 +600,6 @@ cc_test(
 cc_test(
     name = "sha256compress_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["sha256compress_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -652,7 +612,6 @@ cc_test(
 cc_test(
     name = "sighash_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["sighash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -674,7 +633,6 @@ cc_test(
 cc_test(
     name = "sigopcount_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["sigopcount_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -691,7 +649,6 @@ cc_test(
 cc_test(
     name = "skiplist_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["skiplist_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -749,7 +706,6 @@ cc_library(
 cc_test(
     name = "timedata_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["timedata_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -761,7 +717,6 @@ cc_test(
 cc_test(
     name = "torcontrol_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["torcontrol_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -773,7 +728,6 @@ cc_test(
 cc_test(
     name = "transaction_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["transaction_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -800,7 +754,6 @@ cc_test(
 cc_test(
     name = "uint256_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["uint256_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -814,7 +767,6 @@ cc_test(
 cc_test(
     name = "univalue_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["univalue_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -826,7 +778,6 @@ cc_test(
 cc_test(
     name = "util_tests",
     size = "small",
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
     srcs = ["util_tests.cpp"],
     deps = [
         ":test_bitcoin",

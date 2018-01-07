@@ -57,7 +57,6 @@ cc_test(
         r"-DSPROUT_PROVING_KEY=\"$(location @sprout-params//:sprout_proving_key)\"",
         r"-DSPROUT_VERIFYING_KEY=\"$(location @sprout-params//:sprout_verifying_key)\"",
     ],
-    linkstatic = 1,  # TODO(per-gron): Make this not needed
 )
 
 cc_library(
