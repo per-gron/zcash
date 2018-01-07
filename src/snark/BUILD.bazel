@@ -137,6 +137,7 @@ cc_library(
         "MONTGOMERY_OUTPUT",
         "CURVE_ALT_BN128",
         "BINARY_OUTPUT",
+        "MULTICORE",
     ],
     deps = [
         "@libgmp//:gmp",
