@@ -312,6 +312,7 @@ cc_library(
     name = "test_random",
     srcs = ["test_random.cpp"],
     deps = [
+        ":utils",
         "//src:util",
         "@com_google_googletest//:gtest",
     ],
@@ -344,6 +345,7 @@ cc_library(
     name = "test_transaction",
     srcs = ["test_transaction.cpp"],
     deps = [
+        ":utils",
         "//src/primitives:transaction",
         "//src/zcash:Address",
         "//src/zcash:Note",
@@ -376,4 +378,8 @@ cc_library(
     ],
 )
 
-# TODO(per-gron): What about utils.cpp ?
+cc_library(
+    name = "utils",
+    hdrs = ["utils.h"],
+    srcs = ["utils.cpp"],
+)
