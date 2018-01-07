@@ -72,6 +72,7 @@ cc_library(
         "-I$(GENDIR)/src/secp256k1/src",
         "-Isrc/secp256k1",
         "-DHAVE_CONFIG_H",
+        "-DSECP256K1_BUILD",
     ],
     deps = [
         "@libgmp//:gmp",
