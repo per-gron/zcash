@@ -87,6 +87,7 @@ cc_library(
     visibility = ["//visibility:public"],
     hdrs = ["zcashconsensus.h"],
     srcs = ["zcashconsensus.cpp"],
+    copts = ["-DBUILD_BITCOIN_INTERNAL"],
     deps = [
         ":interpreter",
         "//src/config:bitcoin-config",
