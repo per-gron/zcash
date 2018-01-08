@@ -142,3 +142,97 @@ cc_library(
         "@procps//:procps",
     ],
 )
+
+cc_library(
+    name = "gtests",
+    srcs = ["src/gtests.cpp"],
+    deps = [
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_bilinearity",
+    size = "small",
+    srcs = ["src/algebra/curves/tests/test_bilinearity.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_groups",
+    size = "small",
+    srcs = ["src/algebra/curves/tests/test_groups.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_bigint",
+    srcs = ["src/algebra/fields/tests/test_bigint.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_fields",
+    size = "small",
+    srcs = ["src/algebra/fields/tests/test_fields.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_sha256_gadget",
+    size = "small",
+    srcs = ["src/gadgetlib1/gadgets/hashes/sha256/tests/test_sha256_gadget.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_merkle_tree_gadgets",
+    size = "small",
+    srcs = ["src/gadgetlib1/gadgets/merkle_tree/tests/test_merkle_tree_gadgets.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_qap",
+    srcs = ["src/relations/arithmetic_programs/qap/tests/test_qap.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "test_r1cs_ppzksnark",
+    srcs = ["src/zk_proof_systems/ppzksnark/r1cs_ppzksnark/tests/test_r1cs_ppzksnark.cpp"],
+    deps = [
+        ":gtests",
+        ":libsnark",
+        "@com_google_googletest//:gtest",
+    ],
+)
