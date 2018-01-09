@@ -14,11 +14,28 @@ secp256k1_copts = [
     "-Wno-long-long",
     "-Wno-overlength-strings",
     "-fvisibility=hidden",
-    "-I$(GENDIR)/src/secp256k1/src",
     "-Isrc/secp256k1",
+    "-I$(GENDIR)/src/secp256k1/src",
+    "-Isrc/secp256k1/src",
     "-DHAVE_CONFIG_H",
     "-DSECP256K1_BUILD",
 ]
+
+cc_binary(
+    name = "gen_context",
+    srcs = [
+        "src/gen_context.c",
+        "include/secp256k1.h",
+    ] + glob(["src/*.h"]),
+    includes = ["."],
+)
+
+native.genrule(
+    name = "ecmult_static_context",
+    outs = ["src/ecmult_static_context.h"],
+    cmd = "mkdir gen_context_tmp && (cd gen_context_tmp && mkdir src && ../$(location :gen_context)) && mv gen_context_tmp/src/ecmult_static_context.h $@ && rmdir gen_context_tmp/src && rmdir gen_context_tmp",
+    tools = [":gen_context"],
+)
 
 cc_library(
     name = "secp256k1",
