@@ -162,6 +162,7 @@ cc_library(
 
 cc_test(
     name = "db_autocompact_test",
+    size = "small",
     srcs = ["db/autocompact_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -173,6 +174,7 @@ cc_test(
 
 cc_test(
     name = "db_c_test",
+    size = "small",
     srcs = ["db/c_test.c"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -183,6 +185,7 @@ cc_test(
 
 cc_test(
     name = "db_corruption_test",
+    size = "small",
     srcs = ["db/corruption_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -205,6 +208,7 @@ cc_test(
 
 cc_test(
     name = "db_dbformat_test",
+    size = "small",
     srcs = ["db/dbformat_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -215,6 +219,7 @@ cc_test(
 
 cc_test(
     name = "db_filename_test",
+    size = "small",
     srcs = ["db/filename_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -225,6 +230,7 @@ cc_test(
 
 cc_test(
     name = "db_log_test",
+    size = "small",
     srcs = ["db/log_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -235,6 +241,7 @@ cc_test(
 
 cc_test(
     name = "db_skiplist_test",
+    size = "small",
     srcs = ["db/skiplist_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -245,6 +252,7 @@ cc_test(
 
 cc_test(
     name = "db_version_edit_test",
+    size = "small",
     srcs = ["db/version_edit_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -255,6 +263,7 @@ cc_test(
 
 cc_test(
     name = "db_version_set_test",
+    size = "small",
     srcs = ["db/version_set_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -266,6 +275,7 @@ cc_test(
 
 cc_test(
     name = "db_write_batch_test",
+    size = "small",
     srcs = ["db/write_batch_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -276,6 +286,7 @@ cc_test(
 
 cc_test(
     name = "helpers/memenv_memenv_test",
+    size = "small",
     srcs = ["helpers/memenv/memenv_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -287,6 +298,7 @@ cc_test(
 
 cc_test(
     name = "issues_issue178_test",
+    size = "small",
     srcs = ["issues/issue178_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -297,6 +309,7 @@ cc_test(
 
 cc_test(
     name = "issues_issue200_test",
+    size = "small",
     srcs = ["issues/issue200_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -307,6 +320,7 @@ cc_test(
 
 cc_test(
     name = "table_filter_block_test",
+    size = "small",
     srcs = ["table/filter_block_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -318,6 +332,7 @@ cc_test(
 
 cc_test(
     name = "table_table_test",
+    size = "small",
     srcs = ["table/table_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -329,6 +344,7 @@ cc_test(
 
 cc_test(
     name = "util_arena_test",
+    size = "small",
     srcs = ["util/arena_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -339,6 +355,7 @@ cc_test(
 
 cc_test(
     name = "util_bloom_test",
+    size = "small",
     srcs = ["util/bloom_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -350,6 +367,7 @@ cc_test(
 
 cc_test(
     name = "util_cache_test",
+    size = "small",
     srcs = ["util/cache_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -360,6 +378,7 @@ cc_test(
 
 cc_test(
     name = "util_coding_test",
+    size = "small",
     srcs = ["util/coding_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -370,6 +389,7 @@ cc_test(
 
 cc_test(
     name = "util_crc32c_test",
+    size = "small",
     srcs = ["util/crc32c_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -380,6 +400,7 @@ cc_test(
 
 cc_test(
     name = "util_env_test",
+    size = "small",
     srcs = ["util/env_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
@@ -390,6 +411,7 @@ cc_test(
 
 cc_test(
     name = "util_hash_test",
+    size = "small",
     srcs = ["util/hash_test.cc"],
     copts = ["-iquote", "src/leveldb"],
     deps = [
