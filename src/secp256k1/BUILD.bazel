@@ -1,5 +1,25 @@
 licenses(["notice"])
 
+secp256k1_copts = [
+    "-W",
+    "-std=c89",
+    "-pedantic",
+    "-Wall",
+    "-Wextra",
+    "-Wcast-align",
+    "-Wnested-externs",
+    "-Wshadow",
+    "-Wstrict-prototypes",
+    "-Wno-unused-function",
+    "-Wno-long-long",
+    "-Wno-overlength-strings",
+    "-fvisibility=hidden",
+    "-I$(GENDIR)/src/secp256k1/src",
+    "-Isrc/secp256k1",
+    "-DHAVE_CONFIG_H",
+    "-DSECP256K1_BUILD",
+]
+
 cc_library(
     name = "secp256k1",
     visibility = ["//visibility:public"],
@@ -55,28 +75,51 @@ cc_library(
         "src/testrand_impl.h",
         "src/util.h",
     ],
-    copts = [
-        "-W",
-        "-std=c89",
-        "-pedantic",
-        "-Wall",
-        "-Wextra",
-        "-Wcast-align",
-        "-Wnested-externs",
-        "-Wshadow",
-        "-Wstrict-prototypes",
-        "-Wno-unused-function",
-        "-Wno-long-long",
-        "-Wno-overlength-strings",
-        "-fvisibility=hidden",
-        "-I$(GENDIR)/src/secp256k1/src",
-        "-Isrc/secp256k1",
-        "-DHAVE_CONFIG_H",
-        "-DSECP256K1_BUILD",
-    ],
+    copts = secp256k1_copts,
     deps = [
         "@libgmp//:gmp",
     ],
+)
+
+cc_library(
+    name = "test_sources",
+    textual_hdrs = [
+        "contrib/lax_der_parsing.c",
+        "contrib/lax_der_parsing.h",
+        "contrib/lax_der_privatekey_parsing.c",
+        "contrib/lax_der_privatekey_parsing.h",
+        "src/secp256k1.c",
+    ],
+    includes = ["contrib"],
+)
+
+cc_test(
+    name = "tests",
+    srcs = [
+        "src/tests.c",
+        "src/modules/ecdh/tests_impl.h",
+        "src/modules/recovery/tests_impl.h",
+    ],
+    deps = [
+        ":secp256k1",
+        ":test_sources",
+    ],
+    copts = secp256k1_copts + ["-DVERIFY"],
+    linkopts = ["-lpthread"],
+)
+
+cc_test(
+    name = "tests_exhaustive",
+    size = "small",
+    srcs = [
+        "src/tests_exhaustive.c",
+    ],
+    deps = [
+        ":secp256k1",
+        ":test_sources",
+    ],
+    copts = secp256k1_copts + ["-DVERIFY"],
+    linkopts = ["-lpthread"],
 )
 
 libsecp256k1_config_h_contents = r"""
@@ -100,7 +143,7 @@ libsecp256k1_config_h_contents = r"""
 #define ENABLE_MODULE_RECOVERY 1
 
 /* Define this symbol if OpenSSL EC functions are available */
-#define ENABLE_OPENSSL_TESTS 1
+/* #undef ENABLE_OPENSSL_TESTS */
 
 /* Define this symbol if __builtin_expect is available */
 #define HAVE_BUILTIN_EXPECT 1
