@@ -34,18 +34,6 @@ cc_library(
 )
 
 cc_test(
-    name = "test_block",
-    srcs = ["test_block.cpp"],
-    deps = [
-        ":main",
-        "//src:streams",
-        "//src:version",
-        "//src/primitives:block",
-        "@com_google_googletest//:gtest",
-    ],
-)
-
-cc_test(
     name = "test_checkblock",
     size = "small",
     srcs = ["test_checkblock.cpp"],
