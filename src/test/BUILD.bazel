@@ -177,18 +177,6 @@ cc_test(
 )
 
 cc_test(
-    name = "Checkpoints_tests",
-    size = "small",
-    srcs = ["Checkpoints_tests.cpp"],
-    deps = [
-        ":test_bitcoin",
-        "//src:main",
-        "//src:uint256",
-        "@boost//:test",
-    ],
-)
-
-cc_test(
     name = "coins_tests",
     size = "small",
     srcs = ["coins_tests.cpp"],
