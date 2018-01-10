@@ -727,7 +727,8 @@ cc_test(
 
 cc_test(
     name = "transaction_tests",
-    size = "small",
+    size = "enormous",
+    timeout = "moderate",
     srcs = ["transaction_tests.cpp"],
     deps = [
         ":test_bitcoin",
