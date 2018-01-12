@@ -27,15 +27,15 @@ libgmp_config_opts = [
 ]
 
 libraries = [  # Order is significant
-    { "name": "cxx", "dir": "cxx", "deps": [] },
-    { "name": "rand", "dir": "rand", "deps": [":gmp_core"] },
-    { "name": "scanf", "dir": "scanf", "deps": [":gmp_core"] },
-    { "name": "printf", "dir": "printf", "deps": [":gmp_core"] },
-    { "name": "mpz", "dir": "mpz", "deps": [":gmp_core"] },
-    { "name": "mpq", "dir": "mpq", "deps": [] },
-    { "name": "mpf", "dir": "mpf", "deps": [] },
-    { "name": "mpn", "dir": "mpn", "deps": [":gmp_core"] },
-    { "name": "gmp_core", "dir": ".", "deps": [] },
+    { "name": "cxx", "dir": "cxx" },
+    { "name": "rand", "dir": "rand" },
+    { "name": "scanf", "dir": "scanf" },
+    { "name": "printf", "dir": "printf" },
+    { "name": "mpq", "dir": "mpq" },
+    { "name": "mpz", "dir": "mpz" },
+    { "name": "mpf", "dir": "mpf" },
+    { "name": "mpn", "dir": "mpn" },
+    { "name": "gmp_core", "dir": ".", },
 ]
 
 subprocess.call(["./configure"] + libgmp_config_opts)
@@ -156,7 +156,14 @@ def process_library(name, descriptor):
     dir = descriptor["dir"]
 
     def belongs_here(file):
-        return (os.path.dirname(file) or ".") == dir
+        dir_of_file = (os.path.dirname(file) or ".")
+        if file.startswith("primesieve."):
+            # There are files in mpn that depend on primesieve.c, and
+            # primesieve.c depends on stuff in mpn. Not sure why it's not in
+            # mpn.
+            return dir == "mpn"
+        else:
+            return dir_of_file == dir
 
     def src_label(src):
         return "%s_with_operation" % src
@@ -215,6 +222,59 @@ def process_generated_headers():
         res += generator_util.copy_file_genrule(generated_header, generated_headers[generated_header])
     return res
 
+def process_tests():
+    res = r"""
+cc_library(
+    name = 'tests',
+    srcs = [
+        'tests/memory.c',
+        'tests/misc.c',
+        'tests/refmpf.c',
+        'tests/refmpn.c',
+        'tests/refmpq.c',
+        'tests/refmpz.c',
+        'tests/spinner.c',
+        'tests/trace.c',
+        'gmp-impl.h',
+        'longlong.h',
+    ] + generated_includes,
+    hdrs = glob(['tests/**/*.h']),
+    includes = ['tests'],
+    deps = [
+        ':gmp',
+    ],
+)
+"""
+
+    test_dirs = [
+        "tests",
+        "tests/cxx",
+        "tests/misc",
+        "tests/mpf",
+        "tests/mpn",
+        "tests/mpq",
+        "tests/mpz",
+        "tests/rand",
+    ]
+    for test_dir in test_dirs:
+        ext = ".c"
+        if test_dir == "tests/cxx":
+            ext = ".cc"
+        makefile = os.path.join(test_dir, "Makefile")
+        tests = [os.path.splitext(name)[0] for name in generator_util.extract_variable_from_makefile("$(check_PROGRAMS)", makefile).split()]
+        for test in tests:
+            res += "cc_test(\n"
+            res += "    name = '%s_%s',\n" % (test_dir.replace("/", '_'), test.replace("-", "_"))
+            res += "    size = 'small',\n"
+            res += "    srcs = ['%s/%s%s'],\n" % (test_dir, test, ext)
+            res += "    deps = [\n"
+            res += "        ':gmp',\n"
+            res += "        ':tests',\n"
+            res += "    ],\n"
+            res += ")\n"
+
+    return res
+
 
 generated_includes = ['config.h', 'gmp.h', 'gmp-mparam.h'] + [file for file in make_generated_files if file.endswith('.h')]
 
@@ -225,5 +285,6 @@ build_file += process_libraries()
 build_file += process_asm_genrules()
 build_file += process_linked_files()
 build_file += process_generated_headers()
+build_file += process_tests()
 
 generator_util.write_file("BUILD.bazel", build_file)

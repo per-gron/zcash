@@ -12,7 +12,7 @@ cc_library(
     name = 'gmp',
     visibility = ['//visibility:public'],
     hdrs = ['gmp.h', 'gmpxx.h'],
-    deps = ['cxx', 'rand', 'scanf', 'printf', 'mpz', 'mpq', 'mpf', 'mpn', 'gmp_core'],
+    deps = ['cxx', 'rand', 'scanf', 'printf', 'mpq', 'mpz', 'mpf', 'mpn', 'gmp_core'],
     includes = ['.'],
 )
 
@@ -46,6 +46,14 @@ cc_library(
     linkstatic = 1,
     hdrs = glob(['*.h', 'printf/*.h']),
     srcs = ['printf/asprintf.c', 'printf/asprntffuns.c', 'printf/doprnt.c', 'printf/doprntf.c', 'printf/doprnti.c', 'printf/fprintf.c', 'printf/obprintf.c', 'printf/obvprintf.c', 'printf/obprntffuns.c', 'printf/printf.c', 'printf/printffuns.c', 'printf/snprintf.c', 'printf/snprntffuns.c', 'printf/sprintf.c', 'printf/sprintffuns.c', 'printf/vasprintf.c', 'printf/vfprintf.c', 'printf/vprintf.c', 'printf/vsnprintf.c', 'printf/vsprintf.c', 'printf/repl-vsnprintf.c'] + generated_includes,
+)
+
+cc_library(
+    name = 'mpq',
+    copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpq'],
+    linkstatic = 1,
+    hdrs = glob(['*.h', 'mpq/*.h']),
+    srcs = ['mpq/abs.c', 'mpq/aors.c', 'mpq/canonicalize.c', 'mpq/clear.c', 'mpq/clears.c', 'mpq/cmp.c', 'mpq/cmp_si.c', 'mpq/cmp_ui.c', 'mpq/div.c', 'mpq/get_d.c', 'mpq/get_den.c', 'mpq/get_num.c', 'mpq/get_str.c', 'mpq/init.c', 'mpq/inits.c', 'mpq/inp_str.c', 'mpq/inv.c', 'mpq/md_2exp.c', 'mpq/mul.c', 'mpq/neg.c', 'mpq/out_str.c', 'mpq/set.c', 'mpq/set_den.c', 'mpq/set_num.c', 'mpq/set_si.c', 'mpq/set_str.c', 'mpq/set_ui.c', 'mpq/equal.c', 'mpq/set_z.c', 'mpq/set_d.c', 'mpq/set_f.c', 'mpq/swap.c'] + generated_includes,
 )
 
 genrule(
@@ -1163,19 +1171,18 @@ cc_library(
 )
 
 cc_library(
-    name = 'mpq',
-    copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpq'],
-    linkstatic = 1,
-    hdrs = glob(['*.h', 'mpq/*.h']),
-    srcs = ['mpq/abs.c', 'mpq/aors.c', 'mpq/canonicalize.c', 'mpq/clear.c', 'mpq/clears.c', 'mpq/cmp.c', 'mpq/cmp_si.c', 'mpq/cmp_ui.c', 'mpq/div.c', 'mpq/get_d.c', 'mpq/get_den.c', 'mpq/get_num.c', 'mpq/get_str.c', 'mpq/init.c', 'mpq/inits.c', 'mpq/inp_str.c', 'mpq/inv.c', 'mpq/md_2exp.c', 'mpq/mul.c', 'mpq/neg.c', 'mpq/out_str.c', 'mpq/set.c', 'mpq/set_den.c', 'mpq/set_num.c', 'mpq/set_si.c', 'mpq/set_str.c', 'mpq/set_ui.c', 'mpq/equal.c', 'mpq/set_z.c', 'mpq/set_d.c', 'mpq/set_f.c', 'mpq/swap.c'] + generated_includes,
-)
-
-cc_library(
     name = 'mpf',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpf'],
     linkstatic = 1,
     hdrs = glob(['*.h', 'mpf/*.h']),
     srcs = ['mpf/init.c', 'mpf/init2.c', 'mpf/inits.c', 'mpf/set.c', 'mpf/set_ui.c', 'mpf/set_si.c', 'mpf/set_str.c', 'mpf/set_d.c', 'mpf/set_z.c', 'mpf/iset.c', 'mpf/iset_ui.c', 'mpf/iset_si.c', 'mpf/iset_str.c', 'mpf/iset_d.c', 'mpf/clear.c', 'mpf/clears.c', 'mpf/get_str.c', 'mpf/dump.c', 'mpf/size.c', 'mpf/eq.c', 'mpf/reldiff.c', 'mpf/sqrt.c', 'mpf/random2.c', 'mpf/inp_str.c', 'mpf/out_str.c', 'mpf/add.c', 'mpf/add_ui.c', 'mpf/sub.c', 'mpf/sub_ui.c', 'mpf/ui_sub.c', 'mpf/mul.c', 'mpf/mul_ui.c', 'mpf/div.c', 'mpf/div_ui.c', 'mpf/cmp_z.c', 'mpf/cmp.c', 'mpf/cmp_d.c', 'mpf/cmp_ui.c', 'mpf/cmp_si.c', 'mpf/mul_2exp.c', 'mpf/div_2exp.c', 'mpf/abs.c', 'mpf/neg.c', 'mpf/set_q.c', 'mpf/get_d.c', 'mpf/get_d_2exp.c', 'mpf/set_dfl_prec.c', 'mpf/set_prc.c', 'mpf/set_prc_raw.c', 'mpf/get_dfl_prec.c', 'mpf/get_prc.c', 'mpf/ui_div.c', 'mpf/sqrt_ui.c', 'mpf/ceilfloor.c', 'mpf/trunc.c', 'mpf/pow_ui.c', 'mpf/urandomb.c', 'mpf/swap.c', 'mpf/fits_sint.c', 'mpf/fits_slong.c', 'mpf/fits_sshort.c', 'mpf/fits_uint.c', 'mpf/fits_ulong.c', 'mpf/fits_ushort.c', 'mpf/get_si.c', 'mpf/get_ui.c', 'mpf/int_p.c'] + generated_includes,
+)
+
+genrule(
+    name = 'primesieve.c_with_operation',
+    srcs = ['primesieve.c'],
+    outs = ['pp_primesieve.c'],
+    cmd = 'echo "#define OPERATION_primesieve 1" > $@ && cat $(location primesieve.c) >> $@'
 )
 
 genrule(
@@ -2625,7 +2632,7 @@ cc_library(
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpn'],
     linkstatic = 1,
     hdrs = glob(['*.h', 'mpn/*.h']),
-    srcs = ['mpn/pp_fib_table.c', 'mpn/pp_mp_bases.c', 'mpn/pp_invert_limb_table.s', 'mpn/pp_add.c', 'mpn/pp_add_1.c', 'mpn/pp_add_n.s', 'mpn/pp_sub.c', 'mpn/pp_sub_1.c', 'mpn/pp_sub_n.s', 'mpn/pp_cnd_add_n.s', 'mpn/pp_cnd_sub_n.s', 'mpn/pp_cnd_swap.c', 'mpn/pp_neg.c', 'mpn/pp_com.s', 'mpn/pp_mul_1.s', 'mpn/pp_addmul_1.s', 'mpn/pp_submul_1.s', 'mpn/pp_add_err1_n.s', 'mpn/pp_add_err2_n.s', 'mpn/pp_add_err3_n.s', 'mpn/pp_sub_err1_n.s', 'mpn/pp_sub_err2_n.s', 'mpn/pp_sub_err3_n.s', 'mpn/pp_lshift.s', 'mpn/pp_rshift.s', 'mpn/pp_dive_1.s', 'mpn/pp_diveby3.c', 'mpn/pp_divis.c', 'mpn/pp_divrem.c', 'mpn/pp_divrem_1.s', 'mpn/pp_divrem_2.s', 'mpn/pp_fib2_ui.c', 'mpn/pp_mod_1.c', 'mpn/pp_mod_34lsub1.s', 'mpn/pp_mode1o.s', 'mpn/pp_pre_mod_1.c', 'mpn/pp_dump.c', 'mpn/pp_mod_1_1.s', 'mpn/pp_mod_1_2.s', 'mpn/pp_mod_1_3.c', 'mpn/pp_mod_1_4.s', 'mpn/pp_lshiftc.s', 'mpn/pp_mul.c', 'mpn/pp_mul_fft.c', 'mpn/pp_mul_n.c', 'mpn/pp_sqr.c', 'mpn/pp_mul_basecase.s', 'mpn/pp_sqr_basecase.s', 'mpn/pp_nussbaumer_mul.c', 'mpn/pp_mulmid_basecase.c', 'mpn/pp_toom42_mulmid.c', 'mpn/pp_mulmid_n.c', 'mpn/pp_mulmid.c', 'mpn/pp_random.c', 'mpn/pp_random2.c', 'mpn/pp_pow_1.c', 'mpn/pp_rootrem.c', 'mpn/pp_sqrtrem.c', 'mpn/pp_sizeinbase.c', 'mpn/pp_get_str.c', 'mpn/pp_set_str.c', 'mpn/pp_scan0.c', 'mpn/pp_scan1.c', 'mpn/pp_popcount.s', 'mpn/pp_hamdist.s', 'mpn/pp_cmp.c', 'mpn/pp_zero_p.c', 'mpn/pp_perfsqr.c', 'mpn/pp_perfpow.c', 'mpn/pp_gcd_1.s', 'mpn/pp_gcd.c', 'mpn/pp_gcdext_1.c', 'mpn/pp_gcdext.c', 'mpn/pp_gcd_subdiv_step.c', 'mpn/pp_gcdext_lehmer.c', 'mpn/pp_div_q.c', 'mpn/pp_tdiv_qr.c', 'mpn/pp_jacbase.c', 'mpn/pp_jacobi_2.c', 'mpn/pp_jacobi.c', 'mpn/pp_get_d.c', 'mpn/pp_matrix22_mul.c', 'mpn/pp_matrix22_mul1_inverse_vector.c', 'mpn/pp_hgcd_matrix.c', 'mpn/pp_hgcd2.c', 'mpn/pp_hgcd_step.c', 'mpn/pp_hgcd_reduce.c', 'mpn/pp_hgcd.c', 'mpn/pp_hgcd_appr.c', 'mpn/pp_hgcd2_jacobi.c', 'mpn/pp_hgcd_jacobi.c', 'mpn/pp_mullo_n.c', 'mpn/pp_mullo_basecase.s', 'mpn/pp_sqrlo.c', 'mpn/pp_sqrlo_basecase.c', 'mpn/pp_toom22_mul.c', 'mpn/pp_toom32_mul.c', 'mpn/pp_toom42_mul.c', 'mpn/pp_toom52_mul.c', 'mpn/pp_toom62_mul.c', 'mpn/pp_toom33_mul.c', 'mpn/pp_toom43_mul.c', 'mpn/pp_toom53_mul.c', 'mpn/pp_toom54_mul.c', 'mpn/pp_toom63_mul.c', 'mpn/pp_toom44_mul.c', 'mpn/pp_toom6h_mul.c', 'mpn/pp_toom6_sqr.c', 'mpn/pp_toom8h_mul.c', 'mpn/pp_toom8_sqr.c', 'mpn/pp_toom_couple_handling.c', 'mpn/pp_toom2_sqr.c', 'mpn/pp_toom3_sqr.c', 'mpn/pp_toom4_sqr.c', 'mpn/pp_toom_eval_dgr3_pm1.c', 'mpn/pp_toom_eval_dgr3_pm2.c', 'mpn/pp_toom_eval_pm1.c', 'mpn/pp_toom_eval_pm2.c', 'mpn/pp_toom_eval_pm2exp.c', 'mpn/pp_toom_eval_pm2rexp.c', 'mpn/pp_toom_interpolate_5pts.c', 'mpn/pp_toom_interpolate_6pts.c', 'mpn/pp_toom_interpolate_7pts.c', 'mpn/pp_toom_interpolate_8pts.c', 'mpn/pp_toom_interpolate_12pts.c', 'mpn/pp_toom_interpolate_16pts.c', 'mpn/pp_invertappr.c', 'mpn/pp_invert.c', 'mpn/pp_binvert.c', 'mpn/pp_mulmod_bnm1.c', 'mpn/pp_sqrmod_bnm1.c', 'mpn/pp_div_qr_1.c', 'mpn/pp_div_qr_1n_pi1.s', 'mpn/pp_div_qr_2.c', 'mpn/pp_div_qr_2n_pi1.s', 'mpn/pp_div_qr_2u_pi1.s', 'mpn/pp_sbpi1_div_q.c', 'mpn/pp_sbpi1_div_qr.c', 'mpn/pp_sbpi1_divappr_q.c', 'mpn/pp_dcpi1_div_q.c', 'mpn/pp_dcpi1_div_qr.c', 'mpn/pp_dcpi1_divappr_q.c', 'mpn/pp_mu_div_qr.c', 'mpn/pp_mu_divappr_q.c', 'mpn/pp_mu_div_q.c', 'mpn/pp_bdiv_q_1.s', 'mpn/pp_sbpi1_bdiv_q.c', 'mpn/pp_sbpi1_bdiv_qr.c', 'mpn/pp_dcpi1_bdiv_q.c', 'mpn/pp_dcpi1_bdiv_qr.c', 'mpn/pp_mu_bdiv_q.c', 'mpn/pp_mu_bdiv_qr.c', 'mpn/pp_bdiv_q.c', 'mpn/pp_bdiv_qr.c', 'mpn/pp_broot.c', 'mpn/pp_brootinv.c', 'mpn/pp_bsqrt.c', 'mpn/pp_bsqrtinv.c', 'mpn/pp_divexact.c', 'mpn/pp_bdiv_dbm1c.s', 'mpn/pp_redc_1.s', 'mpn/pp_redc_2.c', 'mpn/pp_redc_n.c', 'mpn/pp_powm.c', 'mpn/pp_powlo.c', 'mpn/pp_sec_powm.c', 'mpn/pp_sec_mul.c', 'mpn/pp_sec_sqr.c', 'mpn/pp_sec_div_qr.c', 'mpn/pp_sec_div_r.c', 'mpn/pp_sec_pi1_div_qr.c', 'mpn/pp_sec_pi1_div_r.c', 'mpn/pp_sec_add_1.c', 'mpn/pp_sec_sub_1.c', 'mpn/pp_sec_invert.c', 'mpn/pp_trialdiv.c', 'mpn/pp_remove.c', 'mpn/pp_and_n.s', 'mpn/pp_andn_n.s', 'mpn/pp_nand_n.s', 'mpn/pp_ior_n.s', 'mpn/pp_iorn_n.s', 'mpn/pp_nior_n.s', 'mpn/pp_xor_n.s', 'mpn/pp_xnor_n.s', 'mpn/pp_copyi.s', 'mpn/pp_copyd.s', 'mpn/pp_zero.c', 'mpn/pp_sec_tabselect.s', 'mpn/pp_comb_tables.c', 'mpn/pp_invert_limb.s', 'mpn/pp_sqr_diag_addlsh1.s', 'mpn/pp_mul_2.s', 'mpn/pp_addmul_2.s', 'mpn/pp_addlsh1_n.s', 'mpn/pp_sublsh1_n.s', 'mpn/pp_rsblsh1_n.s', 'mpn/pp_rsh1add_n.s', 'mpn/pp_rsh1sub_n.s', 'mpn/pp_addlsh2_n.s', 'mpn/pp_sublsh2_n.s', 'mpn/pp_rsblsh2_n.s', 'mpn/pp_addlsh_n.s', 'mpn/pp_rsblsh_n.s', 'mpn/pp_add_n_sub_n.c', 'mpn/pp_addaddmul_1msb0.s'] + generated_includes,
+    srcs = ['pp_primesieve.c', 'mpn/pp_fib_table.c', 'mpn/pp_mp_bases.c', 'mpn/pp_invert_limb_table.s', 'mpn/pp_add.c', 'mpn/pp_add_1.c', 'mpn/pp_add_n.s', 'mpn/pp_sub.c', 'mpn/pp_sub_1.c', 'mpn/pp_sub_n.s', 'mpn/pp_cnd_add_n.s', 'mpn/pp_cnd_sub_n.s', 'mpn/pp_cnd_swap.c', 'mpn/pp_neg.c', 'mpn/pp_com.s', 'mpn/pp_mul_1.s', 'mpn/pp_addmul_1.s', 'mpn/pp_submul_1.s', 'mpn/pp_add_err1_n.s', 'mpn/pp_add_err2_n.s', 'mpn/pp_add_err3_n.s', 'mpn/pp_sub_err1_n.s', 'mpn/pp_sub_err2_n.s', 'mpn/pp_sub_err3_n.s', 'mpn/pp_lshift.s', 'mpn/pp_rshift.s', 'mpn/pp_dive_1.s', 'mpn/pp_diveby3.c', 'mpn/pp_divis.c', 'mpn/pp_divrem.c', 'mpn/pp_divrem_1.s', 'mpn/pp_divrem_2.s', 'mpn/pp_fib2_ui.c', 'mpn/pp_mod_1.c', 'mpn/pp_mod_34lsub1.s', 'mpn/pp_mode1o.s', 'mpn/pp_pre_mod_1.c', 'mpn/pp_dump.c', 'mpn/pp_mod_1_1.s', 'mpn/pp_mod_1_2.s', 'mpn/pp_mod_1_3.c', 'mpn/pp_mod_1_4.s', 'mpn/pp_lshiftc.s', 'mpn/pp_mul.c', 'mpn/pp_mul_fft.c', 'mpn/pp_mul_n.c', 'mpn/pp_sqr.c', 'mpn/pp_mul_basecase.s', 'mpn/pp_sqr_basecase.s', 'mpn/pp_nussbaumer_mul.c', 'mpn/pp_mulmid_basecase.c', 'mpn/pp_toom42_mulmid.c', 'mpn/pp_mulmid_n.c', 'mpn/pp_mulmid.c', 'mpn/pp_random.c', 'mpn/pp_random2.c', 'mpn/pp_pow_1.c', 'mpn/pp_rootrem.c', 'mpn/pp_sqrtrem.c', 'mpn/pp_sizeinbase.c', 'mpn/pp_get_str.c', 'mpn/pp_set_str.c', 'mpn/pp_scan0.c', 'mpn/pp_scan1.c', 'mpn/pp_popcount.s', 'mpn/pp_hamdist.s', 'mpn/pp_cmp.c', 'mpn/pp_zero_p.c', 'mpn/pp_perfsqr.c', 'mpn/pp_perfpow.c', 'mpn/pp_gcd_1.s', 'mpn/pp_gcd.c', 'mpn/pp_gcdext_1.c', 'mpn/pp_gcdext.c', 'mpn/pp_gcd_subdiv_step.c', 'mpn/pp_gcdext_lehmer.c', 'mpn/pp_div_q.c', 'mpn/pp_tdiv_qr.c', 'mpn/pp_jacbase.c', 'mpn/pp_jacobi_2.c', 'mpn/pp_jacobi.c', 'mpn/pp_get_d.c', 'mpn/pp_matrix22_mul.c', 'mpn/pp_matrix22_mul1_inverse_vector.c', 'mpn/pp_hgcd_matrix.c', 'mpn/pp_hgcd2.c', 'mpn/pp_hgcd_step.c', 'mpn/pp_hgcd_reduce.c', 'mpn/pp_hgcd.c', 'mpn/pp_hgcd_appr.c', 'mpn/pp_hgcd2_jacobi.c', 'mpn/pp_hgcd_jacobi.c', 'mpn/pp_mullo_n.c', 'mpn/pp_mullo_basecase.s', 'mpn/pp_sqrlo.c', 'mpn/pp_sqrlo_basecase.c', 'mpn/pp_toom22_mul.c', 'mpn/pp_toom32_mul.c', 'mpn/pp_toom42_mul.c', 'mpn/pp_toom52_mul.c', 'mpn/pp_toom62_mul.c', 'mpn/pp_toom33_mul.c', 'mpn/pp_toom43_mul.c', 'mpn/pp_toom53_mul.c', 'mpn/pp_toom54_mul.c', 'mpn/pp_toom63_mul.c', 'mpn/pp_toom44_mul.c', 'mpn/pp_toom6h_mul.c', 'mpn/pp_toom6_sqr.c', 'mpn/pp_toom8h_mul.c', 'mpn/pp_toom8_sqr.c', 'mpn/pp_toom_couple_handling.c', 'mpn/pp_toom2_sqr.c', 'mpn/pp_toom3_sqr.c', 'mpn/pp_toom4_sqr.c', 'mpn/pp_toom_eval_dgr3_pm1.c', 'mpn/pp_toom_eval_dgr3_pm2.c', 'mpn/pp_toom_eval_pm1.c', 'mpn/pp_toom_eval_pm2.c', 'mpn/pp_toom_eval_pm2exp.c', 'mpn/pp_toom_eval_pm2rexp.c', 'mpn/pp_toom_interpolate_5pts.c', 'mpn/pp_toom_interpolate_6pts.c', 'mpn/pp_toom_interpolate_7pts.c', 'mpn/pp_toom_interpolate_8pts.c', 'mpn/pp_toom_interpolate_12pts.c', 'mpn/pp_toom_interpolate_16pts.c', 'mpn/pp_invertappr.c', 'mpn/pp_invert.c', 'mpn/pp_binvert.c', 'mpn/pp_mulmod_bnm1.c', 'mpn/pp_sqrmod_bnm1.c', 'mpn/pp_div_qr_1.c', 'mpn/pp_div_qr_1n_pi1.s', 'mpn/pp_div_qr_2.c', 'mpn/pp_div_qr_2n_pi1.s', 'mpn/pp_div_qr_2u_pi1.s', 'mpn/pp_sbpi1_div_q.c', 'mpn/pp_sbpi1_div_qr.c', 'mpn/pp_sbpi1_divappr_q.c', 'mpn/pp_dcpi1_div_q.c', 'mpn/pp_dcpi1_div_qr.c', 'mpn/pp_dcpi1_divappr_q.c', 'mpn/pp_mu_div_qr.c', 'mpn/pp_mu_divappr_q.c', 'mpn/pp_mu_div_q.c', 'mpn/pp_bdiv_q_1.s', 'mpn/pp_sbpi1_bdiv_q.c', 'mpn/pp_sbpi1_bdiv_qr.c', 'mpn/pp_dcpi1_bdiv_q.c', 'mpn/pp_dcpi1_bdiv_qr.c', 'mpn/pp_mu_bdiv_q.c', 'mpn/pp_mu_bdiv_qr.c', 'mpn/pp_bdiv_q.c', 'mpn/pp_bdiv_qr.c', 'mpn/pp_broot.c', 'mpn/pp_brootinv.c', 'mpn/pp_bsqrt.c', 'mpn/pp_bsqrtinv.c', 'mpn/pp_divexact.c', 'mpn/pp_bdiv_dbm1c.s', 'mpn/pp_redc_1.s', 'mpn/pp_redc_2.c', 'mpn/pp_redc_n.c', 'mpn/pp_powm.c', 'mpn/pp_powlo.c', 'mpn/pp_sec_powm.c', 'mpn/pp_sec_mul.c', 'mpn/pp_sec_sqr.c', 'mpn/pp_sec_div_qr.c', 'mpn/pp_sec_div_r.c', 'mpn/pp_sec_pi1_div_qr.c', 'mpn/pp_sec_pi1_div_r.c', 'mpn/pp_sec_add_1.c', 'mpn/pp_sec_sub_1.c', 'mpn/pp_sec_invert.c', 'mpn/pp_trialdiv.c', 'mpn/pp_remove.c', 'mpn/pp_and_n.s', 'mpn/pp_andn_n.s', 'mpn/pp_nand_n.s', 'mpn/pp_ior_n.s', 'mpn/pp_iorn_n.s', 'mpn/pp_nior_n.s', 'mpn/pp_xor_n.s', 'mpn/pp_xnor_n.s', 'mpn/pp_copyi.s', 'mpn/pp_copyd.s', 'mpn/pp_zero.c', 'mpn/pp_sec_tabselect.s', 'mpn/pp_comb_tables.c', 'mpn/pp_invert_limb.s', 'mpn/pp_sqr_diag_addlsh1.s', 'mpn/pp_mul_2.s', 'mpn/pp_addmul_2.s', 'mpn/pp_addlsh1_n.s', 'mpn/pp_sublsh1_n.s', 'mpn/pp_rsblsh1_n.s', 'mpn/pp_rsh1add_n.s', 'mpn/pp_rsh1sub_n.s', 'mpn/pp_addlsh2_n.s', 'mpn/pp_sublsh2_n.s', 'mpn/pp_rsblsh2_n.s', 'mpn/pp_addlsh_n.s', 'mpn/pp_rsblsh_n.s', 'mpn/pp_add_n_sub_n.c', 'mpn/pp_addaddmul_1msb0.s'] + generated_includes,
 )
 
 cc_library(
@@ -2633,7 +2640,7 @@ cc_library(
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/.'],
     linkstatic = 1,
     hdrs = glob(['*.h']),
-    srcs = ['assert.c', 'compat.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c', 'mp_dv_tab.c', 'mp_minv_tab.c', 'mp_get_fns.c', 'mp_set_fns.c', 'version.c', 'nextprime.c', 'primesieve.c', 'tal-reent.c'] + generated_includes,
+    srcs = ['assert.c', 'compat.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c', 'mp_dv_tab.c', 'mp_minv_tab.c', 'mp_get_fns.c', 'mp_set_fns.c', 'version.c', 'nextprime.c', 'tal-reent.c'] + generated_includes,
 )
 
 genrule(
@@ -9389,3 +9396,1734 @@ genrule(
   cmd = "cat > $@ << 'BAZEL_EOF'\n" + gmp_h_contents.replace('$', '$$') + "\nBAZEL_EOF",
 )
 
+
+cc_library(
+    name = 'tests',
+    srcs = [
+        'tests/memory.c',
+        'tests/misc.c',
+        'tests/refmpf.c',
+        'tests/refmpn.c',
+        'tests/refmpq.c',
+        'tests/refmpz.c',
+        'tests/spinner.c',
+        'tests/trace.c',
+        'gmp-impl.h',
+        'longlong.h',
+    ] + generated_includes,
+    hdrs = glob(['tests/**/*.h']),
+    includes = ['tests'],
+    deps = [
+        ':gmp',
+    ],
+)
+cc_test(
+    name = 'tests_t_bswap',
+    size = 'small',
+    srcs = ['tests/t-bswap.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_constants',
+    size = 'small',
+    srcs = ['tests/t-constants.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_count_zeros',
+    size = 'small',
+    srcs = ['tests/t-count_zeros.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_hightomask',
+    size = 'small',
+    srcs = ['tests/t-hightomask.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_modlinv',
+    size = 'small',
+    srcs = ['tests/t-modlinv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_popc',
+    size = 'small',
+    srcs = ['tests/t-popc.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_parity',
+    size = 'small',
+    srcs = ['tests/t-parity.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_t_sub',
+    size = 'small',
+    srcs = ['tests/t-sub.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_binary',
+    size = 'small',
+    srcs = ['tests/cxx/t-binary.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_cast',
+    size = 'small',
+    srcs = ['tests/cxx/t-cast.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_cxx11',
+    size = 'small',
+    srcs = ['tests/cxx/t-cxx11.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_headers',
+    size = 'small',
+    srcs = ['tests/cxx/t-headers.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_iostream',
+    size = 'small',
+    srcs = ['tests/cxx/t-iostream.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_istream',
+    size = 'small',
+    srcs = ['tests/cxx/t-istream.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_locale',
+    size = 'small',
+    srcs = ['tests/cxx/t-locale.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_misc',
+    size = 'small',
+    srcs = ['tests/cxx/t-misc.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_mix',
+    size = 'small',
+    srcs = ['tests/cxx/t-mix.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_ops',
+    size = 'small',
+    srcs = ['tests/cxx/t-ops.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_ops2',
+    size = 'small',
+    srcs = ['tests/cxx/t-ops2.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_ops3',
+    size = 'small',
+    srcs = ['tests/cxx/t-ops3.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_ostream',
+    size = 'small',
+    srcs = ['tests/cxx/t-ostream.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_prec',
+    size = 'small',
+    srcs = ['tests/cxx/t-prec.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_ternary',
+    size = 'small',
+    srcs = ['tests/cxx/t-ternary.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_unary',
+    size = 'small',
+    srcs = ['tests/cxx/t-unary.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_do_exceptions_work_at_all_with_this_compiler',
+    size = 'small',
+    srcs = ['tests/cxx/t-do-exceptions-work-at-all-with-this-compiler.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_assign',
+    size = 'small',
+    srcs = ['tests/cxx/t-assign.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_constr',
+    size = 'small',
+    srcs = ['tests/cxx/t-constr.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_cxx_t_rand',
+    size = 'small',
+    srcs = ['tests/cxx/t-rand.cc'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_misc_t_printf',
+    size = 'small',
+    srcs = ['tests/misc/t-printf.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_misc_t_scanf',
+    size = 'small',
+    srcs = ['tests/misc/t-scanf.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_misc_t_locale',
+    size = 'small',
+    srcs = ['tests/misc/t-locale.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_dm2exp',
+    size = 'small',
+    srcs = ['tests/mpf/t-dm2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_conv',
+    size = 'small',
+    srcs = ['tests/mpf/t-conv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_add',
+    size = 'small',
+    srcs = ['tests/mpf/t-add.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_sub',
+    size = 'small',
+    srcs = ['tests/mpf/t-sub.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_sqrt',
+    size = 'small',
+    srcs = ['tests/mpf/t-sqrt.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_sqrt_ui',
+    size = 'small',
+    srcs = ['tests/mpf/t-sqrt_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_muldiv',
+    size = 'small',
+    srcs = ['tests/mpf/t-muldiv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_reuse',
+    size = 'small',
+    srcs = ['tests/mpf/reuse.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_cmp_d',
+    size = 'small',
+    srcs = ['tests/mpf/t-cmp_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_cmp_si',
+    size = 'small',
+    srcs = ['tests/mpf/t-cmp_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_div',
+    size = 'small',
+    srcs = ['tests/mpf/t-div.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_fits',
+    size = 'small',
+    srcs = ['tests/mpf/t-fits.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_get_d',
+    size = 'small',
+    srcs = ['tests/mpf/t-get_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_get_d_2exp',
+    size = 'small',
+    srcs = ['tests/mpf/t-get_d_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_get_si',
+    size = 'small',
+    srcs = ['tests/mpf/t-get_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_get_ui',
+    size = 'small',
+    srcs = ['tests/mpf/t-get_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_gsprec',
+    size = 'small',
+    srcs = ['tests/mpf/t-gsprec.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_inp_str',
+    size = 'small',
+    srcs = ['tests/mpf/t-inp_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_int_p',
+    size = 'small',
+    srcs = ['tests/mpf/t-int_p.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_mul_ui',
+    size = 'small',
+    srcs = ['tests/mpf/t-mul_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_set',
+    size = 'small',
+    srcs = ['tests/mpf/t-set.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_set_q',
+    size = 'small',
+    srcs = ['tests/mpf/t-set_q.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_set_si',
+    size = 'small',
+    srcs = ['tests/mpf/t-set_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_set_ui',
+    size = 'small',
+    srcs = ['tests/mpf/t-set_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_trunc',
+    size = 'small',
+    srcs = ['tests/mpf/t-trunc.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_ui_div',
+    size = 'small',
+    srcs = ['tests/mpf/t-ui_div.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_eq',
+    size = 'small',
+    srcs = ['tests/mpf/t-eq.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpf_t_pow_ui',
+    size = 'small',
+    srcs = ['tests/mpf/t-pow_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_asmtype',
+    size = 'small',
+    srcs = ['tests/mpn/t-asmtype.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_aors_1',
+    size = 'small',
+    srcs = ['tests/mpn/t-aors_1.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_divrem_1',
+    size = 'small',
+    srcs = ['tests/mpn/t-divrem_1.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mod_1',
+    size = 'small',
+    srcs = ['tests/mpn/t-mod_1.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_fat',
+    size = 'small',
+    srcs = ['tests/mpn/t-fat.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_get_d',
+    size = 'small',
+    srcs = ['tests/mpn/t-get_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_instrument',
+    size = 'small',
+    srcs = ['tests/mpn/t-instrument.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_iord_u',
+    size = 'small',
+    srcs = ['tests/mpn/t-iord_u.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mp_bases',
+    size = 'small',
+    srcs = ['tests/mpn/t-mp_bases.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_perfsqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-perfsqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_scan',
+    size = 'small',
+    srcs = ['tests/mpn/t-scan.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_logic',
+    size = 'small',
+    srcs = ['tests/mpn/logic.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom22',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom22.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom32',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom32.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom33',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom33.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom42',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom42.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom43',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom43.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom44',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom44.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom52',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom52.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom53',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom53.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom54',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom54.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom62',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom62.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom63',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom63.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom6h',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom6h.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom8h',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom8h.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom2_sqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom2-sqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom3_sqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom3-sqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom4_sqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom4-sqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom6_sqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom6-sqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_toom8_sqr',
+    size = 'small',
+    srcs = ['tests/mpn/t-toom8-sqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_div',
+    size = 'small',
+    srcs = ['tests/mpn/t-div.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mul',
+    size = 'small',
+    srcs = ['tests/mpn/t-mul.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mullo',
+    size = 'small',
+    srcs = ['tests/mpn/t-mullo.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_sqrlo',
+    size = 'small',
+    srcs = ['tests/mpn/t-sqrlo.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mulmod_bnm1',
+    size = 'small',
+    srcs = ['tests/mpn/t-mulmod_bnm1.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_sqrmod_bnm1',
+    size = 'small',
+    srcs = ['tests/mpn/t-sqrmod_bnm1.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_mulmid',
+    size = 'small',
+    srcs = ['tests/mpn/t-mulmid.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_hgcd',
+    size = 'small',
+    srcs = ['tests/mpn/t-hgcd.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_hgcd_appr',
+    size = 'small',
+    srcs = ['tests/mpn/t-hgcd_appr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_matrix22',
+    size = 'small',
+    srcs = ['tests/mpn/t-matrix22.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_invert',
+    size = 'small',
+    srcs = ['tests/mpn/t-invert.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_bdiv',
+    size = 'small',
+    srcs = ['tests/mpn/t-bdiv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_broot',
+    size = 'small',
+    srcs = ['tests/mpn/t-broot.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_brootinv',
+    size = 'small',
+    srcs = ['tests/mpn/t-brootinv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_minvert',
+    size = 'small',
+    srcs = ['tests/mpn/t-minvert.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpn_t_sizeinbase',
+    size = 'small',
+    srcs = ['tests/mpn/t-sizeinbase.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_aors',
+    size = 'small',
+    srcs = ['tests/mpq/t-aors.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_cmp',
+    size = 'small',
+    srcs = ['tests/mpq/t-cmp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_cmp_ui',
+    size = 'small',
+    srcs = ['tests/mpq/t-cmp_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_cmp_si',
+    size = 'small',
+    srcs = ['tests/mpq/t-cmp_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_equal',
+    size = 'small',
+    srcs = ['tests/mpq/t-equal.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_get_d',
+    size = 'small',
+    srcs = ['tests/mpq/t-get_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_get_str',
+    size = 'small',
+    srcs = ['tests/mpq/t-get_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_inp_str',
+    size = 'small',
+    srcs = ['tests/mpq/t-inp_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_inv',
+    size = 'small',
+    srcs = ['tests/mpq/t-inv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_md_2exp',
+    size = 'small',
+    srcs = ['tests/mpq/t-md_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_set_f',
+    size = 'small',
+    srcs = ['tests/mpq/t-set_f.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_set_str',
+    size = 'small',
+    srcs = ['tests/mpq/t-set_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_io',
+    size = 'small',
+    srcs = ['tests/mpq/io.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_reuse',
+    size = 'small',
+    srcs = ['tests/mpq/reuse.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpq_t_cmp_z',
+    size = 'small',
+    srcs = ['tests/mpq/t-cmp_z.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_reuse',
+    size = 'small',
+    srcs = ['tests/mpz/reuse.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_addsub',
+    size = 'small',
+    srcs = ['tests/mpz/t-addsub.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cmp',
+    size = 'small',
+    srcs = ['tests/mpz/t-cmp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_mul',
+    size = 'small',
+    srcs = ['tests/mpz/t-mul.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_mul_i',
+    size = 'small',
+    srcs = ['tests/mpz/t-mul_i.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_tdiv',
+    size = 'small',
+    srcs = ['tests/mpz/t-tdiv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_tdiv_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-tdiv_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_fdiv',
+    size = 'small',
+    srcs = ['tests/mpz/t-fdiv.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_fdiv_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-fdiv_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cdiv_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-cdiv_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_gcd',
+    size = 'small',
+    srcs = ['tests/mpz/t-gcd.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_gcd_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-gcd_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_lcm',
+    size = 'small',
+    srcs = ['tests/mpz/t-lcm.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_invert',
+    size = 'small',
+    srcs = ['tests/mpz/t-invert.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_dive',
+    size = 'small',
+    srcs = ['tests/mpz/dive.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_dive_ui',
+    size = 'small',
+    srcs = ['tests/mpz/dive_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_sqrtrem',
+    size = 'small',
+    srcs = ['tests/mpz/t-sqrtrem.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_convert',
+    size = 'small',
+    srcs = ['tests/mpz/convert.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_io',
+    size = 'small',
+    srcs = ['tests/mpz/io.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_inp_str',
+    size = 'small',
+    srcs = ['tests/mpz/t-inp_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_logic',
+    size = 'small',
+    srcs = ['tests/mpz/logic.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_bit',
+    size = 'small',
+    srcs = ['tests/mpz/bit.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_powm',
+    size = 'small',
+    srcs = ['tests/mpz/t-powm.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_powm_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-powm_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_pow',
+    size = 'small',
+    srcs = ['tests/mpz/t-pow.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_div_2exp',
+    size = 'small',
+    srcs = ['tests/mpz/t-div_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_root',
+    size = 'small',
+    srcs = ['tests/mpz/t-root.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_perfsqr',
+    size = 'small',
+    srcs = ['tests/mpz/t-perfsqr.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_perfpow',
+    size = 'small',
+    srcs = ['tests/mpz/t-perfpow.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_jac',
+    size = 'small',
+    srcs = ['tests/mpz/t-jac.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_bin',
+    size = 'small',
+    srcs = ['tests/mpz/t-bin.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_get_d',
+    size = 'small',
+    srcs = ['tests/mpz/t-get_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_get_d_2exp',
+    size = 'small',
+    srcs = ['tests/mpz/t-get_d_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_get_si',
+    size = 'small',
+    srcs = ['tests/mpz/t-get_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_set_d',
+    size = 'small',
+    srcs = ['tests/mpz/t-set_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_set_si',
+    size = 'small',
+    srcs = ['tests/mpz/t-set_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_fac_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-fac_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_mfac_uiui',
+    size = 'small',
+    srcs = ['tests/mpz/t-mfac_uiui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_primorial_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-primorial_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_fib_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-fib_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_lucnum_ui',
+    size = 'small',
+    srcs = ['tests/mpz/t-lucnum_ui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_scan',
+    size = 'small',
+    srcs = ['tests/mpz/t-scan.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_fits',
+    size = 'small',
+    srcs = ['tests/mpz/t-fits.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_divis',
+    size = 'small',
+    srcs = ['tests/mpz/t-divis.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_divis_2exp',
+    size = 'small',
+    srcs = ['tests/mpz/t-divis_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cong',
+    size = 'small',
+    srcs = ['tests/mpz/t-cong.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cong_2exp',
+    size = 'small',
+    srcs = ['tests/mpz/t-cong_2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_sizeinbase',
+    size = 'small',
+    srcs = ['tests/mpz/t-sizeinbase.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_set_str',
+    size = 'small',
+    srcs = ['tests/mpz/t-set_str.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_aorsmul',
+    size = 'small',
+    srcs = ['tests/mpz/t-aorsmul.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cmp_d',
+    size = 'small',
+    srcs = ['tests/mpz/t-cmp_d.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_cmp_si',
+    size = 'small',
+    srcs = ['tests/mpz/t-cmp_si.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_hamdist',
+    size = 'small',
+    srcs = ['tests/mpz/t-hamdist.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_oddeven',
+    size = 'small',
+    srcs = ['tests/mpz/t-oddeven.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_popcount',
+    size = 'small',
+    srcs = ['tests/mpz/t-popcount.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_set_f',
+    size = 'small',
+    srcs = ['tests/mpz/t-set_f.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_io_raw',
+    size = 'small',
+    srcs = ['tests/mpz/t-io_raw.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_import',
+    size = 'small',
+    srcs = ['tests/mpz/t-import.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_export',
+    size = 'small',
+    srcs = ['tests/mpz/t-export.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_pprime_p',
+    size = 'small',
+    srcs = ['tests/mpz/t-pprime_p.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_nextprime',
+    size = 'small',
+    srcs = ['tests/mpz/t-nextprime.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_remove',
+    size = 'small',
+    srcs = ['tests/mpz/t-remove.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_mpz_t_limbs',
+    size = 'small',
+    srcs = ['tests/mpz/t-limbs.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_iset',
+    size = 'small',
+    srcs = ['tests/rand/t-iset.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_lc2exp',
+    size = 'small',
+    srcs = ['tests/rand/t-lc2exp.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_mt',
+    size = 'small',
+    srcs = ['tests/rand/t-mt.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_rand',
+    size = 'small',
+    srcs = ['tests/rand/t-rand.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_urbui',
+    size = 'small',
+    srcs = ['tests/rand/t-urbui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_urmui',
+    size = 'small',
+    srcs = ['tests/rand/t-urmui.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
+cc_test(
+    name = 'tests_rand_t_urndmm',
+    size = 'small',
+    srcs = ['tests/rand/t-urndmm.c'],
+    deps = [
+        ':gmp',
+        ':tests',
+    ],
+)
