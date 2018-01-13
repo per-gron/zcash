@@ -1,8 +1,8 @@
 # TODO(per-gron): bitcoin-util-test.py
 
-cc_library(
+cc_test(
     name = "accounting_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["accounting_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -12,9 +12,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "addrman_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["addrman_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -25,9 +25,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "alert_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["alert_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -47,9 +47,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "allocator_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["allocator_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -59,9 +59,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "arith_uint256_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["arith_uint256_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -72,9 +72,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "base32_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["base32_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -83,9 +83,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "base58_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["base58_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -105,9 +105,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "base64_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["base64_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -118,16 +118,15 @@ cc_library(
 
 cc_library(
     name = "bignum",
-    alwayslink = 1,
     hdrs = ["bignum.h"],
     deps = [
         "@openssl//:crypto",
     ],
 )
 
-cc_library(
+cc_test(
     name = "bip32_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["bip32_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -140,9 +139,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "bloom_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["bloom_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -161,9 +160,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "checkblock_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["checkblock_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -177,9 +176,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "coins_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["coins_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -196,9 +195,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "compress_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["compress_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -208,9 +207,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "crypto_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["crypto_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -227,9 +226,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "DoS_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["DoS_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -245,9 +244,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "equihash_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["equihash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -261,9 +260,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "getarg_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["getarg_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -274,9 +273,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "hash_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["hash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -286,9 +285,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "key_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["key_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -303,9 +302,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "main_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["main_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -315,9 +314,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "mempool_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["mempool_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -327,9 +326,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "miner_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["miner_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -344,9 +343,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "mruset_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["mruset_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -356,9 +355,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "multisig_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["multisig_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -376,9 +375,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "netbase_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["netbase_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -388,9 +387,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "pmt_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["pmt_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -406,9 +405,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "policyestimator_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["policyestimator_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -419,9 +418,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "pow_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["pow_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -431,9 +430,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "raii_event_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["raii_event_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -443,9 +442,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "reverselock_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["reverselock_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -454,9 +453,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "rpc_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["rpc_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -470,9 +469,10 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "rpc_wallet_tests",
-    alwayslink = 1,
+    size = "enormous",
+    timeout = "short",
     srcs = ["rpc_wallet_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -492,9 +492,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "sanity_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["sanity_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -504,9 +504,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "scheduler_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["scheduler_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -519,9 +519,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "script_P2SH_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["script_P2SH_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -536,9 +536,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "script_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["script_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -559,9 +559,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "scriptnum_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["scriptnum_tests.cpp"],
     deps = [
         ":bignum",
@@ -571,9 +571,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "serialize_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["serialize_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -586,9 +586,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "sha256compress_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["sha256compress_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -598,9 +598,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "sighash_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["sighash_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -619,9 +619,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "sigopcount_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["sigopcount_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -635,9 +635,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "skiplist_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["skiplist_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -675,73 +675,8 @@ cc_library(
     ],
 )
 
-cc_test(
-    name = "bitcoin_tests",
-    # NOTE(per-gron): The normal way of organizing tests in Bazel is to have one
-    # cc_test rule for each test file. However, this code base's use of globals
-    # is not compatible with dynamic linking (at least on Linux); it causes
-    # double-free errors. A way to fix this is to make all tests linkstatic = 1.
-    # That does not work well though because the size of all the test
-    # executables is just huge and causes long linking times. To make this less
-    # bad, I am grouping all the tests into a single executable. (This prevents
-    # running the tests in parallel though, and will cause Bazel to run more
-    # tests than strictly necessary on rebuilds).
-    linkstatic = 1,
-    deps = [
-        ":accounting_tests",
-        ":addrman_tests",
-        ":alert_tests",
-        ":allocator_tests",
-        ":arith_uint256_tests",
-        ":base32_tests",
-        ":base58_tests",
-        ":base64_tests",
-        ":bip32_tests",
-        ":bloom_tests",
-        ":checkblock_tests",
-        ":coins_tests",
-        ":compress_tests",
-        ":crypto_tests",
-        ":DoS_tests",
-        ":equihash_tests",
-        ":getarg_tests",
-        ":hash_tests",
-        ":key_tests",
-        ":main_tests",
-        ":mempool_tests",
-        ":miner_tests",
-        ":mruset_tests",
-        ":multisig_tests",
-        ":netbase_tests",
-        ":pmt_tests",
-        ":policyestimator_tests",
-        ":pow_tests",
-        ":raii_event_tests",
-        ":reverselock_tests",
-        ":rpc_tests",
-        ":rpc_wallet_tests",
-        ":sanity_tests",
-        ":scheduler_tests",
-        ":script_P2SH_tests",
-        ":script_tests",
-        ":scriptnum_tests",
-        ":serialize_tests",
-        ":sha256compress_tests",
-        ":sighash_tests",
-        ":sigopcount_tests",
-        ":skiplist_tests",
-        ":timedata_tests",
-        ":torcontrol_tests",
-        ":transaction_tests",
-        ":uint256_tests",
-        ":univalue_tests",
-        ":util_tests",
-    ]
-)
-
 cc_library(
     name = "test_util",
-    alwayslink = 1,
     visibility = ["//src/wallet/test:__pkg__"],
     hdrs = ["test_util.h"],
     srcs = ["test_util.cpp"],
@@ -757,9 +692,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "timedata_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["timedata_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -768,9 +703,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "torcontrol_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["torcontrol_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -779,9 +714,10 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "transaction_tests",
-    alwayslink = 1,
+    size = "enormous",
+    timeout = "moderate",
     srcs = ["transaction_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -805,9 +741,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "uint256_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["uint256_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -818,9 +754,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "univalue_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["univalue_tests.cpp"],
     deps = [
         ":test_bitcoin",
@@ -829,9 +765,9 @@ cc_library(
     ],
 )
 
-cc_library(
+cc_test(
     name = "util_tests",
-    alwayslink = 1,
+    size = "small",
     srcs = ["util_tests.cpp"],
     deps = [
         ":test_bitcoin",
