@@ -25,11 +25,11 @@ new_http_archive(
 
 http_archive(
     name = "com_github_nelhage_rules_boost",
-    strip_prefix = "rules_boost-e725ac77ab4d4cdecea66d3ba28bd88cb66dc142",
+    strip_prefix = "rules_boost-34c774f086af0cb67f9ad8d023ce2598abb4b084",
     # TODO(per-gron): When https://github.com/nelhage/rules_boost/pull/43 is
     # merged, point this to the main repo.
-    urls = ["https://github.com/per-gron/rules_boost/archive/e725ac77ab4d4cdecea66d3ba28bd88cb66dc142.tar.gz"],
-    sha256 = "8a263161bf68d2069eab4c251bab53740d178e7b40e145d1e840cd8cba5cb4d7",
+    urls = ["https://github.com/per-gron/rules_boost/archive/34c774f086af0cb67f9ad8d023ce2598abb4b084.tar.gz"],
+    sha256 = "31b662ec74506bb4aebf19fc5e05faa904ed4ae3c93c32ccaf388f9146c750d5",
 )
 load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
