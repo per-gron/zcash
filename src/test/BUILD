@@ -600,7 +600,8 @@ cc_test(
 
 cc_test(
     name = "sighash_tests",
-    size = "small",
+    size = "enormous",
+    timeout = "moderate",
     srcs = ["sighash_tests.cpp"],
     deps = [
         ":test_bitcoin",
