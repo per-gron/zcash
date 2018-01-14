@@ -34,7 +34,8 @@ libraries = [  # Order is significant
     { "name": "mpq", "dir": "mpq" },
     { "name": "mpz", "dir": "mpz" },
     { "name": "mpf", "dir": "mpf" },
-    { "name": "mpn", "dir": "mpn" },
+    # TODO(per-gron): Remove the need for enforcing static linking of libmpn
+    { "name": "mpn", "dir": "mpn", "linkstatic": True },
     { "name": "gmp_core", "dir": ".", },
 ]
 
@@ -203,7 +204,8 @@ def process_library(name, descriptor):
     rule += "cc_library(\n"
     rule += "    name = '%s',\n" % name
     rule += "    copts = %s,\n" % (cflags + extra_c_flags + local_c_flags)
-    rule += "    linkstatic = 1,\n"
+    if descriptor.get("linkstatic"):
+        rule += "    linkstatic = 1,\n"
     rule += "    hdrs = %s,\n" % hdrs
     rule += "    srcs = %s + generated_includes,\n" % [preprocessed_file(src) for src in srcs]
     rule += ")\n\n"

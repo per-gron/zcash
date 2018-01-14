@@ -19,7 +19,6 @@ cc_library(
 cc_library(
     name = 'cxx',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/cxx'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'cxx/*.h']),
     srcs = ['cxx/isfuns.cc', 'cxx/ismpf.cc', 'cxx/ismpq.cc', 'cxx/ismpz.cc', 'cxx/ismpznw.cc', 'cxx/limits.cc', 'cxx/osdoprnti.cc', 'cxx/osfuns.cc', 'cxx/osmpf.cc', 'cxx/osmpq.cc', 'cxx/osmpz.cc'] + generated_includes,
 )
@@ -27,7 +26,6 @@ cc_library(
 cc_library(
     name = 'rand',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/rand'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'rand/*.h']),
     srcs = ['rand/rand.c', 'rand/randclr.c', 'rand/randdef.c', 'rand/randiset.c', 'rand/randlc2s.c', 'rand/randlc2x.c', 'rand/randmt.c', 'rand/randmts.c', 'rand/rands.c', 'rand/randsd.c', 'rand/randsdui.c', 'rand/randbui.c', 'rand/randmui.c'] + generated_includes,
 )
@@ -35,7 +33,6 @@ cc_library(
 cc_library(
     name = 'scanf',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/scanf'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'scanf/*.h']),
     srcs = ['scanf/doscan.c', 'scanf/fscanf.c', 'scanf/fscanffuns.c', 'scanf/scanf.c', 'scanf/sscanf.c', 'scanf/sscanffuns.c', 'scanf/vfscanf.c', 'scanf/vscanf.c', 'scanf/vsscanf.c'] + generated_includes,
 )
@@ -43,7 +40,6 @@ cc_library(
 cc_library(
     name = 'printf',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/printf'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'printf/*.h']),
     srcs = ['printf/asprintf.c', 'printf/asprntffuns.c', 'printf/doprnt.c', 'printf/doprntf.c', 'printf/doprnti.c', 'printf/fprintf.c', 'printf/obprintf.c', 'printf/obvprintf.c', 'printf/obprntffuns.c', 'printf/printf.c', 'printf/printffuns.c', 'printf/snprintf.c', 'printf/snprntffuns.c', 'printf/sprintf.c', 'printf/sprintffuns.c', 'printf/vasprintf.c', 'printf/vfprintf.c', 'printf/vprintf.c', 'printf/vsnprintf.c', 'printf/vsprintf.c', 'printf/repl-vsnprintf.c'] + generated_includes,
 )
@@ -51,7 +47,6 @@ cc_library(
 cc_library(
     name = 'mpq',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpq'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'mpq/*.h']),
     srcs = ['mpq/abs.c', 'mpq/aors.c', 'mpq/canonicalize.c', 'mpq/clear.c', 'mpq/clears.c', 'mpq/cmp.c', 'mpq/cmp_si.c', 'mpq/cmp_ui.c', 'mpq/div.c', 'mpq/get_d.c', 'mpq/get_den.c', 'mpq/get_num.c', 'mpq/get_str.c', 'mpq/init.c', 'mpq/inits.c', 'mpq/inp_str.c', 'mpq/inv.c', 'mpq/md_2exp.c', 'mpq/mul.c', 'mpq/neg.c', 'mpq/out_str.c', 'mpq/set.c', 'mpq/set_den.c', 'mpq/set_num.c', 'mpq/set_si.c', 'mpq/set_str.c', 'mpq/set_ui.c', 'mpq/equal.c', 'mpq/set_z.c', 'mpq/set_d.c', 'mpq/set_f.c', 'mpq/swap.c'] + generated_includes,
 )
@@ -1165,7 +1160,6 @@ genrule(
 cc_library(
     name = 'mpz',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpz'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'mpz/*.h']),
     srcs = ['mpz/pp_abs.c', 'mpz/pp_add.c', 'mpz/pp_add_ui.c', 'mpz/pp_aorsmul.c', 'mpz/pp_aorsmul_i.c', 'mpz/pp_and.c', 'mpz/pp_array_init.c', 'mpz/pp_bin_ui.c', 'mpz/pp_bin_uiui.c', 'mpz/pp_cdiv_q.c', 'mpz/pp_cdiv_q_ui.c', 'mpz/pp_cdiv_qr.c', 'mpz/pp_cdiv_qr_ui.c', 'mpz/pp_cdiv_r.c', 'mpz/pp_cdiv_r_ui.c', 'mpz/pp_cdiv_ui.c', 'mpz/pp_cfdiv_q_2exp.c', 'mpz/pp_cfdiv_r_2exp.c', 'mpz/pp_clear.c', 'mpz/pp_clears.c', 'mpz/pp_clrbit.c', 'mpz/pp_cmp.c', 'mpz/pp_cmp_d.c', 'mpz/pp_cmp_si.c', 'mpz/pp_cmp_ui.c', 'mpz/pp_cmpabs.c', 'mpz/pp_cmpabs_d.c', 'mpz/pp_cmpabs_ui.c', 'mpz/pp_com.c', 'mpz/pp_combit.c', 'mpz/pp_cong.c', 'mpz/pp_cong_2exp.c', 'mpz/pp_cong_ui.c', 'mpz/pp_divexact.c', 'mpz/pp_divegcd.c', 'mpz/pp_dive_ui.c', 'mpz/pp_divis.c', 'mpz/pp_divis_ui.c', 'mpz/pp_divis_2exp.c', 'mpz/pp_dump.c', 'mpz/pp_export.c', 'mpz/pp_mfac_uiui.c', 'mpz/pp_2fac_ui.c', 'mpz/pp_fac_ui.c', 'mpz/pp_oddfac_1.c', 'mpz/pp_prodlimbs.c', 'mpz/pp_fdiv_q_ui.c', 'mpz/pp_fdiv_qr.c', 'mpz/pp_fdiv_qr_ui.c', 'mpz/pp_fdiv_r.c', 'mpz/pp_fdiv_r_ui.c', 'mpz/pp_fdiv_q.c', 'mpz/pp_fdiv_ui.c', 'mpz/pp_fib_ui.c', 'mpz/pp_fib2_ui.c', 'mpz/pp_fits_sint.c', 'mpz/pp_fits_slong.c', 'mpz/pp_fits_sshort.c', 'mpz/pp_fits_uint.c', 'mpz/pp_fits_ulong.c', 'mpz/pp_fits_ushort.c', 'mpz/pp_gcd.c', 'mpz/pp_gcd_ui.c', 'mpz/pp_gcdext.c', 'mpz/pp_get_d.c', 'mpz/pp_get_d_2exp.c', 'mpz/pp_get_si.c', 'mpz/pp_get_str.c', 'mpz/pp_get_ui.c', 'mpz/pp_getlimbn.c', 'mpz/pp_hamdist.c', 'mpz/pp_import.c', 'mpz/pp_init.c', 'mpz/pp_init2.c', 'mpz/pp_inits.c', 'mpz/pp_inp_raw.c', 'mpz/pp_inp_str.c', 'mpz/pp_invert.c', 'mpz/pp_ior.c', 'mpz/pp_iset.c', 'mpz/pp_iset_d.c', 'mpz/pp_iset_si.c', 'mpz/pp_iset_str.c', 'mpz/pp_iset_ui.c', 'mpz/pp_jacobi.c', 'mpz/pp_kronsz.c', 'mpz/pp_kronuz.c', 'mpz/pp_kronzs.c', 'mpz/pp_kronzu.c', 'mpz/pp_lcm.c', 'mpz/pp_lcm_ui.c', 'mpz/pp_limbs_finish.c', 'mpz/pp_limbs_modify.c', 'mpz/pp_limbs_read.c', 'mpz/pp_limbs_write.c', 'mpz/pp_lucnum_ui.c', 'mpz/pp_lucnum2_ui.c', 'mpz/pp_millerrabin.c', 'mpz/pp_mod.c', 'mpz/pp_mul.c', 'mpz/pp_mul_2exp.c', 'mpz/pp_mul_si.c', 'mpz/pp_mul_ui.c', 'mpz/pp_n_pow_ui.c', 'mpz/pp_neg.c', 'mpz/pp_nextprime.c', 'mpz/pp_out_raw.c', 'mpz/pp_out_str.c', 'mpz/pp_perfpow.c', 'mpz/pp_perfsqr.c', 'mpz/pp_popcount.c', 'mpz/pp_pow_ui.c', 'mpz/pp_powm.c', 'mpz/pp_powm_sec.c', 'mpz/pp_powm_ui.c', 'mpz/pp_primorial_ui.c', 'mpz/pp_pprime_p.c', 'mpz/pp_random.c', 'mpz/pp_random2.c', 'mpz/pp_realloc.c', 'mpz/pp_realloc2.c', 'mpz/pp_remove.c', 'mpz/pp_roinit_n.c', 'mpz/pp_root.c', 'mpz/pp_rootrem.c', 'mpz/pp_rrandomb.c', 'mpz/pp_scan0.c', 'mpz/pp_scan1.c', 'mpz/pp_set.c', 'mpz/pp_set_d.c', 'mpz/pp_set_f.c', 'mpz/pp_set_q.c', 'mpz/pp_set_si.c', 'mpz/pp_set_str.c', 'mpz/pp_set_ui.c', 'mpz/pp_setbit.c', 'mpz/pp_size.c', 'mpz/pp_sizeinbase.c', 'mpz/pp_sqrt.c', 'mpz/pp_sqrtrem.c', 'mpz/pp_sub.c', 'mpz/pp_sub_ui.c', 'mpz/pp_swap.c', 'mpz/pp_tdiv_ui.c', 'mpz/pp_tdiv_q.c', 'mpz/pp_tdiv_q_2exp.c', 'mpz/pp_tdiv_q_ui.c', 'mpz/pp_tdiv_qr.c', 'mpz/pp_tdiv_qr_ui.c', 'mpz/pp_tdiv_r.c', 'mpz/pp_tdiv_r_2exp.c', 'mpz/pp_tdiv_r_ui.c', 'mpz/pp_tstbit.c', 'mpz/pp_ui_pow_ui.c', 'mpz/pp_ui_sub.c', 'mpz/pp_urandomb.c', 'mpz/pp_urandomm.c', 'mpz/pp_xor.c'] + generated_includes,
 )
@@ -1173,7 +1167,6 @@ cc_library(
 cc_library(
     name = 'mpf',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/mpf'],
-    linkstatic = 1,
     hdrs = glob(['*.h', 'mpf/*.h']),
     srcs = ['mpf/init.c', 'mpf/init2.c', 'mpf/inits.c', 'mpf/set.c', 'mpf/set_ui.c', 'mpf/set_si.c', 'mpf/set_str.c', 'mpf/set_d.c', 'mpf/set_z.c', 'mpf/iset.c', 'mpf/iset_ui.c', 'mpf/iset_si.c', 'mpf/iset_str.c', 'mpf/iset_d.c', 'mpf/clear.c', 'mpf/clears.c', 'mpf/get_str.c', 'mpf/dump.c', 'mpf/size.c', 'mpf/eq.c', 'mpf/reldiff.c', 'mpf/sqrt.c', 'mpf/random2.c', 'mpf/inp_str.c', 'mpf/out_str.c', 'mpf/add.c', 'mpf/add_ui.c', 'mpf/sub.c', 'mpf/sub_ui.c', 'mpf/ui_sub.c', 'mpf/mul.c', 'mpf/mul_ui.c', 'mpf/div.c', 'mpf/div_ui.c', 'mpf/cmp_z.c', 'mpf/cmp.c', 'mpf/cmp_d.c', 'mpf/cmp_ui.c', 'mpf/cmp_si.c', 'mpf/mul_2exp.c', 'mpf/div_2exp.c', 'mpf/abs.c', 'mpf/neg.c', 'mpf/set_q.c', 'mpf/get_d.c', 'mpf/get_d_2exp.c', 'mpf/set_dfl_prec.c', 'mpf/set_prc.c', 'mpf/set_prc_raw.c', 'mpf/get_dfl_prec.c', 'mpf/get_prc.c', 'mpf/ui_div.c', 'mpf/sqrt_ui.c', 'mpf/ceilfloor.c', 'mpf/trunc.c', 'mpf/pow_ui.c', 'mpf/urandomb.c', 'mpf/swap.c', 'mpf/fits_sint.c', 'mpf/fits_slong.c', 'mpf/fits_sshort.c', 'mpf/fits_uint.c', 'mpf/fits_ulong.c', 'mpf/fits_ushort.c', 'mpf/get_si.c', 'mpf/get_ui.c', 'mpf/int_p.c'] + generated_includes,
 )
@@ -2638,7 +2631,6 @@ cc_library(
 cc_library(
     name = 'gmp_core',
     copts = ['-D__GMP_WITHIN_GMP', '-pedantic', '-fomit-frame-pointer', '-m64', '-mtune=sandybridge', '-march=sandybridge', '-DHAVE_CONFIG_H', '-fPIC', '-w', '-I$(GENDIR)/external/libgmp/', '-Iexternal/libgmp/.'],
-    linkstatic = 1,
     hdrs = glob(['*.h']),
     srcs = ['assert.c', 'compat.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c', 'mp_dv_tab.c', 'mp_minv_tab.c', 'mp_get_fns.c', 'mp_set_fns.c', 'version.c', 'nextprime.c', 'tal-reent.c'] + generated_includes,
 )
