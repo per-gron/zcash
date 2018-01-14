@@ -24,12 +24,14 @@ new_http_archive(
 )
 
 http_archive(
-    name = "com_github_nelhage_boost",
-    strip_prefix = "rules_boost-c4529ab018161601592691d3d5fa84b6e141cccf",
-    urls = ["https://github.com/nelhage/rules_boost/archive/c4529ab018161601592691d3d5fa84b6e141cccf.tar.gz"],
-    sha256 = "7756e53769f48d183414185900c5b09914e61ff66d8f47ed8525c2fa53b7e57f",
+    name = "com_github_nelhage_rules_boost",
+    strip_prefix = "rules_boost-e725ac77ab4d4cdecea66d3ba28bd88cb66dc142",
+    # TODO(per-gron): When https://github.com/nelhage/rules_boost/pull/43 is
+    # merged, point this to the main repo.
+    urls = ["https://github.com/per-gron/rules_boost/archive/e725ac77ab4d4cdecea66d3ba28bd88cb66dc142.tar.gz"],
+    sha256 = "8a263161bf68d2069eab4c251bab53740d178e7b40e145d1e840cd8cba5cb4d7",
 )
-load("@com_github_nelhage_boost//:boost/boost.bzl", "boost_deps")
+load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
 
 http_archive(
