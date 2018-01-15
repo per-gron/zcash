@@ -385,5 +385,5 @@ for name in target_names_to_process:
     target_deps[name] = calculate_target_deps(workspace_dir, rule_input_labels, rule_src_bazelpaths, rule_hdr_bazelpaths, target_search_paths, name)
 
 for package in packages_to_process:
-    build_file = os.path.join(workspace_dir + package, "BUILD.bazel")
+    build_file = os.path.join(workspace_dir + package, "BUILD")
     replace_deps(build_file, package, target_deps)
