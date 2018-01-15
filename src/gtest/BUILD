@@ -339,7 +339,6 @@ cc_test(
     srcs = ["test_tautology.cpp"],
     deps = [
         ":main",
-        "//src:main",
         "@com_google_googletest//:gtest",
     ],
 )
