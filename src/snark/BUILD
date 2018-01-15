@@ -58,9 +58,7 @@ libsnark_headers = [
 cc_library(
     name = "libsnark",
     visibility = ["//visibility:public"],
-    includes = ["libsnark"],
-    strip_include_prefix = "libsnark",
-    include_prefix = "libsnark",
+    includes = [".", "libsnark"],
     # NOTE(per-gron): Because of how Bazel handles include_prefix it is
     # necessary to specify the headers both in hdrs and srcs.
     hdrs = libsnark_headers,
