@@ -40,6 +40,24 @@ def extract_rule_string(target_tag, name):
             return child.attrib["value"]
     return ""  # Not found
 
+def extract_rule_boolean(target_tag, name):
+    """For a given target XML tag and a name, for example 'deps' or 'srcs',
+    extract the list of labels in that list."""
+    for child in target_tag:
+        if child.tag == "boolean" and child.attrib["name"] == name:
+            return child.attrib["value"] == "true"
+    return False  # Not found
+
+def get_kept_rules(target_tags):
+    res = set()
+    for target in target_tags:
+        target_tag = target_tags[target]
+        keep = "buildcleaner-keep" in extract_label_list(target_tag, "tags")
+        alwayslink = extract_rule_boolean(target_tag, "alwayslink")
+        if keep or alwayslink:
+            res.add(target)
+    return res
+
 def rule_input_labels(target_tag):
     """Given a target XML tag, get a list of labels for the files that are
     directly included in that target."""
@@ -258,6 +276,16 @@ def real_dependencies(resolved_headers):
         deps = deps.union(rules)
     return deps
 
+def kept_deps(kept_rules, target_tag):
+    """Takes the the set of kept rules (the ones that build_cleaner has been
+    told to not remove even if not used by #includes) and a target's tag and
+    returns the intersection of the kept rules and the target_tag's deps."""
+    res = set()
+    for dep in extract_label_list(target_tag, "deps"):
+        if dep in kept_rules:
+            res.add(dep)
+    return res
+
 def prettify_dependencies(target_name, deps):
     """Takes a set of absolute Bazel rule paths and converts it into a sorted
     list of dependencies, of which some are potentially relative."""
@@ -285,10 +313,11 @@ def prettify_dependencies(target_name, deps):
 
     return sorted(res, key = sort_key)
 
-def calculate_target_deps(workspace_dir, rule_input_labels, rule_src_bazelpaths, rule_hdr_bazelpaths, target_search_paths, name):
+def calculate_target_deps(workspace_dir, kept_rules, rule_input_labels, rule_src_bazelpaths, rule_hdr_bazelpaths, target_search_paths, target_tag, name):
     search_paths = target_search_paths[name]
     resolved_headers = resolve_included_headers(workspace_dir, rule_input_labels, rule_src_bazelpaths, rule_hdr_bazelpaths, name, search_paths)
-    return prettify_dependencies(name, real_dependencies(resolved_headers))
+    deps = real_dependencies(resolved_headers).union(kept_deps(kept_rules, target_tag))
+    return prettify_dependencies(name, deps)
 
 def get_packages_to_process(target_names_to_process):
     """Given a list of Bazel rule names, for example //src:a, //src:b, //src/a:b
@@ -361,11 +390,22 @@ class cd:
 workspace_dir = get_workspace_dir()
 
 with cd(workspace_dir):
-    deps_xml = subprocess.check_output([os.environ["BAZEL_CMD"], "query", "--output", "xml", "--xml:default_values", "deps(//src/...)"])
+    deps_xml = subprocess.check_output([
+        os.environ["BAZEL_CMD"],
+        "query",
+        "--output",
+        "xml",
+        "--xml:default_values",
+        "deps(//src/...)"
+    ])
 root = ET.fromstring(deps_xml)
 
 """Dict of all target names to their target XML tags."""
 target_tags = get_target_tags(root)
+"""Target names of rules that have declared themselves as 'buildcleaner-keep'
+to force build_cleaner to not remove them. It also includes alwayslink
+libraries."""
+kept_rules = get_kept_rules(target_tags)
 """Dict of all target names to labels of the directly included files."""
 rule_input_labels = rules_input_labels(target_tags)
 """Dict of all Bazel paths to a set of the the target name(s) that exports them."""
@@ -382,7 +422,15 @@ and sorted."""
 target_deps = {}
 for name in target_names_to_process:
     rule_src_bazelpaths = get_rule_srcs_bazelpaths(target_tags[name], name)
-    target_deps[name] = calculate_target_deps(workspace_dir, rule_input_labels, rule_src_bazelpaths, rule_hdr_bazelpaths, target_search_paths, name)
+    target_deps[name] = calculate_target_deps(
+        workspace_dir,
+        kept_rules,
+        rule_input_labels,
+        rule_src_bazelpaths,
+        rule_hdr_bazelpaths,
+        target_search_paths,
+        target_tags[name],
+        name)
 
 for package in packages_to_process:
     build_file = os.path.join(workspace_dir + package, "BUILD")
