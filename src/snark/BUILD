@@ -145,6 +145,7 @@ cc_library(
 
 cc_library(
     name = "gtests",
+    tags = ["buildcleaner-keep"],
     srcs = ["libsnark/gtests.cpp"],
     deps = [
         ":libsnark",

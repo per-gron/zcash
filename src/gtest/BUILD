@@ -14,6 +14,7 @@ cc_library(
 
 cc_library(
     name = "main",
+    tags = ["buildcleaner-keep"],
     srcs = ["main.cpp"],
     deps = [
         "//src:hash",
@@ -67,8 +68,8 @@ cc_test(
     srcs = ["test_circuit.cpp"],
     deps = [
         ":main",
-        "//src/snark:libsnark",
         "//src:uint256",
+        "//src/snark:libsnark",
         "//src/zcash:IncrementalMerkleTree",
         "//src/zcash:util",
         "//src/zcash/circuit",
@@ -196,8 +197,8 @@ cc_test(
     name = "test_merkletree",
     srcs = ["test_merkletree.cpp"],
     deps = [
-        ":main",
         ":json_test_vectors",
+        ":main",
         "//src:serialize",
         "//src:streams",
         "//src:utilstrencodings",
@@ -291,8 +292,8 @@ cc_test(
     name = "test_proofs",
     srcs = ["test_proofs.cpp"],
     deps = [
-        ":main",
         ":json_test_vectors",
+        ":main",
         "//src:streams",
         "//src:utilstrencodings",
         "//src:version",
