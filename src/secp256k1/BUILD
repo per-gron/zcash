@@ -30,7 +30,7 @@ cc_binary(
     includes = ["."],
 )
 
-native.genrule(
+genrule(
     name = "ecmult_static_context",
     outs = ["src/ecmult_static_context.h"],
     cmd = "mkdir gen_context_tmp && (cd gen_context_tmp && mkdir src && ../$(location :gen_context)) && mv gen_context_tmp/src/ecmult_static_context.h $@ && rmdir gen_context_tmp/src && rmdir gen_context_tmp",
@@ -100,6 +100,9 @@ cc_library(
 
 cc_library(
     name = "test_sources",
+    srcs = [
+        "src/util.h",
+    ],
     textual_hdrs = [
         "contrib/lax_der_parsing.c",
         "contrib/lax_der_parsing.h",
