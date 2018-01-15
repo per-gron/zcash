@@ -4,14 +4,18 @@ cc_test(
     name = "no_nul",
     size = "small",
     srcs = ["no_nul.cpp"],
-    deps = ["//src/univalue"],
+    deps = [
+        "//src/univalue",
+    ],
 )
 
 cc_test(
     name = "unitester",
     size = "small",
     srcs = ["unitester.cpp"],
-    deps = ["//src/univalue"],
+    deps = [
+        "//src/univalue",
+    ],
     copts = [r"-DJSON_TEST_SRC=\"src/univalue/test\""],
     data = [
         "fail10.json",

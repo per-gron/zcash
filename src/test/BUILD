@@ -38,9 +38,9 @@ cc_test(
         "//src:rpcprotocol",
         "//src:serialize",
         "//src:streams",
-        "//src/test/data:alertTests",
         "//src:util",
         "//src:utilstrencodings",
+        "//src/test/data:alertTests",
         "@boost//:filesystem",
         "@boost//:foreach",
         "@boost//:test",
@@ -464,7 +464,6 @@ cc_test(
         "//src:netbase",
         "//src:rpcclient",
         "//src/univalue",
-        "@boost//:algorithm",
         "@boost//:test",
     ],
 )

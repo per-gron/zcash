@@ -179,7 +179,6 @@ cc_test(
     copts = ["-iquote", "src/leveldb"],
     deps = [
         ":leveldb",
-        ":testharness",
     ],
 )
 

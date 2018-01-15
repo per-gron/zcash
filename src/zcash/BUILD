@@ -22,7 +22,6 @@ cc_binary(
         ":JoinSplit",
         "//src/primitives:transaction",
         "//src/snark:libsnark",
-        "//src:util",
     ],
 )
 

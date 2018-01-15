@@ -90,9 +90,9 @@ cc_library(
     copts = ["-DBUILD_BITCOIN_INTERNAL"],
     deps = [
         ":interpreter",
-        "//src/config:bitcoin-config",
         "//src:hash",
-        "//src/primitives:transaction",
         "//src:version",
+        "//src/config:bitcoin-config",
+        "//src/primitives:transaction",
     ],
 )
