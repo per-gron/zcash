@@ -39,7 +39,7 @@ bitcoin_config_contents = r"""
 #define ENABLE_PROTON 1
 
 /* Define to 1 to enable Rust language dependent functions */
-#define ENABLE_RUST 0
+/* #undef ENABLE_RUST */
 
 /* Define to 1 to enable wallet functions */
 #define ENABLE_WALLET 1
