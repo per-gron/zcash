@@ -43,7 +43,9 @@ cflags_str = generator_util.extract_variable_from_makefile(
     "$(DEFS) $(libaesni_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)",
     makefile)
 cflags = shlex.split(cflags_str)
-cflags = ["'%s'" % flag for flag in cflags if flag != "-g" and not re.match(r"^-O\d$", flag) and not re.match(r"^-D_FORTIFY_SOURCE=", flag) and flag != "-fPIC" and flag != "-fPIE"]
+# Remove flags that are the task of the CROSSTOOL to decide if/when to apply.
+flags_to_remove = ["-g", "-fPIC", "-fPIE", "-fstack-protector", "-fno-strict-aliasing"]
+cflags = ["'%s'" % flag for flag in cflags if flag not in flags_to_remove and not re.match(r"^-O\d$", flag) and not re.match(r"^-D_FORTIFY_SOURCE=", flag)]
 
 version_h = "src/libsodium/include/sodium/version.h"
 
