@@ -15,8 +15,6 @@ cc_library(
     ],
     includes = ["include"],
     copts = [
-        "-fwrapv",
-        "-fno-strict-aliasing",
         "-Wno-builtin-declaration-mismatch",
         "-Werror",
     ],
