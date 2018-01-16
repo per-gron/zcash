@@ -75,7 +75,42 @@ new_http_archive(
     build_file = "tools/depends/generated/libgmp.bazel",
 )
 
-# TODO: librustzcash
+# TODO(per-gron): Add this (and set ENABLE_RUST). It can't be done until
+# https://github.com/bazelbuild/rules_rust/issues/55 is fixed.
+'''
+new_http_archive(
+    name = "librustzcash",
+    sha256 = "1c5c1d44b350752b69e242d7aee801b24486a7c8c1e99e2a10952a3abfbdf274",
+    strip_prefix = "zcash-librustzcash-9134864",
+    type = "tar.gz",
+    urls = ["https://api.github.com/repos/zcash/librustzcash/tarball/91348647a86201a9482ad4ad68398152dc3d635e"],
+    build_file_content = r"""
+load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library", "rust_test")
+
+rust_library(
+    name = "rust_rustzcash",
+    srcs = ["src/rustzcash.rs"],
+    deps = [
+        "@rust_libc//:libc",
+    ],
+)
+
+cc_library(
+    name = "rustzcash",
+    visibility = ["//visibility:public"],
+    includes = ["include"],
+    hdrs = ["include/librustzcash.h"],
+    srcs = [":rust_rustzcash"],
+)
+
+rust_test(
+    name = "rustzcash_test",
+    size = "small",
+    deps = [":rust_rustzcash"],
+)
+""",
+)
+'''
 
 new_http_archive(
     name = "libsodium",
