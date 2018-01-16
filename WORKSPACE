@@ -209,6 +209,23 @@ new_http_archive(
     build_file = "tools/depends/generated/proton.bazel",
 )
 
+new_http_archive(
+    name = "rust_libc",
+    sha256 = "bb3642a71e03bfc3215e7037a6c82ee8ecb10f5a2c0d442d1a0740a5290a73ca",
+    strip_prefix = "libc-0.2.36",
+    urls = ["https://github.com/rust-lang/libc/archive/0.2.36.tar.gz"],
+    build_file_content = r"""
+load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "libc",
+    srcs = glob(["src/**/*.rs"]),
+)
+""",
+)
+
 http_archive(
     name = "zcash_cc_toolchain",
     strip_prefix = "zcash_cc_toolchain",
