@@ -862,6 +862,7 @@ cc_library(
 
 cc_binary(
     name = "zcash-cli",
+    visibility = ["//visibility:public"],
     srcs = ["bitcoin-cli.cpp"],
     deps = [
         ":clientversion",
@@ -878,6 +879,7 @@ cc_binary(
 
 cc_binary(
     name = "zcash-tx",
+    visibility = ["//visibility:public"],
     srcs = ["bitcoin-tx.cpp"],
     deps = [
         ":clientversion",
@@ -898,6 +900,7 @@ cc_binary(
 
 cc_binary(
     name = "zcashd",
+    visibility = ["//visibility:public"],
     srcs = ["bitcoind.cpp"],
     deps = [
         ":clientversion",
