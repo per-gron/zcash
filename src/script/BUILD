@@ -88,6 +88,15 @@ cc_library(
     hdrs = ["zcashconsensus.h"],
     srcs = ["zcashconsensus.cpp"],
     copts = ["-DBUILD_BITCOIN_INTERNAL"],
+    linkopts = [
+        # libzcashconsensus.so only exposes a C API: No exceptions are thrown
+        # across the API boundary. Because of this it is safe to statically link
+        # against libgcc. Statically linking against libgcc is nice because it
+        # allows the built shared library to be used on systems that have an
+        # older version of GCC than our toolchain. This is important because
+        # this build uses a quite recent version of GCC.
+        "-static-libgcc",
+    ],
     deps = [
         ":interpreter",
         "//src:hash",
