@@ -62,7 +62,7 @@ class WalletBackupTest(BitcoinTestFramework):
 
         # nodes 1, 2,3 are spenders, let's give them a keypool=100
         extra_args = [["-keypool=100", ed0], ["-keypool=100", ed1], ["-keypool=100", ed2], []]
-        self.nodes = start_nodes(4, self.options.tmpdir, extra_args)
+        self.nodes = start_nodes(4, self.options.testbinary, self.options.tmpdir, extra_args)
         connect_nodes(self.nodes[0], 3)
         connect_nodes(self.nodes[1], 3)
         connect_nodes(self.nodes[2], 3)
@@ -94,9 +94,9 @@ class WalletBackupTest(BitcoinTestFramework):
 
     # As above, this mirrors the original bash test.
     def start_three(self):
-        self.nodes[0] = start_node(0, self.options.tmpdir)
-        self.nodes[1] = start_node(1, self.options.tmpdir)
-        self.nodes[2] = start_node(2, self.options.tmpdir)
+        self.nodes[0] = start_node(0, self.options.testbinary, self.options.tmpdir)
+        self.nodes[1] = start_node(1, self.options.testbinary, self.options.tmpdir)
+        self.nodes[2] = start_node(2, self.options.testbinary, self.options.tmpdir)
         connect_nodes(self.nodes[0], 3)
         connect_nodes(self.nodes[1], 3)
         connect_nodes(self.nodes[2], 3)

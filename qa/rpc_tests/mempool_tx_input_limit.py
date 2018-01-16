@@ -19,8 +19,8 @@ class MempoolTxInputLimitTest(BitcoinTestFramework):
     def setup_network(self):
         args = ["-checkmempool", "-debug=mempool", "-mempooltxinputlimit=2"]
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, args))
-        self.nodes.append(start_node(1, self.options.tmpdir, args))
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir, args))
+        self.nodes.append(start_node(1, self.options.testbinary, self.options.tmpdir, args))
         connect_nodes(self.nodes[1], 0)
         self.is_network_split = False
         self.sync_all

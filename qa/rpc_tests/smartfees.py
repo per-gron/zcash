@@ -150,8 +150,8 @@ class EstimateFeeTest(BitcoinTestFramework):
         '''
         self.nodes = []
         # Use node0 to mine blocks for input splitting
-        self.nodes.append(start_node(0, self.options.tmpdir, ["-maxorphantx=1000",
-                                                              "-relaypriority=0", "-whitelist=127.0.0.1"]))
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir,
+                                     ["-maxorphantx=1000", "-relaypriority=0", "-whitelist=127.0.0.1"]))
 
         print("This test is time consuming, please be patient")
         print("Splitting inputs to small size so we can generate low priority tx's")
@@ -187,7 +187,7 @@ class EstimateFeeTest(BitcoinTestFramework):
         # and allows free transactions.
         # NOTE: the CreateNewBlock code starts counting block size at 1,000 bytes,
         # (17k is room enough for 110 or so transactions)
-        self.nodes.append(start_node(1, self.options.tmpdir,
+        self.nodes.append(start_node(1, self.options.testbinary, self.options.tmpdir,
                                      ["-blockprioritysize=1500", "-blockmaxsize=18000",
                                       "-maxorphantx=1000", "-relaypriority=0", "-debug=estimatefee"]))
         connect_nodes(self.nodes[1], 0)
@@ -196,7 +196,7 @@ class EstimateFeeTest(BitcoinTestFramework):
         # produces too small blocks (room for only 70 or so transactions)
         node2args = ["-blockprioritysize=0", "-blockmaxsize=12000", "-maxorphantx=1000", "-relaypriority=0"]
 
-        self.nodes.append(start_node(2, self.options.tmpdir, node2args))
+        self.nodes.append(start_node(2, self.options.testbinary, self.options.tmpdir, node2args))
         connect_nodes(self.nodes[0], 2)
         connect_nodes(self.nodes[2], 1)
 

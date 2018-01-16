@@ -20,10 +20,10 @@ class WalletShieldCoinbaseTest (BitcoinTestFramework):
     def setup_network(self, split=False):
         args = ['-regtestprotectcoinbase', '-debug=zrpcunsafe']
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, args))
-        self.nodes.append(start_node(1, self.options.tmpdir, args))
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir, args))
+        self.nodes.append(start_node(1, self.options.testbinary, self.options.tmpdir, args))
         args2 = ['-regtestprotectcoinbase', '-debug=zrpcunsafe', "-mempooltxinputlimit=7"]
-        self.nodes.append(start_node(2, self.options.tmpdir, args2))
+        self.nodes.append(start_node(2, self.options.testbinary, self.options.tmpdir, args2))
         connect_nodes_bi(self.nodes,0,1)
         connect_nodes_bi(self.nodes,1,2)
         connect_nodes_bi(self.nodes,0,2)

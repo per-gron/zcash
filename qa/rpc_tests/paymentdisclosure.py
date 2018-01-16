@@ -19,11 +19,11 @@ class PaymentDisclosureTest (BitcoinTestFramework):
     def setup_network(self, split=False):
         args = ['-debug=zrpcunsafe,paymentdisclosure', '-experimentalfeatures', '-paymentdisclosure', '-txindex=1']
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, args))
-        self.nodes.append(start_node(1, self.options.tmpdir, args))
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir, args))
+        self.nodes.append(start_node(1, self.options.testbinary, self.options.tmpdir, args))
         # node 2 does not enable payment disclosure
         args2 = ['-debug=zrpcunsafe', '-experimentalfeatures', '-txindex=1']
-        self.nodes.append(start_node(2, self.options.tmpdir, args2))
+        self.nodes.append(start_node(2, self.options.testbinary, self.options.tmpdir, args2))
         connect_nodes_bi(self.nodes,0,1)
         connect_nodes_bi(self.nodes,1,2)
         connect_nodes_bi(self.nodes,0,2)

@@ -19,7 +19,7 @@ class HardForkDetectionTest(BitcoinTestFramework):
         self.alert_filename = os.path.join(self.options.tmpdir, "alert.txt")
         with open(self.alert_filename, 'w'):
             pass  # Just open then close to create zero-length file
-        self.nodes.append(start_node(0, self.options.tmpdir,
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir,
                             ["-blockversion=2", "-alertnotify=echo %s >> \"" + self.alert_filename + "\""]))
 
     def assert_safemode_off(self):

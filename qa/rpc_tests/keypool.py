@@ -43,7 +43,7 @@ def run_test(nodes, tmpdir):
     nodes[0].encryptwallet('test')
     bitcoind_processes[0].wait()
     # Restart node 0
-    nodes[0] = start_node(0, tmpdir)
+    nodes[0] = start_node(0, self.options.testbinary, tmpdir)
     # Keep creating keys
     addr = nodes[0].getnewaddress()
     try:
@@ -95,9 +95,9 @@ def main():
         print("Initializing test directory "+options.tmpdir)
         if not os.path.isdir(options.tmpdir):
             os.makedirs(options.tmpdir)
-        initialize_chain(options.tmpdir)
+        initialize_chain(options.testbinary, options.tmpdir)
 
-        nodes = start_nodes(1, options.tmpdir, extra_args=[['-experimentalfeatures', '-developerencryptwallet']])
+        nodes = start_nodes(1, options.testbinary, options.tmpdir, extra_args=[['-experimentalfeatures', '-developerencryptwallet']])
 
         run_test(nodes, options.tmpdir)
 

@@ -18,7 +18,7 @@ class DisableWalletTest (BitcoinTestFramework):
         initialize_chain_clean(self.options.tmpdir, 1)
 
     def setup_network(self, split=False):
-        self.nodes = start_nodes(1, self.options.tmpdir, [['-disablewallet']])
+        self.nodes = start_nodes(1, self.options.testbinary, self.options.tmpdir, [['-disablewallet']])
         self.is_network_split = False
         self.sync_all()
 

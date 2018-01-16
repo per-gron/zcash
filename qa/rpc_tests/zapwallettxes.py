@@ -16,7 +16,7 @@ class ZapWalletTXesTest (BitcoinTestFramework):
         initialize_chain_clean(self.options.tmpdir, 3)
 
     def setup_network(self, split=False):
-        self.nodes = start_nodes(3, self.options.tmpdir)
+        self.nodes = start_nodes(3, self.options.testbinary, self.options.tmpdir)
         connect_nodes_bi(self.nodes,0,1)
         connect_nodes_bi(self.nodes,1,2)
         connect_nodes_bi(self.nodes,0,2)
@@ -56,7 +56,7 @@ class ZapWalletTXesTest (BitcoinTestFramework):
         # restart zcashd
         self.nodes[0].stop()
         bitcoind_processes[0].wait()
-        self.nodes[0] = start_node(0,self.options.tmpdir)
+        self.nodes[0] = start_node(0, self.options.testbinary, self.options.tmpdir)
 
         tx3 = self.nodes[0].gettransaction(txid3)
         assert_equal(tx3['txid'], txid3) # tx must be available (unconfirmed)
@@ -65,7 +65,7 @@ class ZapWalletTXesTest (BitcoinTestFramework):
         bitcoind_processes[0].wait()
 
         # restart zcashd with zapwallettxes
-        self.nodes[0] = start_node(0,self.options.tmpdir, ["-zapwallettxes=1"])
+        self.nodes[0] = start_node(0, self.options.testbinary, self.options.tmpdir, ["-zapwallettxes=1"])
 
         aException = False
         try:

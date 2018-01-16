@@ -23,7 +23,7 @@ except ImportError:
 
 class HTTPBasicsTest (BitcoinTestFramework):
     def setup_nodes(self):
-        return start_nodes(4, self.options.tmpdir)
+        return start_nodes(4, self.options.testbinary, self.options.tmpdir)
 
     def run_test(self):
 

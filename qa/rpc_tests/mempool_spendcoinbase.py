@@ -26,7 +26,7 @@ class MempoolSpendCoinbaseTest(BitcoinTestFramework):
         # Just need one node for this test
         args = ["-checkmempool", "-debug=mempool"]
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, args))
+        self.nodes.append(start_node(0, self.options.testbinary, self.options.tmpdir, args))
         self.is_network_split = False
 
     def create_tx(self, from_txid, to_address, amount):

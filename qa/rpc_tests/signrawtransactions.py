@@ -16,7 +16,7 @@ class SignRawTransactionsTest(BitcoinTestFramework):
         initialize_chain_clean(self.options.tmpdir, 1)
 
     def setup_network(self, split=False):
-        self.nodes = start_nodes(1, self.options.tmpdir)
+        self.nodes = start_nodes(1, self.options.testbinary, self.options.tmpdir)
         self.is_network_split = False
 
     def successful_signing_test(self):

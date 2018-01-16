@@ -64,7 +64,7 @@ class ProxyTest(BitcoinTestFramework):
     def setup_nodes(self):
         # Note: proxies are not used to connect to local nodes
         # this is because the proxy to use is based on CService.GetNetwork(), which return NET_UNROUTABLE for localhost
-        return start_nodes(4, self.options.tmpdir, extra_args=[
+        return start_nodes(4, self.options.testbinary, self.options.tmpdir, extra_args=[
             ['-listen', '-debug=net', '-debug=proxy', '-proxy=%s:%i' % (self.conf1.addr),'-proxyrandomize=1'], 
             ['-listen', '-debug=net', '-debug=proxy', '-proxy=%s:%i' % (self.conf1.addr),'-onion=%s:%i' % (self.conf2.addr),'-proxyrandomize=0'], 
             ['-listen', '-debug=net', '-debug=proxy', '-proxy=%s:%i' % (self.conf2.addr),'-proxyrandomize=1'], 

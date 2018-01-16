@@ -76,7 +76,7 @@ class ProtonTest (BitcoinTestFramework):
         self.t1 = threading.Thread(target=self.container.run)
         self.t1.start()
 
-        return start_nodes(4, self.options.tmpdir, extra_args=[
+        return start_nodes(4, self.options.testbinary, self.options.tmpdir, extra_args=[
             ['-experimentalfeatures', '-debug=amqp', '-amqppubhashtx=amqp://127.0.0.1:'+str(self.port),
              '-amqppubhashblock=amqp://127.0.0.1:'+str(self.port)],
             [],

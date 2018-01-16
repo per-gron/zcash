@@ -14,7 +14,7 @@ from decimal import Decimal
 class WalletNullifiersTest (BitcoinTestFramework):
 
     def setup_nodes(self):
-        return start_nodes(4, self.options.tmpdir,
+        return start_nodes(4, self.options.testbinary, self.options.tmpdir,
                            extra_args=[['-experimentalfeatures', '-developerencryptwallet']] * 4)
 
     def run_test (self):
@@ -58,7 +58,7 @@ class WalletNullifiersTest (BitcoinTestFramework):
         bitcoind_processes[1].wait()
 
         # restart node 1
-        self.nodes[1] = start_node(1, self.options.tmpdir)
+        self.nodes[1] = start_node(1, self.options.testbinary, self.options.tmpdir)
         connect_nodes_bi(self.nodes, 0, 1)
         connect_nodes_bi(self.nodes, 1, 2)
         self.sync_all()

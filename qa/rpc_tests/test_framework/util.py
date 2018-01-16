@@ -8,6 +8,7 @@
 #
 
 # Add python-bitcoinrpc to module search path:
+import optparse
 import os
 import sys
 
@@ -85,7 +86,7 @@ def initialize_datadir(dirname, n):
         f.write("listenonion=0\n");
     return datadir
 
-def initialize_chain(test_dir):
+def initialize_chain(testbinary, test_dir):
     """
     Create (or copy from cache) a 200-block-long chain and
     4 wallets.
@@ -97,13 +98,13 @@ def initialize_chain(test_dir):
         # Create cache directories, run bitcoinds:
         for i in range(4):
             datadir=initialize_datadir("cache", i)
-            args = [ os.getenv("BITCOIND", "bitcoind"), "-keypool=1", "-datadir="+datadir, "-discover=0" ]
+            args = [ testbinary, "-keypool=1", "-datadir="+datadir, "-discover=0" ]
             if i > 0:
                 args.append("-connect=127.0.0.1:"+str(p2p_port(0)))
             bitcoind_processes[i] = subprocess.Popen(args)
             if os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoind started, calling bitcoin-cli -rpcwait getblockcount"
-            subprocess.check_call([ os.getenv("BITCOINCLI", "bitcoin-cli"), "-datadir="+datadir,
+            subprocess.check_call([ bitcoincli_binary(), "-datadir="+datadir,
                                     "-rpcwait", "getblockcount"], stdout=devnull)
             if os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoin-cli -rpcwait getblockcount completed"
@@ -175,20 +176,21 @@ def _rpchost_to_args(rpchost):
         rv += ['-rpcport=' + rpcport]
     return rv
 
-def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=None):
+def bitcoincli_binary():
+    return os.getenv("BITCOINCLI", "bitcoin-cli")
+
+def start_node(i, binary, dirname, extra_args=None, rpchost=None, timewait=None):
     """
     Start a bitcoind and return RPC connection to it
     """
     datadir = os.path.join(dirname, "node"+str(i))
-    if binary is None:
-        binary = os.getenv("BITCOIND", "bitcoind")
     args = [ binary, "-datadir="+datadir, "-keypool=1", "-discover=0", "-rest" ]
     if extra_args is not None: args.extend(extra_args)
     bitcoind_processes[i] = subprocess.Popen(args)
     devnull = open("/dev/null", "w+")
     if os.getenv("PYTHON_DEBUG", ""):
         print "start_node: bitcoind started, calling bitcoin-cli -rpcwait getblockcount"
-    subprocess.check_call([ os.getenv("BITCOINCLI", "bitcoin-cli"), "-datadir="+datadir] +
+    subprocess.check_call([ bitcoincli_binary(), "-datadir="+datadir] +
                           _rpchost_to_args(rpchost)  +
                           ["-rpcwait", "getblockcount"], stdout=devnull)
     if os.getenv("PYTHON_DEBUG", ""):
@@ -202,13 +204,14 @@ def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=
     proxy.url = url # store URL on proxy for info
     return proxy
 
-def start_nodes(num_nodes, dirname, extra_args=None, rpchost=None, binary=None):
+def start_nodes(num_nodes, binary, dirname, extra_args=None, rpchost=None):
     """
     Start multiple bitcoinds, return RPC connections to them
     """
     if extra_args is None: extra_args = [ None for i in range(num_nodes) ]
+    if isinstance(binary, basestring): binary = [binary] * num_nodes
     if binary is None: binary = [ None for i in range(num_nodes) ]
-    return [ start_node(i, dirname, extra_args[i], rpchost, binary=binary[i]) for i in range(num_nodes) ]
+    return [ start_node(i, binary, dirname, extra_args[i], rpchost, binary=binary[i]) for i in range(num_nodes) ]
 
 def log_filename(dirname, n_node, logname):
     return os.path.join(dirname, "node"+str(n_node), "regtest", logname)

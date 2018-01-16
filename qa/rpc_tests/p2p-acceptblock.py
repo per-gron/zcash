@@ -113,11 +113,6 @@ class TestNode(NodeConnCB):
 
 
 class AcceptBlockTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("BITCOIND", "bitcoind"),
-                          help="bitcoind binary to test")
-
     def setup_chain(self):
         initialize_chain_clean(self.options.tmpdir, 2)
 
@@ -126,11 +121,10 @@ class AcceptBlockTest(BitcoinTestFramework):
         # from peers which are not whitelisted, while Node1 will be used for
         # the whitelisted case.
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, ["-debug"],
-                                     binary=self.options.testbinary))
-        self.nodes.append(start_node(1, self.options.tmpdir,
-                                     ["-debug", "-whitelist=127.0.0.1"],
-                                     binary=self.options.testbinary))
+        self.nodes.append(start_node(0, self.options.testbinary,
+                                     self.options.tmpdir, ["-debug"]))
+        self.nodes.append(start_node(1, self.options.testbinary,
+                                     self.options.tmpdir, ["-debug", "-whitelist=127.0.0.1"]))
 
     def run_test(self):
         # Setup the p2p connections and start up the network thread.

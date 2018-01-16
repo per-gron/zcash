@@ -30,9 +30,8 @@ class BIP65Test(ComparisonTestFramework):
         self.num_nodes = 1
 
     def setup_network(self):
-        self.nodes = start_nodes(1, self.options.tmpdir,
-                                 extra_args=[['-debug', '-whitelist=127.0.0.1']],
-                                 binary=[self.options.testbinary])
+        self.nodes = start_nodes(1, self.options.testbinary, self.options.tmpdir,
+                                 extra_args=[['-debug', '-whitelist=127.0.0.1']])
         self.is_network_split = False
 
     def run_test(self):
