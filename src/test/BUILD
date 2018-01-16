@@ -1,5 +1,3 @@
-# TODO(per-gron): bitcoin-util-test.py
-
 cc_test(
     name = "accounting_tests",
     size = "small",
@@ -139,6 +137,25 @@ cc_test(
     ],
 )
 
+py_test(
+    name = "bitcoin_util_test",
+    srcs = [
+        "bitcoin-util-test.py",
+        "bctest.py",
+    ],
+    data = [
+        "//src/test/data:bitcoin_util_test_files",
+        "//src:zcash-tx",
+    ],
+    deps = [
+        ":buildenv",
+    ],
+    args = [
+        "--zcash-tx=$(location //src:zcash-tx)",
+    ],
+    main = "bitcoin-util-test.py",
+)
+
 cc_test(
     name = "bloom_tests",
     size = "small",
@@ -158,6 +175,18 @@ cc_test(
         "@boost//:test",
         "@boost//:tuple",
     ],
+)
+
+py_library(
+    name = "buildenv",
+    srcs = ["buildenv.py"],
+    imports = ["."],
+)
+
+genrule(
+    name = "buildenv_file",
+    outs = ["buildenv.py"],
+    cmd = r"""echo "exeext=\"\"" > $@""",
 )
 
 cc_test(

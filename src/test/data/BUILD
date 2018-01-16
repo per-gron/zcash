@@ -24,6 +24,22 @@ json_hex_header(
     src = "base58_keys_valid.json",
 )
 
+filegroup(
+    name = "bitcoin_util_test_files",
+    visibility = ["//visibility:public"],
+    srcs = [
+        "bitcoin-util-test.json",
+        "blanktx.hex",
+        "tt-delin1-out.hex",
+        "tt-delout1-out.hex",
+        "tt-locktime317000-out.hex",
+        "tx394b54bb.hex",
+        "txcreate1.hex",
+        "txcreate2.hex",
+        "txcreatesign.hex",
+    ],
+)
+
 json_hex_header(
     name = "g1_compressed",
     visibility = ["//src/gtest:__pkg__"],
