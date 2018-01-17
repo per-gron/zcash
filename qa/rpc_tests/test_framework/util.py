@@ -106,7 +106,8 @@ def initialize_chain(testbinary, clibinary, test_dir, sprout_proving_key, sprout
         # Create cache directories, run bitcoinds:
         for i in range(4):
             datadir=initialize_datadir("cache", i)
-            args = [ testbinary, "-keypool=1", "-datadir="+datadir, "-discover=0" ]
+            param_args = parameter_args(sprout_proving_key, sprout_verifying_key)
+            args = [ testbinary, "-keypool=1", "-datadir="+datadir, "-discover=0" ] + param_args
             if i > 0:
                 args.append("-connect=127.0.0.1:"+str(p2p_port(0)))
             bitcoind_processes[i] = subprocess.Popen(args)
