@@ -95,7 +95,7 @@ def main():
         print("Initializing test directory "+options.tmpdir)
         if not os.path.isdir(options.tmpdir):
             os.makedirs(options.tmpdir)
-        initialize_chain(options.testbinary, options.tmpdir)
+        initialize_chain(options.testbinary, options.clibinary, options.tmpdir)
 
         nodes = start_nodes(1, options.testbinary, options.tmpdir, extra_args=[['-experimentalfeatures', '-developerencryptwallet']])
 

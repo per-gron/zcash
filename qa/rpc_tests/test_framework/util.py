@@ -86,7 +86,7 @@ def initialize_datadir(dirname, n):
         f.write("listenonion=0\n");
     return datadir
 
-def initialize_chain(testbinary, test_dir):
+def initialize_chain(testbinary, clibinary, test_dir):
     """
     Create (or copy from cache) a 200-block-long chain and
     4 wallets.
@@ -104,7 +104,7 @@ def initialize_chain(testbinary, test_dir):
             bitcoind_processes[i] = subprocess.Popen(args)
             if os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoind started, calling bitcoin-cli -rpcwait getblockcount"
-            subprocess.check_call([ bitcoincli_binary(), "-datadir="+datadir,
+            subprocess.check_call([ clibinary, "-datadir="+datadir,
                                     "-rpcwait", "getblockcount"], stdout=devnull)
             if os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoin-cli -rpcwait getblockcount completed"

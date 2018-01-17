@@ -36,7 +36,7 @@ class BitcoinTestFramework(object):
 
     def setup_chain(self):
         print("Initializing test directory "+self.options.tmpdir)
-        initialize_chain(self.options.testbinary, self.options.tmpdir)
+        initialize_chain(self.options.testbinary, self.options.clibinary, self.options.tmpdir)
 
     def setup_nodes(self):
         return start_nodes(4, self.options.testbinary, self.options.tmpdir)
@@ -105,6 +105,9 @@ class BitcoinTestFramework(object):
         parser.add_option("--testbinary", dest="testbinary",
                           default = os.getenv("BITCOIND", "bitcoind"),
                           help="bitcoind binary to test")
+        parser.add_option("--clibinary", dest="clibinary",
+                          default = os.getenv("BITCOINCLI", "bitcoin-cli"),
+                          help="bitcoin-cli binary to test")
         self.add_options(parser)
         (self.options, self.args) = parser.parse_args()
         self.postprocess_options()
