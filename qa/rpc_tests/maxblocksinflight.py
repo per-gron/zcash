@@ -7,7 +7,7 @@
 from test_framework.mininode import NodeConn, NodeConnCB, NetworkThread, \
     EarlyDisconnectError, CInv, msg_inv, mininode_lock
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import initialize_chain_clean, start_nodes, \
+from test_framework.util import initialize_chain_clean, \
     p2p_port
 
 import os
@@ -87,8 +87,7 @@ class MaxBlocksInFlightTest(BitcoinTestFramework):
         initialize_chain_clean(self.options.tmpdir, 1)
 
     def setup_network(self):
-        self.nodes = start_nodes(1, self.options.testbinary, self.options.tmpdir, 
-                                 extra_args=[['-debug', '-whitelist=127.0.0.1']])
+        self.nodes = self.start_nodes(1, extra_args=[['-debug', '-whitelist=127.0.0.1']])
 
     def run_test(self):
         test = TestManager()
