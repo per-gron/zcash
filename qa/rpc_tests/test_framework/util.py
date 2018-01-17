@@ -110,11 +110,11 @@ def initialize_chain(testbinary, clibinary, test_dir, sprout_proving_key, sprout
             if i > 0:
                 args.append("-connect=127.0.0.1:"+str(p2p_port(0)))
             bitcoind_processes[i] = subprocess.Popen(args)
-            if os.getenv("PYTHON_DEBUG", ""):
+            if True or os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoind started, calling bitcoin-cli -rpcwait getblockcount"
             subprocess.check_call([ clibinary, "-datadir="+datadir,
                                     "-rpcwait", "getblockcount"], stdout=devnull)
-            if os.getenv("PYTHON_DEBUG", ""):
+            if True or os.getenv("PYTHON_DEBUG", ""):
                 print "initialize_chain: bitcoin-cli -rpcwait getblockcount completed"
         devnull.close()
         rpcs = []
@@ -194,13 +194,13 @@ def start_node(i, binary, clibinary, dirname, extra_args=None, sprout_proving_ke
     if extra_args is not None: args.extend(extra_args)
     bitcoind_processes[i] = subprocess.Popen(args)
     devnull = open("/dev/null", "w+")
-    if os.getenv("PYTHON_DEBUG", ""):
+    if True or os.getenv("PYTHON_DEBUG", ""):
         print "start_node: bitcoind started, calling bitcoin-cli -rpcwait getblockcount"
     subprocess.check_call([ clibinary, "-datadir="+datadir] +
                           _rpchost_to_args(rpchost) + param_args +
                           ["-rpcwait", "getblockcount"],
                           stdout=devnull)
-    if os.getenv("PYTHON_DEBUG", ""):
+    if True or os.getenv("PYTHON_DEBUG", ""):
         print "start_node: calling bitcoin-cli -rpcwait getblockcount returned"
     devnull.close()
     url = "http://rt:rt@%s:%d" % (rpchost or '127.0.0.1', rpc_port(i))
@@ -403,7 +403,7 @@ def wait_and_assert_operationid_status(node, myopid, in_status='success', in_err
     if errormsg is not None:
         assert(in_errormsg is not None)
         assert_equal(in_errormsg in errormsg, True)
-    if os.getenv("PYTHON_DEBUG", ""):
+    if True or os.getenv("PYTHON_DEBUG", ""):
         print('...returned status: {}'.format(status))
         if errormsg is not None:
             print('...returned error: {}'.format(errormsg))
