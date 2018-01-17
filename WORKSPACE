@@ -203,6 +203,57 @@ py_library(
 )
 
 new_http_archive(
+    name = "py_pyblake2",
+    strip_prefix = "pyblake2-1.1.0",
+    urls = ["https://github.com/dchest/pyblake2/archive/v1.1.0.tar.gz"],
+    sha256 = "d420eb77dfcfd3ed196a6a3c252da00d2a03fe47fbfe60256a7ab2a06eaf57fa",
+    build_file_content = r"""
+cc_binary(
+    name = "pyblake2.so",
+    visibility = ["//visibility:public"],
+    linkstatic = 1,
+    linkshared = 1,
+    srcs = [
+        "pyblake2module.c",
+    ],
+    deps = [
+        ":blake2",
+        "@python2//:python_headers",
+    ],
+)
+
+cc_library(
+    name = "blake2",
+    linkstatic = 1,
+    srcs = [
+        "blake2b_impl.c",
+        "blake2s_impl.c",
+        "impl/blake2-config.h",
+        "impl/blake2-impl.h",
+        "impl/blake2.h",
+        "impl/blake2b-load-sse2.h",
+        "impl/blake2b-load-sse41.h",
+        "impl/blake2b-round.h",
+        "impl/blake2s-load-sse2.h",
+        "impl/blake2s-load-sse41.h",
+        "impl/blake2s-load-xop.h",
+        "impl/blake2s-round.h",
+    ],
+    hdrs = [
+        "pyblake2_impl_common.h",
+    ],
+    textual_hdrs = [
+        # The .c files here are textual_hdrs because they are #included by
+        # blake2b_impl.c and blake2s_impl.c
+        "impl/blake2b.c",
+        "impl/blake2s.c",
+    ],
+    defines = ["USE_OPTIMIZED_IMPL"],
+)
+""",
+)
+
+new_http_archive(
     name = "py_redbaron",
     strip_prefix = "redbaron-0.6.3",
     urls = ["https://github.com/PyCQA/redbaron/archive/0.6.3.tar.gz"],
@@ -234,6 +285,36 @@ py_library(
     ],
 )
 """,
+)
+
+new_http_archive(
+    name = "python2",
+    strip_prefix = "Python-2.7.14",
+    urls = ["https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz"],
+    sha256 = "71ffb26e09e78650e424929b2b457b9c912ac216576e6bd9e7d204ed03296a66",
+    build_file_content = r"""
+cc_library(
+    name = "python_headers",
+    visibility = ["//visibility:public"],
+    hdrs = glob(["Include/*.h"]) + ["Include/pyconfig.h"],
+    strip_include_prefix = "Include",
+)
+
+pyconfig_contents = r'''
+#pragma once
+#define PY_LONG_LONG long long
+#define SIZEOF_SIZE_T 8
+#define SIZEOF_INT 4
+#define SIZEOF_LONG 8
+#define HAVE_SSIZE_T 1
+'''
+genrule(
+  name = 'pyconfig',
+  outs = ["Include/pyconfig.h"],
+  cmd = "cat > $@ << 'BAZEL_EOF'\n" + pyconfig_contents.replace('$', '$$') + "\nBAZEL_EOF",
+)
+
+"""
 )
 
 new_http_archive(
