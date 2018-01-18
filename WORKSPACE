@@ -130,7 +130,7 @@ cc_binary(
     name = "m4",
     visibility = ["//visibility:public"],
     srcs = glob(["*.c", "*.h"]),
-    copts = ["-Wno-unused-function"],
+    copts = ["-Wno-unused-function", "-Wno-unused-result"],
 )
 """,
 )
