@@ -19,6 +19,9 @@ extra_c_flags = [
     "-fPIC",
     "-w",
     "-I$(GENDIR)/%s" % external_dir,
+    "-Wno-maybe-uninitialized",
+    "-Wno-unused-value",
+    "-Wno-unused-but-set-variable",
 ]
 
 libgmp_config_opts = [
