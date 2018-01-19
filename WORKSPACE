@@ -309,9 +309,9 @@ pyconfig_contents = r'''
 #define HAVE_SSIZE_T 1
 '''
 genrule(
-  name = 'pyconfig',
-  outs = ["Include/pyconfig.h"],
-  cmd = "cat > $@ << 'BAZEL_EOF'\n" + pyconfig_contents.replace('$', '$$') + "\nBAZEL_EOF",
+    name = 'pyconfig',
+    outs = ["Include/pyconfig.h"],
+    cmd = "cat > $@ << 'BAZEL_EOF'\n" + pyconfig_contents.replace('$', '$$') + "\nBAZEL_EOF",
 )
 
 """
