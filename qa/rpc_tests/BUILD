@@ -12,6 +12,27 @@ test_args = [
     "--sprout-verifying-key=$(location @sprout-params//:sprout_verifying_key)",
 ]
 
+test_suite(
+    name = "ext",
+    tests = [
+        "ext_getblocktemplate_longpoll",
+        "ext_getblocktemplate_proposals",
+        "ext_pruning",
+        "ext_forknotify",
+        "ext_hardforkdetection",
+        "ext_invalidateblock",
+        "ext_keypool",
+        "ext_receivedby",
+        "ext_rpcbind_test",
+        "ext_script_test",
+        "ext_smartfees",
+        "ext_maxblocksinflight",
+        "ext_invalidblockrequest",
+        "ext_forknotify",
+        "ext_p2p",
+    ],
+)
+
 py_test(
     name = "paymentdisclosure",
     srcs = ["paymentdisclosure.py"],
@@ -468,6 +489,7 @@ py_test(
 
 py_test(
     name = "ext_getblocktemplate_longpoll",
+    tags = ["manual"],
     main = "getblocktemplate_longpoll.py",
     srcs = ["getblocktemplate_longpoll.py"],
     timeout = "long",
@@ -482,6 +504,7 @@ py_test(
 
 py_test(
     name = "ext_getblocktemplate_proposals",
+    tags = ["manual"],
     main = "getblocktemplate_proposals.py",
     srcs = ["getblocktemplate_proposals.py"],
     timeout = "long",
@@ -495,6 +518,7 @@ py_test(
 
 py_test(
     name = "ext_pruning",
+    tags = ["manual"],
     main = "pruning.py",
     srcs = ["pruning.py"],
     timeout = "long",
@@ -509,6 +533,7 @@ py_test(
 
 py_test(
     name = "ext_forknotify",
+    tags = ["manual"],
     main = "forknotify.py",
     srcs = ["forknotify.py"],
     timeout = "long",
@@ -522,6 +547,7 @@ py_test(
 
 py_test(
     name = "ext_hardforkdetection",
+    tags = ["manual"],
     main = "hardforkdetection.py",
     srcs = ["hardforkdetection.py"],
     timeout = "long",
@@ -536,6 +562,7 @@ py_test(
 
 py_test(
     name = "ext_invalidateblock",
+    tags = ["manual"],
     main = "invalidateblock.py",
     srcs = ["invalidateblock.py"],
     timeout = "long",
@@ -549,6 +576,7 @@ py_test(
 
 py_test(
     name = "ext_keypool",
+    tags = ["manual"],
     main = "keypool.py",
     srcs = ["keypool.py"],
     timeout = "long",
@@ -562,6 +590,7 @@ py_test(
 
 py_test(
     name = "ext_receivedby",
+    tags = ["manual"],
     main = "receivedby.py",
     srcs = ["receivedby.py"],
     timeout = "long",
@@ -574,6 +603,7 @@ py_test(
 
 py_test(
     name = "ext_rpcbind_test",
+    tags = ["manual"],
     main = "rpcbind_test.py",
     srcs = ["rpcbind_test.py"],
     timeout = "long",
@@ -588,6 +618,7 @@ py_test(
 
 # py_test(
 #     name = "ext_script_test",
+#     tags = ["manual"],
 #     main = "script_test.py",
 #     srcs = ["script_test.py"],
 #     timeout = "long",
@@ -604,6 +635,7 @@ py_test(
 
 py_test(
     name = "ext_smartfees",
+    tags = ["manual"],
     main = "smartfees.py",
     srcs = ["smartfees.py"],
     timeout = "long",
@@ -617,6 +649,7 @@ py_test(
 
 py_test(
     name = "ext_maxblocksinflight",
+    tags = ["manual"],
     main = "maxblocksinflight.py",
     srcs = ["maxblocksinflight.py"],
     timeout = "long",
@@ -631,6 +664,7 @@ py_test(
 
 py_test(
     name = "ext_invalidblockrequest",
+    tags = ["manual"],
     main = "invalidblockrequest.py",
     srcs = ["invalidblockrequest.py"],
     timeout = "long",
@@ -647,6 +681,7 @@ py_test(
 
 # py_test(
 #     name = "ext_forknotify",
+#     tags = ["manual"],
 #     main = "forknotify.py",
 #     srcs = ["forknotify.py"],
 #     timeout = "long",
@@ -660,6 +695,7 @@ py_test(
 
 py_test(
     name = "ext_p2p",
+    tags = ["manual"],
     main = "p2p-acceptblock.py",
     srcs = ["p2p-acceptblock.py"],
     timeout = "long",
