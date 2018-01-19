@@ -24,11 +24,10 @@ test_suite(
         "ext_keypool",
         "ext_receivedby",
         "ext_rpcbind_test",
-        "ext_script_test",
+        # "ext_script_test",
         "ext_smartfees",
         "ext_maxblocksinflight",
         "ext_invalidblockrequest",
-        "ext_forknotify",
         "ext_p2p",
     ],
 )
@@ -678,20 +677,6 @@ py_test(
     data = test_data,
     args = test_args,
 )
-
-# py_test(
-#     name = "ext_forknotify",
-#     tags = ["manual"],
-#     main = "forknotify.py",
-#     srcs = ["forknotify.py"],
-#     timeout = "long",
-#     deps = [
-#         "//qa/rpc_tests/test_framework",
-#         "//qa/rpc_tests/test_framework:util",
-#     ],
-#     data = test_data,
-#     args = test_args,
-# )
 
 py_test(
     name = "ext_p2p",
