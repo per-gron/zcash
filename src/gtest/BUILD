@@ -64,7 +64,7 @@ cc_test(
 cc_test(
     name = "test_circuit",
     size = "enormous",
-    timeout = "short",
+    timeout = "moderate",
     srcs = ["test_circuit.cpp"],
     deps = [
         ":main",
