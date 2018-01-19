@@ -14,6 +14,7 @@ test_args = [
 
 test_suite(
     name = "ext",
+    tags = ["manual"],
     tests = [
         "ext_getblocktemplate_longpoll",
         "ext_getblocktemplate_proposals",
