@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
-#include "data/merkle_roots.json.h"
-#include "data/merkle_roots_empty.json.h"
-#include "data/merkle_serialization.json.h"
-#include "data/merkle_witness_serialization.json.h"
-#include "data/merkle_path.json.h"
-#include "data/merkle_commitments.json.h"
+#include "test/data/merkle_roots.json.h"
+#include "test/data/merkle_roots_empty.json.h"
+#include "test/data/merkle_serialization.json.h"
+#include "test/data/merkle_witness_serialization.json.h"
+#include "test/data/merkle_path.json.h"
+#include "test/data/merkle_commitments.json.h"
 
 #include <iostream>
 

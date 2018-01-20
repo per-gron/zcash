@@ -17,7 +17,7 @@ def json_hex_header(name, src, visibility = None):
         visibility = visibility,
         hdrs = [hdr],
         includes = ["."],
-        include_prefix = "data",
+        include_prefix = "test/data",
     )
 
 def raw_hex_header(name, src, visibility = None):
@@ -39,5 +39,5 @@ def raw_hex_header(name, src, visibility = None):
         visibility = visibility,
         hdrs = [hdr],
         includes = ["."],
-        include_prefix = "data",
+        include_prefix = "test/data",
     )
