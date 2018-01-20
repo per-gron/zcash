@@ -235,6 +235,10 @@ def resolve_included_headers(workspace_dir, rule_input_labels, src_bazelpaths, h
     res = {}
 
     def add_to_res(resolved_path):
+        if resolved_path in src_bazelpaths:
+            # Including header in the local target adds no dependency.
+            return
+
         if resolved_path not in res:
             res[resolved_path] = set()
         res[resolved_path] = res[resolved_path].union(hdr_bazelpaths[resolved_path])
@@ -244,7 +248,10 @@ def resolve_included_headers(workspace_dir, rule_input_labels, src_bazelpaths, h
             # First check if the header search path is relative to the file path
             bazelpath = re.sub(r"/[^\/]*$", r"/", input_label.replace(":", "/")) + path
             if bazelpath in src_bazelpaths:
-                pass  # Including header in the local target adds no dependency.
+                # Including header in the local target adds no dependency. This
+                # check is also done in add_to_res so is not strictly needed
+                # here but this avoids unnecessary work.
+                pass
             elif bazelpath in hdr_bazelpaths:
                 add_to_res(bazelpath)
             else:
@@ -396,7 +403,7 @@ with cd(workspace_dir):
         "--output",
         "xml",
         "--xml:default_values",
-        "deps(//src/...)"
+        "deps(//src/...)",
     ])
 root = ET.fromstring(deps_xml)
 
