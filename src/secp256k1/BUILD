@@ -33,6 +33,9 @@ cc_binary(
 genrule(
     name = "ecmult_static_context",
     outs = ["src/ecmult_static_context.h"],
+    # The mkdir dance here is because gen_context assumes that it should
+    # generate the header in the source tree and thus writes to
+    # src/ecmult_static_context.h, which does not work for this case.
     cmd = "mkdir gen_context_tmp && (cd gen_context_tmp && mkdir src && ../$(location :gen_context)) && mv gen_context_tmp/src/ecmult_static_context.h $@ && rmdir gen_context_tmp/src && rmdir gen_context_tmp",
     tools = [":gen_context"],
 )
