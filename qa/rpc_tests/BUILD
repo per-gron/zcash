@@ -78,6 +78,7 @@ py_test(
     deps = [
         "//qa/rpc_tests/test_framework",
         "//qa/rpc_tests/test_framework:authproxy",
+        "//qa/rpc_tests/test_framework:mininode",
         "//qa/rpc_tests/test_framework:util",
     ],
     data = test_data,
