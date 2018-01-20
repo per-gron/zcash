@@ -58,7 +58,7 @@ def get_kept_rules(target_tags):
             res.add(target)
     return res
 
-def rule_input_labels(target_tag):
+def get_rule_input_labels(target_tag):
     """Given a target XML tag, get a list of labels for the files that are
     directly included in that target."""
     return list(set(
@@ -73,12 +73,12 @@ def rule_headers_labels(target_tag):
         extract_label_list(target_tag, "textual_hdrs") + \
         extract_label_list(target_tag, "hdrs")))
 
-def rules_input_labels(target_tags):
-    """Like rule_input_labels, but for a dict of targets instead of just one
+def get_rules_input_labels(target_tags):
+    """Like get_rule_input_labels, but for a dict of targets instead of just one
     target."""
     res = {}
     for name in target_tags:
-        res[name] = rule_input_labels(target_tags[name])
+        res[name] = get_rule_input_labels(target_tags[name])
     return res
 
 def path_label_to_bazelpath(label):
@@ -414,7 +414,7 @@ to force build_cleaner to not remove them. It also includes alwayslink
 libraries."""
 kept_rules = get_kept_rules(target_tags)
 """Dict of all target names to labels of the directly included files."""
-rule_input_labels = rules_input_labels(target_tags)
+rule_input_labels = get_rules_input_labels(target_tags)
 """Dict of all Bazel paths to a set of the the target name(s) that exports them."""
 rule_hdr_bazelpaths = get_rule_hdr_bazelpaths(target_tags)
 """List of all target names that should be cleaned."""

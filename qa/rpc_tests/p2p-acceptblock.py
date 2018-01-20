@@ -12,7 +12,6 @@ from test_framework.util import assert_equal, initialize_chain_clean, \
     p2p_port
 from test_framework.blocktools import create_block, create_coinbase
 
-import os
 import time
 
 '''

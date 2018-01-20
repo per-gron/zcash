@@ -8,7 +8,6 @@
 #
 
 # Add python-bitcoinrpc to module search path:
-import optparse
 import os
 import sys
 

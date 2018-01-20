@@ -4,7 +4,6 @@ BUILD.bazel file there.
 """
 import os
 import subprocess
-import glob
 import pprint
 import generator_util
 

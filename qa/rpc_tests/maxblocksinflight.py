@@ -10,7 +10,6 @@ from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import initialize_chain_clean, \
     p2p_port
 
-import os
 import time
 import random
 import logging

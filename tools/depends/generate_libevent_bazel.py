@@ -3,8 +3,6 @@ directory. Run this script in the libevent source directory. It creates a
 BUILD.bazel file there.
 """
 import generator_util
-import glob
-import os
 import re
 import subprocess
 
