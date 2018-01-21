@@ -345,8 +345,8 @@ rust_library(
 http_archive(
     name = "zcash_cc_toolchain",
     strip_prefix = "zcash_cc_toolchain",
-    urls = ["https://github.com/per-gron/zcash-toolchain/releases/download/v0.0.5/zcash_cc_toolchain.tar.xz"],
-    sha256 = "8c2d84cbadf4c617615749dcd2dcd362f18646a1bd29a8d205d3245ff67e28e3",
+    urls = ["https://github.com/per-gron/zcash-toolchain/releases/download/v0.1.0/zcash_cc_toolchain.tar.xz"],
+    sha256 = "3ed7b545352f2c8a632b673f6f0df90b36af5f4eb2bfc6a1204eab913fc95f63",
 )
 
 new_http_archive(
