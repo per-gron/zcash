@@ -103,7 +103,6 @@ BAZEL_tmpl_contents += r"""
 
 # Parameters used to generate the file
 openssl_platform = "{- $config{target} -}"
-options = "{- $config{options} -}"
 configure_args = [{- join(", ",quotify_l(@{$config{perlargv}})) -}]
 srcdir = "{- $config{sourcedir} -}"
 
@@ -174,13 +173,9 @@ genrule(
         "$args{generator}->[0]",
         "crypto/perlasm/x86_64-xlate.pl",
         "crypto/ec/ecp_nistz256_table.c",
-        "\@perl//:perl-support",
     ],
     outs = ["$args{src}"],
-    tools = [
-        "\@perl//:perl",
-    ],
-    cmd = "\$(location \@perl//:perl) \$(location $args{generator}->[0]) $target{perlasm_scheme} \\\"\$@\\\"",
+    cmd = "/usr/bin/perl \$(location $args{generator}->[0]) $target{perlasm_scheme} \\\"\$@\\\"",
 )
 EOF
       } elsif ($args{src} =~ /\.h$/) {
@@ -195,12 +190,8 @@ genrule(
         "$args{generator}->[0]",
         "util/dofile.pl",
         "configdata.pm",
-        "\@perl//:perl-support",
     ],
-    tools = [
-        "\@perl//:perl",
-    ],
-    cmd = "PERLLIB=\\\"\$\$(dirname \$(location configdata.pm)):external/perl/perl/lib\\\" \$(location \@perl//:perl) -Mconfigdata \$(location util/dofile.pl) \$(location $args{generator}->[0]) > \\\"\$@\\\"",
+    cmd = "PERLLIB=\\\"\$\$(dirname \$(location configdata.pm)):external/perl/perl/lib\\\" /usr/bin/perl -Mconfigdata \$(location util/dofile.pl) \$(location $args{generator}->[0]) > \\\"\$@\\\"",
 )
 EOF
       } else {
@@ -243,6 +234,7 @@ cc_library(
         "-I\$(GENDIR)/$external_dir/include",
         "-I\$(GENDIR)/$external_dir/crypto/include",
         "-I\$(GENDIR)/$external_dir/crypto",
+        "-Wno-maybe-uninitialized",
     ],
     linkopts = lib_ldflags,
     visibility = ["//visibility:public"],
